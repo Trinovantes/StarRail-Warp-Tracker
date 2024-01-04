@@ -1,0 +1,198 @@
+@import './reset.scss';
+@import './quasar.scss';
+@import 'material-design-icons-iconfont/dist/material-design-icons.css';
+@import 'office-ui-fabric-core/dist/css/fabric.min.css';
+
+// ----------------------------------------------------------------------------
+// General Elements
+// ----------------------------------------------------------------------------
+
+:root{
+    --q-primary: #{$primary};
+    --q-secondary: #{$secondary};
+    --q-accent: #{$accent};
+
+    --q-positive: #{$positive};
+    --q-negative: #{$negative};
+    --q-info: #{$info};
+    --q-warning: #{$warning};
+
+    --q-dark: #{$dark};
+    --q-dark-page: #{$dark-page};
+
+    --star-3: #{$star3};
+    --star-3-dark: #{darken($star3, 30%)};
+    --star-4: #{$star4};
+    --star-4-dark: #{darken($star4, 30%)};
+    --star-5: #{$star5};
+    --star-5-dark: #{darken($star5, 30%)};
+}
+
+h1{
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+h2{
+    font-size: 2.0rem;
+    font-weight: normal;
+    line-height: 1.25;
+}
+
+h3{
+    font-size: 1.6rem;
+    font-weight: 900;
+    line-height: 1.25;
+}
+
+h4{
+    font-size: 1.5rem;
+    font-weight: bold;
+    line-height: 1.25;
+}
+
+h5{
+    font-size: 1.4rem;
+    font-weight: bold;
+    line-height: 1.25;
+}
+
+h6{
+    font-size: 1.3rem;
+    font-weight: bold;
+    line-height: 1.25;
+}
+
+strong{
+    font-weight: bold;
+}
+em{
+    font-style: italic;
+}
+
+$list-item-padding: math.div($padding, 2);
+$list-padding: $padding * 2 + $list-item-padding;
+
+ul, ol, dl{
+    display: grid;
+    gap: $list-item-padding;
+    padding-left: $list-padding;
+}
+ul{
+    list-style-type: disc;
+}
+ol{
+    list-style-type: decimal;
+}
+dl{
+    dt{
+        font-weight: bold;
+    }
+    dd{
+        margin-left: $list-padding;
+    }
+}
+li{
+    > ul, 
+    > ol,
+    > dl{
+        margin-top: $list-item-padding;
+    }
+}
+
+// ----------------------------------------------------------------------------
+// Helper Classes
+// ----------------------------------------------------------------------------
+
+.flex-hgap{
+    display: flex;
+    flex-direction: row;
+    gap: $padding;
+}
+
+.flex-vgap{
+    display: flex;
+    flex-direction: column;
+    gap: $padding * 2;
+}
+
+.flex-1{
+    flex: 1;
+}
+
+@for $i from 2 through 6{
+    .grid-#{$i}{
+        display: grid;
+        grid-template-columns: repeat(#{$i}, 1fr);
+        gap: $padding;
+    }
+}
+
+.grid-full{
+    grid-column-start: 1;
+    grid-column-end: -1;
+}
+
+.callout{
+    @extend .flex-vgap;
+
+    border-left: 5px solid;
+    background-color: $light-on-light;
+    padding: $padding * 2;
+
+    &.warning{
+        border-left-color: $warning;
+        background-color: lighten($warning, 30%);
+    }
+
+    &.positive{
+        border-left-color: $positive;
+        background-color: lighten($positive, 50%);
+    }
+}
+
+article{
+    display: grid;
+    grid-template-columns: 100%;
+    gap: $padding * 2;
+    padding: $padding * 4;
+    font-size: 1rem;
+    line-height: 1.5;
+
+    &:not(.full){
+        grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+
+        &.reverse{
+            grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+        }
+    }
+
+    h1{
+        grid-column-start: 1;
+        grid-column-end: -1;
+    }
+
+    h2,
+    h3,
+    h4,
+    h5,
+    h6{
+        &:not(:first-child) {
+            margin-top: $padding * 2;
+        }
+
+        & + h2,
+        & + h3,
+        & + h4,
+        & + h5,
+        & + h6{
+            margin-top: 0;
+        }
+    }
+
+    > section,
+    > aside{
+        @extend .flex-vgap;
+    }
+}

@@ -1,0 +1,46 @@
+import { useQuasar } from 'quasar'
+import { notifyError } from '../../utils/notifyError'
+import { notifySuccess } from '../../utils/notifySuccess'
+import { useTrackerStore } from './useTrackerStore'
+import { WarpBannerType } from '@/common/StarRail'
+import { Ref } from 'vue'
+
+export function useWarpHistory(bannerType: Ref<WarpBannerType>) {
+    const trackerStore = useTrackerStore()
+    const $q = useQuasar()
+
+    const fetchWarpHistory = async() => {
+        try {
+            $q.loading.show()
+            await trackerStore.fetchWarpHistory(bannerType.value)
+            notifySuccess('Fetched latest warp history from Mihoyo')
+        } catch (err) {
+            const errMsg = (err instanceof Error) ? err.message : String(err)
+            const stack = (err instanceof Error) ? err.stack : undefined
+
+            if (errMsg.startsWith('(-101)')) {
+                $q.dialog({
+                    title: 'Authentication Key Expired',
+                    message: 'Please check your in-game Warp Records to generate a new authentication key',
+                    persistent: true,
+                })
+            } else {
+                notifyError(errMsg, stack)
+            }
+        } finally {
+            $q.loading.hide()
+        }
+    }
+
+    const clearWarpHistory = async() => {
+        $q.loading.show()
+        await trackerStore.clearWarpHistory(bannerType.value)
+        $q.loading.hide()
+        notifySuccess('Cleared local data')
+    }
+
+    return {
+        fetchWarpHistory,
+        clearWarpHistory,
+    }
+}
