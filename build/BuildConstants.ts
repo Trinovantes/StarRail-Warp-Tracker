@@ -12,7 +12,6 @@ export const devServerPort = 8080
 
 export const distDir = path.resolve(rootDir, 'dist') // For development
 export const buildDir = path.resolve(rootDir, 'dist-package') // Final packaged installer for distribution
-export const nodeModulesDir = path.resolve(rootDir, 'node_modules')
 
 export const srcDir = path.resolve(rootDir, 'src')
 export const srcMainDir = path.resolve(srcDir, 'main')

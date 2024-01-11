@@ -6,7 +6,7 @@ import CspHtmlWebpackPlugin from 'csp-html-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import { VueLoaderPlugin } from 'vue-loader'
-import { srcRendererDir, distDir, srcStaticDir, srcMainDir, nodeModulesDir } from './BuildConstants'
+import { srcRendererDir, srcStaticDir, srcMainDir } from './BuildConstants'
 import commonConfig from './webpack.common'
 
 // ----------------------------------------------------------------------------
@@ -21,17 +21,6 @@ export const mainConfig = merge(commonConfig, {
     entry: {
         main: path.resolve(srcMainDir, 'main.ts'),
     },
-
-    plugins: [
-        new CopyWebpackPlugin({
-            patterns: [
-                {
-                    from: path.resolve(nodeModulesDir, 'better-sqlite3', 'build', 'Release'),
-                    to: path.resolve(distDir, 'bindings'),
-                },
-            ],
-        }),
-    ],
 })
 
 // ----------------------------------------------------------------------------

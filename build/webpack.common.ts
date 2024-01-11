@@ -32,6 +32,10 @@ const commonConfig: Configuration = {
                     },
                 }],
             },
+            {
+                test: /\.node$/,
+                loader: 'node-loader',
+            },
         ],
     },
 }
