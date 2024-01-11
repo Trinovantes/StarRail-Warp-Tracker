@@ -4,8 +4,6 @@ import { setupIpc } from './setup/setupIpc'
 import { setupWindow } from './setup/setupWindow'
 import log from 'electron-log'
 
-log.transports.file.resolvePathFn = () => './data/main.log'
-
 const mainLogger = log.scope('main')
 const rendererLogger = log.scope('renderer')
 
