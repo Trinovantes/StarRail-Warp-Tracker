@@ -41,6 +41,7 @@ export const electronConfig: Configuration = {
 
     directories: {
         output: buildDir,
+        buildResources: path.resolve(rootDir, 'build', 'installer'),
     },
 
     files: [
