@@ -3,7 +3,7 @@ import path from 'node:path'
 import { app, BrowserWindow } from 'electron'
 import cfg from 'electron-cfg'
 import contextMenu from 'electron-context-menu'
-import { isSafeUrl } from '../utils/isSafeUrl'
+import { isSafeUrl } from '@/common/utils/isSafeUrl'
 import { LogFunctions } from 'electron-log'
 
 contextMenu({
