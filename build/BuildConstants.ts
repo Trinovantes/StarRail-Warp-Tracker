@@ -49,15 +49,15 @@ export const electronConfig: Configuration = {
     ],
 
     win: {
-        target: 'portable',
+        target: 'nsis',
     },
 
     nsis: {
         // one-click installer i.e. skip asking for install location
         oneClick: true,
 
-        // per-machine - (true)  install to C:\Program Files
-        //             - (false) install to C:\Users\Stephen\AppData\Local
+        // (true)  install to C:\Program Files
+        // (false) install to C:\Users\Stephen\AppData\Local
         perMachine: false,
     },
 }

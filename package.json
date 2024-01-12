@@ -3,7 +3,7 @@
     "appId": "ca.stephenli.starrail-warp-tracker",
     "name": "starrail-warp-tracker",
     "productName": "StarRail Warp Tracker",
-    "description": "Portable Windows application to track and backup Honkai StarRail warp history",
+    "description": "Windows application to track and backup Honkai StarRail warp history",
     "homepage": "https://github.com/Trinovantes/StarRail-Warp-Tracker",
     "author": {
         "name": "Stephen Li",
