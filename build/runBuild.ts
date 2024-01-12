@@ -41,6 +41,7 @@ async function runBuild() {
     logBanner('Building Electron')
     await build({
         config: electronConfig,
+        publish: 'onTag',
     })
 }
 

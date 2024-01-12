@@ -34,6 +34,11 @@ export const buildConstants = {
 export const electronConfig: Configuration = {
     appId: packageJson.appId,
 
+    publish: {
+        provider: 'github',
+        releaseType: 'release',
+    },
+
     directories: {
         output: buildDir,
     },
