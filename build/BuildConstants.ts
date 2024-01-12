@@ -10,6 +10,7 @@ export const isDev = (process.env.NODE_ENV === 'development')
 export const gitHash = getGitHash(rootDir)
 export const devServerPort = 8080
 
+export const installerAssets = path.resolve(rootDir, 'build', 'installer')
 export const distDir = path.resolve(rootDir, 'dist') // For development
 export const buildDir = path.resolve(rootDir, 'dist-package') // Final packaged installer for distribution
 
@@ -40,7 +41,7 @@ export const electronConfig: Configuration = {
 
     directories: {
         output: buildDir,
-        buildResources: path.resolve(rootDir, 'build', 'installer'),
+        buildResources: installerAssets,
     },
 
     files: [
@@ -50,6 +51,7 @@ export const electronConfig: Configuration = {
 
     win: {
         target: 'nsis',
+        icon: path.resolve(installerAssets, 'icon.png'),
     },
 
     nsis: {
