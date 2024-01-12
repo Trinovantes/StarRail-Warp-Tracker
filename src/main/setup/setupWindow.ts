@@ -22,6 +22,8 @@ export let mainWindow: BrowserWindow | null
 
 export function setupWindow(logger: LogFunctions): void {
     function loadMainWindow() {
+        logger.info('Opening mainWindow')
+
         assert(!mainWindow)
         mainWindow = cfg.window().create({
             width: 1200,
