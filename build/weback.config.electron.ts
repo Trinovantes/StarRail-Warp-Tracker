@@ -1,12 +1,11 @@
 import 'webpack-dev-server'
 import path from 'node:path'
 import { merge } from 'webpack-merge'
-import CopyWebpackPlugin from 'copy-webpack-plugin'
 import CspHtmlWebpackPlugin from 'csp-html-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import { VueLoaderPlugin } from 'vue-loader'
-import { srcRendererDir, srcStaticDir, srcMainDir } from './BuildConstants'
+import { srcRendererDir, srcMainDir } from './BuildConstants'
 import commonConfig from './webpack.common'
 
 // ----------------------------------------------------------------------------
@@ -52,24 +51,8 @@ export const rendererConfig = merge(commonConfig, {
         renderer: path.resolve(srcRendererDir, 'renderer.ts'),
     },
 
-    devServer: {
-        static: [
-            {
-                directory: srcStaticDir,
-                publicPath: '/',
-            },
-        ],
-    },
-
     plugins: [
         new VueLoaderPlugin(),
-        new CopyWebpackPlugin({
-            patterns: [
-                {
-                    from: srcStaticDir,
-                },
-            ],
-        }),
         new MiniCssExtractPlugin(),
         new HtmlWebpackPlugin({
             template: path.resolve(srcRendererDir, 'index.html'),
