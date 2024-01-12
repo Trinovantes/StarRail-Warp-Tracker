@@ -18,4 +18,5 @@ async function main() {
 
 main().catch((err) => {
     mainLogger.error(err)
+    process.exit(1)
 })
