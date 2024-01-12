@@ -3,8 +3,9 @@ import { drizzle } from 'drizzle-orm/better-sqlite3'
 import { warpTable } from './models/Warp'
 import { settingTable } from './models/Setting'
 import { LogFunctions } from 'electron-log'
-import { DB_MEMORY } from '@/common/Constants'
+import { DB_FILE, DB_MEMORY } from '@/common/Constants'
 import path from 'upath'
+import { app } from 'electron'
 
 export type DrizzleClient = ReturnType<typeof createDb>['db']
 export type DrizzleTransaction = Parameters<Parameters<DrizzleClient['transaction']>[0]>[0]
@@ -14,10 +15,10 @@ export function createDb(filePath: string, cleanOnExit: boolean, logger?: LogFun
     const nativeBinding = require('better-sqlite3/build/Release/better_sqlite3.node') as string
     logger?.info(`Loaded DB bindings (${Boolean(nativeBinding)})`)
 
-    const dbFilePath = filePath === DB_MEMORY ? DB_MEMORY : path.resolve(filePath)
+    const dbFilePath = filePath === DB_MEMORY ? DB_MEMORY : path.resolve(app.getPath('userData'), DB_FILE)
     logger?.info(`Initializing DB from "${dbFilePath}"`)
 
-    const client = new BetterSqlite3(filePath, {
+    const client = new BetterSqlite3(dbFilePath, {
         nativeBinding,
         verbose: logger
             ? (message: unknown, ...additionalArgs: Array<unknown>) => {
