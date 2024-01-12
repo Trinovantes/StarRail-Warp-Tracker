@@ -1,6 +1,6 @@
 import { LogFunctions } from 'electron-log'
 import { IpcDebugEvent } from '../ipc/debug/IpcDebugEvent'
-import { dispatchIpcEvent } from '../utils/dispatchIpcEvent'
+import { dispatchIpcEvent } from '../ipc/dispatchIpcEvent'
 
 export function setupErrorHandlers(logger: LogFunctions) {
     process.on('uncaughtException', (err) => {
