@@ -51,7 +51,7 @@ export const electronConfig: Configuration = {
 
     win: {
         target: 'nsis',
-        icon: path.resolve(installerAssets, 'icon.png'),
+        icon: path.resolve(installerAssets, 'icon.ico'),
     },
 
     nsis: {
