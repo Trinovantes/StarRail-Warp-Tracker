@@ -55,27 +55,27 @@ const filteredWarpItems = computed(() => {
     <article class="full">
         <section>
             <div class="filters flex-hgap">
-                <q-btn
-                    label="Fetch Warp History from Mihoyo"
-                    icon="sync"
-                    color="positive"
-                    rounded
-                    unelevated
-                    no-caps
-                    @click="fetchWarpHistory"
-                />
+                <div class="flex-hgap">
+                    <q-btn
+                        label="Fetch Warp History from Mihoyo"
+                        icon="sync"
+                        color="positive"
+                        rounded
+                        unelevated
+                        no-caps
+                        @click="fetchWarpHistory"
+                    />
 
-                <q-btn
-                    label="Clear Local Data"
-                    icon="delete"
-                    outline
-                    rounded
-                    unelevated
-                    no-caps
-                    @click="clearWarpHistory"
-                />
-
-                <div class="flex-1" />
+                    <q-btn
+                        label="Clear Local Data"
+                        icon="delete"
+                        outline
+                        rounded
+                        unelevated
+                        no-caps
+                        @click="clearWarpHistory"
+                    />
+                </div>
 
                 <q-option-group
                     v-model="historyFilterStore.rarityFilter"
@@ -109,21 +109,25 @@ const filteredWarpItems = computed(() => {
 
 <style lang="scss" scoped>
 header{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 100%;
-    height: 300px;
+    display: flex;
+    flex-wrap: wrap;
 
-    > :deep(div:nth-child(1)) {
+    > div{
+        flex: 1;
+    }
+
+    > div:nth-child(1) {
         background: $dark-1;
     }
-    > :deep(div:nth-child(2)) {
+    > div:nth-child(2) {
         background: $dark-2;
     }
 }
 
 .filters{
     align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
 
     .q-btn{
         font-weight: bold;
@@ -134,7 +138,7 @@ header{
         align-items: center;
         gap: $padding;
 
-        > :deep(div){
+        > div{
             margin: 0;
         }
 

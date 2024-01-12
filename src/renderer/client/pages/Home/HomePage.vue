@@ -64,7 +64,7 @@ const all5StarWarps = computed(() => trackerStore.getAll5StarWarps())
     display: flex;
     flex-wrap: wrap;
 
-    > :deep(div){
+    > div{
         flex: 1;
         align-content: start;
         padding: $padding * 2;

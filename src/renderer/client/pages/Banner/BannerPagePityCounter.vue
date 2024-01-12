@@ -60,7 +60,7 @@ const star5MaxPity = computed(() => getMaxBannerPity(props.bannerType))
     column-gap: $padding * 2;
     align-items: center;
     justify-content: space-between;
-    padding: $padding * 2;
+    padding: ($padding * 4) ($padding * 2);
     width: 400px;
 
     > span,
