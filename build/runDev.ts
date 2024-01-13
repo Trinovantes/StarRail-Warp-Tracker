@@ -135,7 +135,7 @@ function startElectron() {
     electronProcess = spawn(electronPath as unknown as string, [
         `--inspect=${DEBUG_PORT}`,
         '--trace-warnings',
-        path.join(__dirname, '../dist/main.js'),
+        path.join(distDir, 'main.js'),
     ])
 
     electronProcess.stdout?.on('data', (data: Buffer) => {
