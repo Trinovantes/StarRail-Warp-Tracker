@@ -5,6 +5,7 @@ import { setupWindow } from './setup/setupWindow'
 import { tryUpdate } from './setup/tryUpdate'
 import log from 'electron-log'
 import path from 'upath'
+import { initDb } from './db/initDb'
 
 log.transports.file.level = 'debug'
 const mainLogger = log.scope('main')
@@ -14,9 +15,11 @@ async function main() {
     mainLogger.info('Starting Main Process')
     mainLogger.info(`Log saved to "${path.resolve(log.transports.file.getFile().path)}"`)
 
-    await setupIpc(mainLogger, rendererLogger)
+    const db = await initDb(mainLogger)
+    setupIpc(db, mainLogger, rendererLogger)
     setupWindow(mainLogger)
     setupErrorHandlers(mainLogger)
+
     await tryUpdate(mainLogger)
 }
 

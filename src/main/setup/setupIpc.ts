@@ -5,16 +5,14 @@ import { IpcDebugAction } from '../ipc/debug/IpcDebugAction'
 import { IpcWindowAction } from '../ipc/window/IpcWindowAction'
 import { IpcSettingAction } from '../ipc/setting/IpcSettingAction'
 import { IpcTrackerAction } from '../ipc/tracker/IpcTrackerAction'
-import { initDb } from '../db/initDb'
 import { LogFunctions } from 'electron-log'
 import { createIpcDebugActionHandler } from '../ipc/debug/IpcDebugActionHandler'
 import { createIpcSettingActionHandler } from '../ipc/setting/IpcSettingActionHandler'
 import { createIpcTrackerActionHandler } from '../ipc/tracker/IpcTrackerActionHandler'
 import { createIpcWindowActionHandler } from '../ipc/window/IpcWindowActionHandler'
+import { DrizzleClient } from '../db/createDb'
 
-export async function setupIpc(mainLogger: LogFunctions, rendererLogger: LogFunctions) {
-    const db = await initDb(mainLogger)
-
+export function setupIpc(db: DrizzleClient, mainLogger: LogFunctions, rendererLogger: LogFunctions) {
     registerIpcHandler(mainLogger, IpcWindowAction, createIpcWindowActionHandler())
     registerIpcHandler(mainLogger, IpcDebugAction, createIpcDebugActionHandler(rendererLogger))
     registerIpcHandler(mainLogger, IpcSettingAction, createIpcSettingActionHandler(db))
