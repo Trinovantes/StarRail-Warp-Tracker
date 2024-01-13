@@ -4,10 +4,10 @@ import { WarpBannerType } from '@/common/StarRail'
 import { useHistoryFilterStore } from '@/renderer/client/store/HistoryFilter/useHistoryFilterStore'
 import { FilterOption } from '@/renderer/client/store/HistoryFilter/FilterOption'
 import { useTrackerStore } from '@/renderer/client/store/Tracker/useTrackerStore'
-import { useWarpHistory } from '@/renderer/client/store/Tracker/useWarpHistory'
-import WarpHistoryList from './WarpHistoryList.vue'
+import WarpList from './WarpList.vue'
 import BannerPagePityCounter from './BannerPagePityCounter.vue'
 import BannerPageStats from './BannerPageStats.vue'
+import { useWarpHistory } from './useWarpHistory'
 
 const props = defineProps<{
     bannerType: WarpBannerType
@@ -20,17 +20,17 @@ const trackerStore = useTrackerStore()
 const warpHistory = computed(() => trackerStore.getWarpHistory(props.bannerType))
 
 const historyFilterStore = useHistoryFilterStore()
-const filteredWarpItems = computed(() => {
-    const warps = (warpHistory.value?.history ?? [])
+const filteredBannerWarps = computed(() => {
+    const warps = (warpHistory.value?.warps ?? [])
     const inc5Star = historyFilterStore.rarityFilter.includes(FilterOption.Include5Star)
     const inc4Star = historyFilterStore.rarityFilter.includes(FilterOption.Include4Star)
 
     if (inc4Star && inc5Star) {
-        return warps.filter((item) => item.warp.rarity === 5 || item.warp.rarity === 4)
+        return warps.filter((warp) => warp.rarity === 5 || warp.rarity === 4)
     } else if (inc5Star) {
-        return warps.filter((item) => item.warp.rarity === 5)
+        return warps.filter((warp) => warp.rarity === 5)
     } else if (inc4Star) {
-        return warps.filter((item) => item.warp.rarity === 4)
+        return warps.filter((warp) => warp.rarity === 4)
     } else {
         return warps
     }
@@ -48,7 +48,7 @@ const filteredWarpItems = computed(() => {
 
         <BannerPageStats
             :banner-type="bannerType"
-            :history-items="warpHistory?.history"
+            :banner-warps="warpHistory?.warps ?? []"
         />
     </header>
 
@@ -100,8 +100,8 @@ const filteredWarpItems = computed(() => {
                 </q-option-group>
             </div>
 
-            <WarpHistoryList
-                :history-items="filteredWarpItems"
+            <WarpList
+                :banner-warps="filteredBannerWarps"
             />
         </section>
     </article>

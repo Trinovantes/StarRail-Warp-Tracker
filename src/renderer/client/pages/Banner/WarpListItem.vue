@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { WarpItemType } from '@/common/StarRail'
-import { WarpHistoryItem } from '@/renderer/client/store/Tracker/parseWarps'
 import { formatDateTime } from './formatDateTime'
+import { BannerWarp } from '@/main/ipc/tracker/BannerHistory'
 
 defineProps<{
-    historyItem: WarpHistoryItem
+    bannerWarp: BannerWarp
 }>()
 
 const getItemIcon = (itemType: WarpItemType) => {
@@ -20,35 +20,35 @@ const getItemIcon = (itemType: WarpItemType) => {
     <div
         class="warp"
         :style="`
-            --rarity-color: var(--star-${historyItem.warp.rarity});
-            --rarity-color-dark: var(--star-${historyItem.warp.rarity}-dark);
+            --rarity-color: var(--star-${bannerWarp.rarity});
+            --rarity-color-dark: var(--star-${bannerWarp.rarity}-dark);
         `"
     >
         <div class="warp-item-type">
             <q-icon
-                :name="getItemIcon(historyItem.warp.itemType)"
-                :title="historyItem.warp.itemType"
+                :name="getItemIcon(bannerWarp.itemType)"
+                :title="bannerWarp.itemType"
             />
         </div>
 
         <div class="warp-info">
             <h6>
-                {{ historyItem.warp.itemName }}
+                {{ bannerWarp.itemName }}
 
                 <span
-                    v-if="historyItem.pity > 0"
+                    v-if="bannerWarp.pity > 0"
                     class="pity"
                     title="Pity"
                 >
-                    {{ historyItem.pity }}
+                    {{ bannerWarp.pity }}
                 </span>
             </h6>
 
             <time
-                :datetime="historyItem.warp.pulledAt"
-                :title="historyItem.warp.pulledAt"
+                :datetime="bannerWarp.pulledAt"
+                :title="bannerWarp.pulledAt"
             >
-                {{ formatDateTime(historyItem.warp.pulledAt) }}
+                {{ formatDateTime(bannerWarp.pulledAt) }}
             </time>
         </div>
     </div>

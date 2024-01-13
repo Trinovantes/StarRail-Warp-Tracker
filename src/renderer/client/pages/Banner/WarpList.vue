@@ -1,22 +1,22 @@
 <script lang="ts" setup>
 import { NUM_WARPS_PER_PAGE } from '@/common/Constants'
-import { WarpHistoryItem } from '@/renderer/client/store/Tracker/parseWarps'
 import { usePagination } from './usePagination'
-import WarpHistoryListItem from './WarpHistoryListItem.vue'
+import WarpListItem from './WarpListItem.vue'
 import { computed, watch } from 'vue'
+import { BannerWarp } from '@/main/ipc/tracker/BannerHistory'
 
 const props = defineProps<{
-    historyItems?: Array<WarpHistoryItem>
+    bannerWarps: Array<BannerWarp>
 }>()
 
 const { currentPage, onPaginationChange, maxPages, updateMaxPage } = usePagination(NUM_WARPS_PER_PAGE)
-const historyItemsOnPage = computed<Array<WarpHistoryItem>>(() => {
+const warpsOnPage = computed<Array<BannerWarp>>(() => {
     const offset = (currentPage.value - 1) * NUM_WARPS_PER_PAGE
-    return props.historyItems?.slice(offset, offset + NUM_WARPS_PER_PAGE) ?? []
+    return props.bannerWarps.slice(offset, offset + NUM_WARPS_PER_PAGE)
 })
 
-watch(() => props.historyItems, (historyItems) => {
-    updateMaxPage(historyItems?.length ?? 0)
+watch(() => props.bannerWarps, (warps) => {
+    updateMaxPage(warps.length)
 }, {
     immediate: true,
 })
@@ -24,7 +24,7 @@ watch(() => props.historyItems, (historyItems) => {
 
 <template>
     <h2
-        v-if="historyItemsOnPage.length === 0"
+        v-if="warpsOnPage.length === 0"
         class="no-history"
     >
         No Warp History
@@ -34,10 +34,10 @@ watch(() => props.historyItems, (historyItems) => {
         v-else
         class="history"
     >
-        <WarpHistoryListItem
-            v-for="item in historyItemsOnPage"
-            :key="item.warp.id"
-            :history-item="item"
+        <WarpListItem
+            v-for="warp in warpsOnPage"
+            :key="warp.id"
+            :banner-warp="warp"
             class="history-item"
         />
     </div>

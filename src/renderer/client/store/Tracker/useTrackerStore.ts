@@ -1,14 +1,14 @@
 import { defineStore } from 'pinia'
 import { WarpBannerType } from '@/common/StarRail'
 import { IpcTrackerAction } from '@/main/ipc/tracker/IpcTrackerAction'
-import { WarpHistory, WarpHistoryItem, parseWarps } from './parseWarps'
+import { BannerHistory, BannerWarp } from '@/main/ipc/tracker/BannerHistory'
 
 // ----------------------------------------------------------------------------
 // State
 // ----------------------------------------------------------------------------
 
 export type TrackerState = {
-    warps: Record<WarpBannerType, WarpHistory | null>
+    warps: Record<WarpBannerType, BannerHistory | null>
 }
 
 function createTrackerStore(): TrackerState {
@@ -41,22 +41,22 @@ export const useTrackerStore = defineStore('Tracker', {
                     throw new Error(res.message)
                 }
 
-                this.warps[bannerType] = parseWarps(res.data)
+                this.warps[bannerType] = res.data
             }
         },
 
-        getWarpHistory(bannerType: WarpBannerType): WarpHistory | null {
+        getWarpHistory(bannerType: WarpBannerType): BannerHistory | null {
             return this.warps[bannerType]
         },
 
-        getAll5StarWarps(): Array<WarpHistoryItem> {
-            const allWarps = new Array<WarpHistoryItem>()
+        getAll5StarWarps(): Array<BannerWarp> {
+            const allWarps = new Array<BannerWarp>()
 
             for (const bannerWarps of Object.values(this.warps)) {
-                allWarps.push(...(bannerWarps?.history.filter((item) => item.warp.rarity === 5) ?? []))
+                allWarps.push(...(bannerWarps?.warps.filter((warp) => warp.rarity === 5) ?? []))
             }
 
-            return allWarps.sort((a, b) => b.warp.pulledAt.localeCompare(a.warp.pulledAt))
+            return allWarps.sort((a, b) => b.pulledAt.localeCompare(a.pulledAt))
         },
 
         async clearWarpHistory(bannerType: WarpBannerType): Promise<void> {
@@ -74,7 +74,7 @@ export const useTrackerStore = defineStore('Tracker', {
                 throw new Error(res.message)
             }
 
-            this.warps[bannerType] = parseWarps(res.data)
+            this.warps[bannerType] = res.data
         },
     },
 })

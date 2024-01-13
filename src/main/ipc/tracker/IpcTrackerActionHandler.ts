@@ -10,6 +10,7 @@ import { FETCH_DELAY } from '@/common/Constants'
 import { sleep } from '@/common/utils/sleep'
 import { deleteWarps, existsWarp, insertWarp, selectWarps } from '@/main/db/models/Warp'
 import { IpcMainInvokeEvent } from 'electron'
+import { parseWarps } from './parseWarps'
 
 export function createIpcTrackerActionHandler(db: Awaited<ReturnType<typeof initDb>>, logger: LogFunctions) {
     return {
@@ -18,7 +19,8 @@ export function createIpcTrackerActionHandler(db: Awaited<ReturnType<typeof init
         },
 
         [IpcTrackerAction.GET_WARPS](event: IpcMainInvokeEvent, bannerType: WarpBannerType) {
-            return selectWarps(db, bannerType)
+            const warps = selectWarps(db, bannerType)
+            return parseWarps(warps)
         },
 
         async [IpcTrackerAction.REFRESH_WARPS](event: IpcMainInvokeEvent, bannerType: WarpBannerType) {
@@ -56,8 +58,8 @@ export function createIpcTrackerActionHandler(db: Awaited<ReturnType<typeof init
                 await sleep(FETCH_DELAY)
             }
 
-            // Return new and already existing warp records
-            return selectWarps(db, bannerType)
+            const warps = selectWarps(db, bannerType)
+            return parseWarps(warps)
         },
     }
 }

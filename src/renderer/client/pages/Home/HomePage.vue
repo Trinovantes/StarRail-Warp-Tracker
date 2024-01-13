@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import { useTrackerStore } from '@/renderer/client/store/Tracker/useTrackerStore'
 import BannerPagePityCounter from '../Banner/BannerPagePityCounter.vue'
 import { WarpBannerType } from '@/common/StarRail'
-import WarpHistoryList from '../Banner/WarpHistoryList.vue'
+import WarpList from '../Banner/WarpList.vue'
 
 const trackerStore = useTrackerStore()
 const characterHistory = computed(() => trackerStore.getWarpHistory(WarpBannerType.EventCharacter))
@@ -53,8 +53,8 @@ const all5StarWarps = computed(() => trackerStore.getAll5StarWarps())
             Recent 5<q-icon name="star" /> Warps
         </h1>
 
-        <WarpHistoryList
-            :history-items="all5StarWarps"
+        <WarpList
+            :banner-warps="all5StarWarps"
         />
     </article>
 </template>
