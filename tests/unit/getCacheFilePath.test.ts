@@ -1,7 +1,7 @@
 import { getCacheFilePath } from '@/main/ipc/tracker/getCacheFilePath'
 import { Dirent, existsSync, readdirSync } from 'fs'
 import { test, expect, describe, vi, beforeEach } from 'vitest'
-import path from 'path'
+import path from 'upath'
 
 const mocks = vi.hoisted(() => {
     return {
