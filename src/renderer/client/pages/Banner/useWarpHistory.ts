@@ -32,11 +32,21 @@ export function useWarpHistory(bannerType: Ref<WarpBannerType>) {
         }
     }
 
-    const clearWarpHistory = async() => {
-        $q.loading.show()
-        await trackerStore.clearWarpHistory(bannerType.value)
-        $q.loading.hide()
-        notifySuccess('Cleared local data')
+    const clearWarpHistory = () => {
+        const clear = async() => {
+            $q.loading.show()
+            await trackerStore.clearWarpHistory(bannerType.value)
+            $q.loading.hide()
+            notifySuccess('Cleared local data')
+        }
+
+        $q.dialog({
+            title: 'Confirm Clear Warp History',
+            message: 'Are you sure you wish to clear your warp history for this banner?',
+            cancel: true,
+        }).onOk(() => {
+            void clear()
+        })
     }
 
     return {
