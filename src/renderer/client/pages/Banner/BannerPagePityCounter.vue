@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { WarpBannerType, getMaxBannerPity } from '@/common/StarRail'
-import { computed } from 'vue'
 
 const props = withDefaults(defineProps<{
     bannerType: WarpBannerType
@@ -12,9 +11,6 @@ const props = withDefaults(defineProps<{
     star4Pity: 0,
     nextIs5050: true,
 })
-
-const isEventBanner = computed(() => props.bannerType === WarpBannerType.EventCharacter || props.bannerType === WarpBannerType.EventLightCone)
-const star5MaxPity = computed(() => getMaxBannerPity(props.bannerType))
 </script>
 
 <template>
@@ -28,16 +24,18 @@ const star5MaxPity = computed(() => getMaxBannerPity(props.bannerType))
             </div>
 
             <span>5<q-icon name="star" /> Pity</span>
-            <strong>{{ star5Pity }} / {{ star5MaxPity }}</strong>
+            <strong>{{ star5Pity }} / {{ getMaxBannerPity(props.bannerType) }}</strong>
             <span>4<q-icon name="star" /> Pity</span>
             <strong>{{ star4Pity }} / 10</strong>
 
             <div
-                v-if="isEventBanner"
+                v-if="bannerType === WarpBannerType.EventCharacter || bannerType === WarpBannerType.EventLightCone"
                 class="next5star"
             >
                 <strong v-if="nextIs5050" class="not-guaranteed">
-                    Next 5 Star is 50/50
+                    Next 5 Star is
+                    <template v-if="bannerType === WarpBannerType.EventCharacter">50/50</template>
+                    <template v-else-if="bannerType === WarpBannerType.EventLightCone">75/25</template>
                 </strong>
                 <strong v-else class="guaranteed">
                     Next 5 Star is Guaranteed
