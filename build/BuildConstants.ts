@@ -59,7 +59,7 @@ export const electronConfig: Configuration = {
         oneClick: true,
 
         // (true)  install to C:\Program Files
-        // (false) install to C:\Users\Stephen\AppData\Local
+        // (false) install to C:\Users\Stephen\AppData\Local\Programs\
         perMachine: false,
     },
 }
