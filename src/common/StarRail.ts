@@ -42,13 +42,13 @@ export function isLimitedBanner5Star(itemId: string): boolean {
 
     // Light Cones
     switch (itemId) {
-        case '25': // Himeko
-        case '16': // Welt
-        case '34': // Bronya
-        case '24': // Gepard
-        case '32': // Clara
-        case '40': // Yanqing
-        case '41': // Bailu
+        case '23000': // Himeko
+        case '23004': // Welt
+        case '23003': // Bronya
+        case '23005': // Gepard
+        case '23002': // Clara
+        case '23012': // Yanqing
+        case '23013': // Bailu
             return false
     }
 
