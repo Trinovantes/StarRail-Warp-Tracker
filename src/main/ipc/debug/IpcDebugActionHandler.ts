@@ -1,8 +1,8 @@
-import log, { LogFunctions } from 'electron-log'
+import { LogFunctions } from 'electron-log'
 import { IpcMainInvokeEvent } from 'electron'
 import { IpcDebugAction } from './IpcDebugAction'
 
-type LogLevel = keyof log.LogFunctions
+type LogLevel = keyof LogFunctions
 
 export function createIpcDebugActionHandler(rendererLogger?: LogFunctions) {
     return {
