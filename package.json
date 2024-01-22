@@ -17,6 +17,7 @@
         "build": "cross-env NODE_ENV=production  ts-node build/runBuild.ts",
         "postinstall": "electron-builder install-app-deps",
         "lint": "vue-tsc --noemit && eslint --ext .ts,.js,.vue --ignore-path .gitignore .",
+        "test": "yarn unit",
         "unit": "cross-env NODE_ENV=development vitest"
     },
     "dependencies": {
