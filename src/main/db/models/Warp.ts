@@ -1,19 +1,19 @@
 import { InferInsertModel, InferSelectModel, desc, sql } from 'drizzle-orm'
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core'
 import { DrizzleClient } from '@/main/db/createDb'
-import { WarpBannerType, WarpItemType } from '@/common/StarRail'
+import { BannerId, ItemId, Rarity, UserId, WarpBannerType, WarpId, WarpItemType } from '@/common/StarRail'
 
 export const warpTable = sqliteTable('Warp', {
-    id: text('id').primaryKey(),
-    uid: text('uid').notNull(), // user id
+    id: text('id').$type<WarpId>().primaryKey(),
+    uid: text('uid').$type<UserId>().notNull(), // user id
 
-    bannerId: text('bannerId').notNull(), // gacha_id
+    bannerId: text('bannerId').$type<BannerId>().notNull(), // gacha_id
     bannerType: text('bannerType').$type<WarpBannerType>().notNull(),
 
-    itemId: text('itemId').notNull(),
+    itemId: text('itemId').$type<ItemId>().notNull(),
     itemType: text('itemType').$type<WarpItemType>().notNull(),
     itemName: text('itemName').notNull(),
-    rarity: integer('rarity').notNull(),
+    rarity: integer('rarity').$type<Rarity>().notNull(),
 
     pulledAt: text('pulledAt').notNull(),
 })
@@ -25,7 +25,7 @@ type InsertModel = InferInsertModel<typeof warpTable>
 // Helpers
 // ----------------------------------------------------------------------------
 
-export function existsWarp(db: DrizzleClient, id?: string): boolean {
+export function existsWarp(db: DrizzleClient, id?: WarpId): boolean {
     if (!id) {
         return false
     }

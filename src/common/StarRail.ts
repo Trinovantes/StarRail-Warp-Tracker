@@ -1,3 +1,11 @@
+import { Brand } from '@/@types/Brand'
+
+export type WarpId = Brand<string, 'WarpId'>
+export type UserId = Brand<string, 'UserId'>
+export type BannerId = Brand<string, 'BannerId'> // Unique per banner/patch (reruns of same character have different ids)
+export type ItemId = Brand<string, 'ItemId'>
+export type Rarity = Brand<3 | 4 | 5, 'Rarity'>
+
 export const JADES_PER_WARP = 160
 
 export enum WarpBannerType {
@@ -27,7 +35,7 @@ export function getMaxBannerPity(bannerType: WarpBannerType): number {
     }
 }
 
-export function isLimitedBanner5Star(itemId: string): boolean {
+export function isLimitedBanner5Star(itemId: ItemId): boolean {
     // Characters
     switch (itemId) {
         case '1003': // Himeko

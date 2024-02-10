@@ -1,7 +1,7 @@
 import { APP_NAME } from '@/common/Constants'
 import { Warp } from '@/main/db/models/Warp'
 import { LogFunctions } from 'electron-log'
-import { WarpBannerType, WarpItemType } from '@/common/StarRail'
+import { BannerId, ItemId, Rarity, UserId, WarpBannerType, WarpId, WarpItemType } from '@/common/StarRail'
 import { Type, Static } from '@sinclair/typebox'
 import { Value, ValueError } from '@sinclair/typebox/value'
 
@@ -10,14 +10,14 @@ import { Value, ValueError } from '@sinclair/typebox/value'
 // ----------------------------------------------------------------------------
 
 const tbWarpHistoryItem = Type.Object({
-    id: Type.String(),
-    uid: Type.String(),
+    id: Type.Unsafe<WarpId>(Type.String()),
+    uid: Type.Unsafe<UserId>(Type.String()),
 
-    gacha_id: Type.String(),
+    gacha_id: Type.Unsafe<BannerId>(Type.String()),
     gacha_type: Type.Union(Object.values(WarpBannerType).map((v) => Type.Literal(v))),
 
     count: Type.String(),
-    item_id: Type.String(),
+    item_id: Type.Unsafe<ItemId>(Type.String()),
     item_type: Type.Union(Object.values(WarpItemType).map((v) => Type.Literal(v))),
     rank_type: Type.String(),
     name: Type.String(),
@@ -117,7 +117,7 @@ export async function fetchWarpHistory(bannerType: WarpBannerType, authKey: stri
         const time = `${warp.time} ${timeZone}`
 
         const rarity = parseInt(warp.rank_type)
-        if (isNaN(rarity)) {
+        if (isNaN(rarity) || !(rarity === 3 || rarity === 4 || rarity === 5)) {
             const errMsg = `Failed to parse rarity "${warp.rank_type}"`
             logger?.warn(errMsg)
             throw new Error(errMsg)
@@ -133,7 +133,7 @@ export async function fetchWarpHistory(bannerType: WarpBannerType, authKey: stri
             itemId: warp.item_id,
             itemType: warp.item_type,
             itemName: warp.name,
-            rarity,
+            rarity: rarity as Rarity,
 
             pulledAt: time,
         }

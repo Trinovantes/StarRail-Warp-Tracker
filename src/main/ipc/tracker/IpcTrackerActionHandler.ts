@@ -4,7 +4,7 @@ import { getAuthKey } from './getAuthKey'
 import { selectSetting } from '@/main/db/models/Setting'
 import { SettingKey } from '@/main/db/models/SettingKey'
 import { fetchWarpHistory } from './fetchWarpHistory'
-import { WarpBannerType } from '@/common/StarRail'
+import { WarpBannerType, WarpId } from '@/common/StarRail'
 import { LogFunctions } from 'electron-log'
 import { FETCH_DELAY } from '@/common/Constants'
 import { sleep } from '@/common/utils/sleep'
@@ -33,7 +33,7 @@ export function createIpcTrackerActionHandler(db: Awaited<ReturnType<typeof init
 
             const authKey = getAuthKey(gameDir, Boolean(process.env.WSL_DISTRO_NAME), logger)
 
-            let endId: string | undefined
+            let endId: WarpId | undefined
             while (true) {
                 const warps = await fetchWarpHistory(bannerType, authKey, endId, logger)
 
