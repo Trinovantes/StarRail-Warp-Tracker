@@ -27,5 +27,6 @@ export function getAuthKey(gameDir: string, isWsl: boolean, logger?: LogFunction
         throw new Error(errMsg)
     }
 
+    logger?.info('Found authKey', authKey.length)
     return authKey
 }
