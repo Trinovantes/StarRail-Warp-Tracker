@@ -17,7 +17,6 @@ export const buildDir = path.resolve(rootDir, 'dist-package') // Final packaged 
 export const srcDir = path.resolve(rootDir, 'src')
 export const srcMainDir = path.resolve(srcDir, 'main')
 export const srcRendererDir = path.resolve(srcDir, 'renderer')
-export const srcRendererStaticDir = path.resolve(srcDir, 'renderer', 'static')
 
 export const buildConstants = {
     __VUE_OPTIONS_API__: JSON.stringify(false),

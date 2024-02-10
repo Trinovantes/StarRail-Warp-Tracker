@@ -9,7 +9,7 @@ import { readdirSync, mkdirSync, createWriteStream } from 'node:fs'
 
 const githubApiUrl = 'https://api.github.com/repos/Mar-7th/StarRailRes/git/trees/master?recursive=1'
 const repoBaseUrl = 'https://raw.githubusercontent.com/Mar-7th/StarRailRes/master'
-const staticDir = path.join(srcRendererDir, 'static')
+const destBaseDir = path.join(srcRendererDir, 'client/assets/img/game')
 const desiredAssetPatterns = [
     /^icon\/light_cone\/(\d+)\.png/,
     /^icon\/character\/(\d+)\.png/,
@@ -24,8 +24,9 @@ async function main() {
             continue
         }
 
-        const destPath = path.join(staticDir, assetPath)
+        const destPath = path.join(destBaseDir, assetPath)
         if (localAssets.has(destPath)) {
+            console.info(`Already have ${assetPath}`)
             continue
         }
 
@@ -101,7 +102,7 @@ function getLocalAssets() {
         return fileNames
     }
 
-    return getContents(staticDir)
+    return getContents(destBaseDir)
 }
 
 function isDesiredAsset(remotePath: string) {

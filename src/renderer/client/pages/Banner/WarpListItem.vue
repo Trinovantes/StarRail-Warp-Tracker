@@ -11,9 +11,16 @@ const props = defineProps<{
 
 const iconSrc = computed(() => {
     switch (props.bannerWarp.itemType) {
-        case WarpItemType.Character: return `/icon/character/${props.bannerWarp.itemId}.png`
-        case WarpItemType.LightCone: return `/icon/light_cone/${props.bannerWarp.itemId}.png`
-        default: return ''
+        case WarpItemType.Character:
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+            return require(`@/renderer/client/assets/img/game/icon/character/${props.bannerWarp.itemId}.png`)
+
+        case WarpItemType.LightCone:
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+            return require(`@/renderer/client/assets/img/game/icon/light_cone/${props.bannerWarp.itemId}.png`)
+
+        default:
+            return ''
     }
 })
 
