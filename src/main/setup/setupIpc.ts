@@ -42,6 +42,8 @@ function registerIpcHandler<RuntimeEnum extends Record<string, string>>(logger: 
 
                 return res
             } catch (err) {
+                logger.warn(err)
+
                 const res: ActionResult<unknown> = {
                     success: false as const,
                     message: (err instanceof Error) ? err.message : String(err),
