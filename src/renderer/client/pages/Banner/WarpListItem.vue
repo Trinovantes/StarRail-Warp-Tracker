@@ -2,18 +2,19 @@
 import { WarpItemType } from '@/common/StarRail'
 import { formatDateTime } from './formatDateTime'
 import { BannerWarp } from '@/main/ipc/tracker/BannerHistory'
+import { computed } from 'vue'
 
-defineProps<{
+const props = defineProps<{
     bannerWarp: BannerWarp
 }>()
 
-const getItemIcon = (itemType: WarpItemType) => {
-    switch (itemType) {
-        case WarpItemType.Character: return 'person'
-        case WarpItemType.LightCone: return 'smartphone'
+const iconSrc = computed(() => {
+    switch (props.bannerWarp.itemType) {
+        case WarpItemType.Character: return `/icon/character/${props.bannerWarp.itemId}.png`
+        case WarpItemType.LightCone: return `/icon/light_cone/${props.bannerWarp.itemId}.png`
         default: return ''
     }
-}
+})
 </script>
 
 <template>
@@ -25,10 +26,10 @@ const getItemIcon = (itemType: WarpItemType) => {
         `"
     >
         <div class="warp-item-type">
-            <q-icon
-                :name="getItemIcon(bannerWarp.itemType)"
-                :title="bannerWarp.itemType"
-            />
+            <picture>
+                <source :srcset="iconSrc">
+                <img :src="require('@/renderer/client/assets/img/default-item.png')">
+            </picture>
         </div>
 
         <div class="warp-info">
@@ -66,6 +67,13 @@ const getItemIcon = (itemType: WarpItemType) => {
         display: flex;
         align-items: center;
         justify-content: center;
+
+        img{
+            display: block;
+            object-fit: contain;
+            width: 64px;
+            height: 64px;
+        }
     }
 
     .warp-info{
