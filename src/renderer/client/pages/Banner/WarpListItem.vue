@@ -72,7 +72,7 @@ const pityColor = computed(() => {
 <style lang="scss" scoped>
 .warp{
     display: grid;
-    grid-template-columns: auto 1fr 100px;
+    grid-template-columns: auto 1fr;
     gap: $padding;
     align-items: center;
     padding: $padding;
