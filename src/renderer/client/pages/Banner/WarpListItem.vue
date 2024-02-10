@@ -3,6 +3,7 @@ import { WarpItemType } from '@/common/StarRail'
 import { formatDateTime } from './formatDateTime'
 import { BannerWarp } from '@/main/ipc/tracker/BannerHistory'
 import { computed } from 'vue'
+import defaultIcon from '@/renderer/client/assets/img/default-item.png'
 
 const props = defineProps<{
     bannerWarp: BannerWarp
@@ -29,6 +30,18 @@ const pityColor = computed(() => {
         return 'var(--q-negative)'
     }
 })
+
+const loadDefaultIcon = (ev: Event) => {
+    if (!ev.target) {
+        return
+    }
+
+    if (!(ev.target instanceof HTMLImageElement)) {
+        return
+    }
+
+    ev.target.src = defaultIcon
+}
 </script>
 
 <template>
@@ -40,10 +53,10 @@ const pityColor = computed(() => {
         `"
     >
         <div class="warp-item-type">
-            <picture>
-                <source :srcset="iconSrc">
-                <img :src="require('@/renderer/client/assets/img/default-item.png')">
-            </picture>
+            <img
+                :src="iconSrc"
+                @error.once="loadDefaultIcon"
+            >
         </div>
 
         <div class="warp-info">
