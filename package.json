@@ -67,7 +67,7 @@
         "quasar": "^2.6.1",
         "responsive-loader": "^3.0.4",
         "sass": "^1.26.11",
-        "sass-loader": "^13.2.0",
+        "sass-loader": "^14.1.0",
         "sharp": "0.32",
         "source-map-support": "^0.5.21",
         "ts-node": "^10.7.0",
