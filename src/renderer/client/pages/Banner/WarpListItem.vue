@@ -15,6 +15,20 @@ const iconSrc = computed(() => {
         default: return ''
     }
 })
+
+const pityColor = computed(() => {
+    if (props.bannerWarp.rarity === 4) {
+        return 'var(--star-4-dark)'
+    }
+
+    if (props.bannerWarp.pity < 50) {
+        return 'var(--q-positive)'
+    } else if (props.bannerWarp.pity < 75) {
+        return 'var(--q-warning)'
+    } else {
+        return 'var(--q-negative)'
+    }
+})
 </script>
 
 <template>
@@ -22,7 +36,7 @@ const iconSrc = computed(() => {
         class="warp"
         :style="`
             --rarity-color: var(--star-${bannerWarp.rarity});
-            --rarity-color-dark: var(--star-${bannerWarp.rarity}-dark);
+            --pity-color: ${pityColor};
         `"
     >
         <div class="warp-item-type">
@@ -94,7 +108,7 @@ const iconSrc = computed(() => {
                 font-size: 15px;
                 line-height: 20px;
 
-                background: var(--rarity-color-dark);
+                background: var(--pity-color);
                 display: flex;
                 align-items: center;
                 justify-content: center;
