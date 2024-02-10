@@ -13,7 +13,7 @@ export function useWarpHistory(bannerType: Ref<WarpBannerType>) {
         try {
             $q.loading.show()
             await trackerStore.fetchWarpHistory(bannerType.value)
-            notifySuccess('Fetched latest warp history from Mihoyo')
+            notifySuccess('Fetched latest warp history')
         } catch (err) {
             const errMsg = (err instanceof Error) ? err.message : String(err)
             const stack = (err instanceof Error) ? err.stack : undefined

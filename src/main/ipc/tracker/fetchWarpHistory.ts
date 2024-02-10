@@ -85,7 +85,7 @@ export async function fetchWarpHistory(bannerType: WarpBannerType, authKey: stri
 
     const response = await res.json() as unknown
     if (!isWarpHistoryResponse(response)) {
-        const errMsg = 'Invalid response from Mihoyo'
+        const errMsg = 'Invalid response from Mihoyo servers'
         logger?.warn(errMsg)
         logger?.warn(getWarpHistoryResponseValidationErrors(response))
         throw new Error(errMsg)

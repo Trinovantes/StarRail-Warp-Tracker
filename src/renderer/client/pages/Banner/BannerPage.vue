@@ -57,7 +57,7 @@ const filteredBannerWarps = computed(() => {
             <div class="filters flex-hgap">
                 <div class="flex-hgap">
                     <q-btn
-                        label="Fetch Warp History from Mihoyo"
+                        label="Fetch Warp History"
                         icon="sync"
                         color="positive"
                         rounded
