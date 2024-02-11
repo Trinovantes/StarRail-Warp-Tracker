@@ -2,6 +2,7 @@ import { mainWindow } from '@/main/setup/setupWindow'
 import { IpcWindowAction } from './IpcWindowAction'
 import { shell } from 'electron'
 import log from 'electron-log'
+import { dirname } from 'node:path'
 
 export function createIpcWindowActionHandler() {
     return {
@@ -30,7 +31,9 @@ export function createIpcWindowActionHandler() {
         },
 
         async [IpcWindowAction.OPEN_LOGS_DIR]() {
-            await shell.openPath(log.transports.file.getFile().path)
+            const logFilePath = log.transports.file.getFile().path
+            const logDir = dirname(logFilePath)
+            await shell.openPath(logDir)
         },
     }
 }
