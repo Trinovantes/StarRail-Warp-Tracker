@@ -2,11 +2,13 @@
 import { NUM_WARPS_PER_PAGE } from '@/common/Constants'
 import { usePagination } from './usePagination'
 import WarpListItem from './WarpListItem.vue'
+import WarpListItemCompact from './WarpListItemCompact.vue'
 import { computed, watch } from 'vue'
 import { BannerWarp } from '@/main/ipc/tracker/BannerHistory'
 
 const props = defineProps<{
     bannerWarps: Array<BannerWarp>
+    compact?: boolean
 }>()
 
 const { currentPage, onPaginationChange, maxPages, updateMaxPage } = usePagination(NUM_WARPS_PER_PAGE)
@@ -32,14 +34,27 @@ watch(() => props.bannerWarps, (warps) => {
 
     <div
         v-else
-        class="history"
+        :class="{
+            history: true,
+            compact,
+        }"
     >
-        <WarpListItem
-            v-for="warp in warpsOnPage"
-            :key="warp.id"
-            :banner-warp="warp"
-            class="history-item"
-        />
+        <template v-if="compact">
+            <WarpListItemCompact
+                v-for="warp in warpsOnPage"
+                :key="warp.id"
+                :banner-warp="warp"
+                class="history-item-compact"
+            />
+        </template>
+        <template v-else>
+            <WarpListItem
+                v-for="warp in warpsOnPage"
+                :key="warp.id"
+                :banner-warp="warp"
+                class="history-item"
+            />
+        </template>
     </div>
 
     <q-pagination
@@ -58,11 +73,17 @@ watch(() => props.bannerWarps, (warps) => {
     margin: 0;
 }
 
-.history{
+.history:not(.compact){
     border: 1px solid $light-on-dark;
 
     > .history-item:not(:last-child){
         border-bottom: 1px solid $light-on-dark;
     }
+}
+
+.history.compact{
+    display: flex;
+    gap: $padding;
+    flex-wrap: wrap;
 }
 </style>

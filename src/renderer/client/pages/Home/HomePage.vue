@@ -1,10 +1,12 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
+import { useHistoryFilterStore } from '../../store/HistoryFilter/useHistoryFilterStore'
 import { useTrackerStore } from '@/renderer/client/store/Tracker/useTrackerStore'
 import BannerPagePityCounter from '../Banner/BannerPagePityCounter.vue'
 import { WarpBannerType } from '@/common/StarRail'
 import WarpList from '../Banner/WarpList.vue'
 
+const historyFilterStore = useHistoryFilterStore()
 const trackerStore = useTrackerStore()
 const characterHistory = computed(() => trackerStore.getWarpHistory(WarpBannerType.EventCharacter))
 const lightConeHistory = computed(() => trackerStore.getWarpHistory(WarpBannerType.EventLightCone))
@@ -49,13 +51,25 @@ const all5StarWarps = computed(() => trackerStore.getAll5StarWarps())
     </div>
 
     <article class="full">
-        <h1>
-            Recent 5<q-icon name="star" /> Warps
-        </h1>
+        <section>
+            <div class="flex-hgap">
+                <h1>
+                    Recent 5<q-icon name="star" /> Warps
+                </h1>
 
-        <WarpList
-            :banner-warps="all5StarWarps"
-        />
+                <div class="flex-1" />
+
+                <q-checkbox
+                    v-model="historyFilterStore.compactList"
+                    label="Compact"
+                />
+            </div>
+
+            <WarpList
+                :banner-warps="all5StarWarps"
+                :compact="historyFilterStore.compactList"
+            />
+        </section>
     </article>
 </template>
 

@@ -1,54 +1,18 @@
 <script lang="ts" setup>
-import { WarpItemType } from '@/common/StarRail'
 import { formatDateTime } from './formatDateTime'
 import { BannerWarp } from '@/main/ipc/tracker/BannerHistory'
 import { computed } from 'vue'
-import defaultIcon from '@/renderer/client/assets/img/default-item.png'
+import { getPityCssColor } from './getPityCssColor'
+import { getItemIcon } from './getItemIcon'
+import { loadFallbackItemIcon } from './loadFallbackItemIcon'
 
 const props = defineProps<{
     bannerWarp: BannerWarp
 }>()
 
-const iconSrc = computed(() => {
-    switch (props.bannerWarp.itemType) {
-        case WarpItemType.Character:
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-            return require(`@/renderer/client/assets/img/game/icon/character/${props.bannerWarp.itemId}.png`)
-
-        case WarpItemType.LightCone:
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-            return require(`@/renderer/client/assets/img/game/icon/light_cone/${props.bannerWarp.itemId}.png`)
-
-        default:
-            return ''
-    }
-})
-
-const pityColor = computed(() => {
-    if (props.bannerWarp.rarity === 4) {
-        return 'var(--star-4-dark)'
-    }
-
-    if (props.bannerWarp.pity < 50) {
-        return 'var(--q-positive)'
-    } else if (props.bannerWarp.pity < 75) {
-        return 'var(--q-warning)'
-    } else {
-        return 'var(--q-negative)'
-    }
-})
-
-const loadDefaultIcon = (ev: Event) => {
-    if (!ev.target) {
-        return
-    }
-
-    if (!(ev.target instanceof HTMLImageElement)) {
-        return
-    }
-
-    ev.target.src = defaultIcon
-}
+const itemName = computed(() => props.bannerWarp.itemName)
+const iconSrc = computed(() => getItemIcon(props.bannerWarp))
+const pityColor = computed(() => getPityCssColor(props.bannerWarp))
 </script>
 
 <template>
@@ -62,7 +26,8 @@ const loadDefaultIcon = (ev: Event) => {
         <div class="warp-item-type">
             <img
                 :src="iconSrc"
-                @error.once="loadDefaultIcon"
+                :title="itemName"
+                @error.once="loadFallbackItemIcon"
             >
         </div>
 

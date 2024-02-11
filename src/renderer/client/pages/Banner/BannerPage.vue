@@ -54,7 +54,7 @@ const filteredBannerWarps = computed(() => {
 
     <article class="full">
         <section>
-            <div class="filters flex-hgap">
+            <div class="menu flex-hgap">
                 <div class="flex-hgap">
                     <q-btn
                         label="Fetch Warp History"
@@ -77,31 +77,39 @@ const filteredBannerWarps = computed(() => {
                     />
                 </div>
 
-                <q-option-group
-                    v-model="historyFilterStore.rarityFilter"
-                    type="checkbox"
-                    :options="[
-                        {
-                            label: '',
-                            value: FilterOption.Include5Star,
-                        },
-                        {
-                            label: '',
-                            value: FilterOption.Include4Star,
-                        },
-                    ]"
-                >
-                    <template #label-0>
-                        Only 5 <q-icon name="star" />
-                    </template>
-                    <template #label-1>
-                        Only 4 <q-icon name="star" />
-                    </template>
-                </q-option-group>
+                <div class="filters flex-hgap">
+                    <q-checkbox
+                        v-model="historyFilterStore.compactList"
+                        label="Compact"
+                    />
+
+                    <q-option-group
+                        v-model="historyFilterStore.rarityFilter"
+                        type="checkbox"
+                        :options="[
+                            {
+                                label: '',
+                                value: FilterOption.Include5Star,
+                            },
+                            {
+                                label: '',
+                                value: FilterOption.Include4Star,
+                            },
+                        ]"
+                    >
+                        <template #label-0>
+                            Only 5 <q-icon name="star" />
+                        </template>
+                        <template #label-1>
+                            Only 4 <q-icon name="star" />
+                        </template>
+                    </q-option-group>
+                </div>
             </div>
 
             <WarpList
                 :banner-warps="filteredBannerWarps"
+                :compact="historyFilterStore.compactList"
             />
         </section>
     </article>
@@ -124,7 +132,7 @@ header{
     }
 }
 
-.filters{
+.menu{
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -133,19 +141,24 @@ header{
         font-weight: bold;
     }
 
-    .q-option-group{
-        display: flex;
-        align-items: center;
-        gap: $padding;
+    .filters{
+        gap: math.div($padding, 2);
 
-        > div{
-            margin: 0;
-        }
-
-        :deep(.q-checkbox__label){
+        .q-option-group{
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: math.div($padding, 2);
+            margin: 0;
+
+            > :deep(div){
+                margin: 0;
+            }
+
+            :deep(.q-checkbox__label){
+                display: flex;
+                align-items: center;
+                gap: 4px;
+            }
         }
     }
 }

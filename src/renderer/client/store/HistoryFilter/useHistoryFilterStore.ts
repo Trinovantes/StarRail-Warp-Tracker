@@ -6,11 +6,13 @@ import { FilterOption } from './FilterOption'
 // ----------------------------------------------------------------------------
 
 export type HistoryFilterState = {
+    compactList: boolean
     rarityFilter: Array<FilterOption>
 }
 
 function createTrackerStore(): HistoryFilterState {
     const defaultState: HistoryFilterState = {
+        compactList: false,
         rarityFilter: [],
     }
 
