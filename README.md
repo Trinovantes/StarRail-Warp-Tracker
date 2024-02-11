@@ -27,11 +27,6 @@ C:\Users\[Your Name]\AppData\Roaming\StarRail Warp Tracker\starrail-warp-tracker
 
 Do **not** modify this file while the application is open or else you risk corrupting your data.
 
-### Why are there no images of characters or light cones?
-
-This application is large enough as it is (because it is built with Electron).
-In addition, I do not want to have to keep updating this application every month to keep up with the game's new banners.
-
 ### Why Electron?
 
 Because it is the easiest GUI framework that I am familiar with that can maintain consistency across all machines and operating systems.
