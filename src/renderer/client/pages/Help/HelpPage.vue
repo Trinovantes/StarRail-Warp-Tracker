@@ -4,6 +4,10 @@ import { IpcWindowAction } from '@/main/ipc/window/IpcWindowAction'
 const openGitHub = () => {
     void window.api[IpcWindowAction.OPEN_GITHUB]()
 }
+
+const openLogsDir = () => {
+    void window.api[IpcWindowAction.OPEN_LOGS_DIR]()
+}
 </script>
 
 <template>
@@ -25,6 +29,21 @@ const openGitHub = () => {
                     Go to the banner category in the sidebar and click the refresh button
                 </li>
             </ol>
+
+            <h2>
+                Application Logs
+            </h2>
+
+            <div class="flex-hspace">
+                <q-btn
+                    label="Open Logs Directory"
+                    unelevated
+                    color="info"
+                    no-caps
+                    icon="open_in_new"
+                    @click="openLogsDir"
+                />
+            </div>
 
             <h2>
                 Source Code

@@ -5,4 +5,5 @@ export enum IpcWindowAction {
     MINIMIZE = 'IpcWindowAction_MINIMIZE',
 
     OPEN_GITHUB = 'IpcWindowAction_OPEN_GITHUB',
+    OPEN_LOGS_DIR = 'IpcWindowAction_OPEN_LOGS_DIR',
 }
