@@ -8,10 +8,10 @@ This is a Windows application to track and backup your Honkai StarRail warp hist
 
 ### Why not use one of the other existing warp trackers?
 
-Any warp tracker application (including this one) requires you to give them your authentication key in order to access Mihoyo's (undocumented) API.
-Since nobody knows what permissions that key has, I do not feel comfortable using those applications.
-Although nobody in the community has reported any issues yet, there's no guarantee those applications won't be compromised in the future.
+Other warp trackers are website based and thus require you to manually execute their Powershell script to extract your account's authentication key in order to access Mihoyo's (undocumented) API.
+This process is very cumbersome every time you wish to update your warp history.
 
+In addition, although nobody in the community has reported any issues yet, there is still some risk when giving away your authentication keys to third parties.
 Since this application works entirely client side, you can verify it is not malicious by checking the source code or inspecting your network traffic.
 
 ### Why is there a Windows Defender warning?
