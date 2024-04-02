@@ -1,4 +1,4 @@
-import { readFileSync } from 'fs'
+import { readFileSync } from 'node:fs'
 import { getCacheFilePath } from './getCacheFilePath'
 import { LogFunctions } from 'electron-log'
 

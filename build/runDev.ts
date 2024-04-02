@@ -172,7 +172,7 @@ async function runDev() {
     startElectron()
 }
 
-runDev().catch((err) => {
+runDev().catch((err: unknown) => {
     console.error(err)
     process.exit(1)
 })

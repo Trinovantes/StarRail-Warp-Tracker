@@ -23,7 +23,7 @@ async function main() {
     await tryUpdate(mainLogger)
 }
 
-main().catch((err) => {
+main().catch((err: unknown) => {
     mainLogger.error(err)
     process.exit(1)
 })

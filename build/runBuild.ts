@@ -45,7 +45,7 @@ async function runBuild() {
     })
 }
 
-runBuild().catch((err) => {
+runBuild().catch((err: unknown) => {
     console.error(err)
     process.exit(1)
 })

@@ -1,5 +1,5 @@
 import { LogFunctions } from 'electron-log'
-import { existsSync, readdirSync } from 'fs'
+import { existsSync, readdirSync } from 'node:fs'
 import path from 'upath'
 
 export function getCacheFilePath(gameDir: string, isWsl: boolean, logger?: LogFunctions): string {

@@ -60,7 +60,7 @@ window.addEventListener('unhandledrejection', (event) => {
     }
 })
 
-main().catch((err) => {
+main().catch((err: unknown) => {
     console.warn(err)
     if (err instanceof Error) {
         notifyError(err.name, err.stack)
