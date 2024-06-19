@@ -34,8 +34,12 @@ const props = withDefaults(defineProps<{
             >
                 <strong v-if="nextIs5050" class="not-guaranteed">
                     Next 5 Star is
-                    <template v-if="bannerType === WarpBannerType.EventCharacter">50/50</template>
-                    <template v-else-if="bannerType === WarpBannerType.EventLightCone">75/25</template>
+                    <template v-if="bannerType === WarpBannerType.EventCharacter">
+                        50/50
+                    </template>
+                    <template v-else-if="bannerType === WarpBannerType.EventLightCone">
+                        75/25
+                    </template>
                 </strong>
                 <strong v-else class="guaranteed">
                     Next 5 Star is Guaranteed

@@ -7,6 +7,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import { VueLoaderPlugin } from 'vue-loader'
 import { srcRendererDir, srcMainDir } from './BuildConstants'
 import commonConfig from './webpack.common'
+import { QuasarUnusedPlugin } from 'quasar-unused-plugin'
 
 // ----------------------------------------------------------------------------
 // Main Process
@@ -65,6 +66,7 @@ export const rendererConfig = merge(commonConfig, {
             'frame-src': ["'none'"],
             'worker-src': ["'none'"],
         }),
+        new QuasarUnusedPlugin(),
     ],
 
     module: {
@@ -102,8 +104,6 @@ export const rendererConfig = merge(commonConfig, {
                     {
                         loader: 'responsive-loader',
                         options: {
-                            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-                            adapter: require('responsive-loader/sharp'),
                             format: 'webp',
                         },
                     },

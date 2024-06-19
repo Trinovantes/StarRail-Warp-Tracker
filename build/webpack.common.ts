@@ -1,8 +1,8 @@
 import path from 'node:path'
-import { Configuration, DefinePlugin } from 'webpack'
+import webpack from 'webpack'
 import { buildConstants, isDev, srcDir } from './BuildConstants'
 
-const commonConfig: Configuration = {
+const commonConfig: webpack.Configuration = {
     mode: isDev
         ? 'development'
         : 'production',
@@ -17,7 +17,7 @@ const commonConfig: Configuration = {
     },
 
     plugins: [
-        new DefinePlugin(buildConstants),
+        new webpack.DefinePlugin(buildConstants),
     ],
 
     module: {

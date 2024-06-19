@@ -3,7 +3,7 @@ type ResponsiveLoaderAsset = {
 }
 
 export function getImageAsset(filename: string): string {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     const img = require(`@/renderer/client/assets/img/${filename}`) as ResponsiveLoaderAsset
     return img.src
 }

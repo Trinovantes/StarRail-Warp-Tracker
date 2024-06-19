@@ -7,6 +7,8 @@
     "compilerOptions": {
         "strict": true,
         "sourceMap": true,
+        "declaration": true,
+        "declarationMap": true,
 
         "target": "ESNext",
         "module": "ESNext",
@@ -17,6 +19,8 @@
         "resolveJsonModule": true,
         "forceConsistentCasingInFileNames": true,
         "skipLibCheck": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
 
         "noUnusedLocals": true,
         "noImplicitReturns": true,
@@ -37,6 +41,6 @@
     ],
     "include": [
         "**/*",
-        ".eslintrc.js",
+        "eslint.config.mjs",
     ],
 }

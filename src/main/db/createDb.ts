@@ -11,7 +11,7 @@ export type DrizzleClient = ReturnType<typeof createDb>['db']
 export type DrizzleTransaction = Parameters<Parameters<DrizzleClient['transaction']>[0]>[0]
 
 export function createDb(filePath: string, cleanOnExit: boolean, logger?: LogFunctions) {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     const nativeBinding = require('better-sqlite3/build/Release/better_sqlite3.node') as string
     logger?.info(`Loaded DB bindings (${Boolean(nativeBinding)})`)
 
