@@ -66,7 +66,9 @@ export const rendererConfig = merge(commonConfig, {
             'frame-src': ["'none'"],
             'worker-src': ["'none'"],
         }),
-        new QuasarUnusedPlugin(),
+        new QuasarUnusedPlugin({
+            sideEffectsOverride: true,
+        }),
     ],
 
     module: {
