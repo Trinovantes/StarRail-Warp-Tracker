@@ -16,7 +16,7 @@
         "dev": "  cross-env NODE_ENV=development ts-node build/runDev.ts",
         "build": "cross-env NODE_ENV=production  ts-node build/runBuild.ts",
         "postinstall": "electron-builder install-app-deps",
-        "download": "bun scripts/downloadAssets.ts",
+        "download": "bun run scripts/downloadAssets.ts",
         "lint": "vue-tsc --noemit && eslint",
         "test": "yarn unit",
         "unit": "cross-env NODE_ENV=development vitest"
