@@ -31,7 +31,7 @@ export function setupWindow(logger: LogFunctions): void {
             frame: DEFINE.IS_DEV,
             webPreferences: {
                 spellcheck: false,
-                devTools: DEFINE.IS_DEV,
+                devTools: true,
                 nodeIntegration: false,
                 nodeIntegrationInWorker: false,
                 nodeIntegrationInSubFrames: false,
