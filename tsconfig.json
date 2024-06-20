@@ -3,6 +3,7 @@
         "transpileOnly": true,
         "compilerOptions": {
             "module": "CommonJS",
+            "moduleResolution": "Node10",
         },
     },
     "compilerOptions": {
