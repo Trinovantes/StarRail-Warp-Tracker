@@ -7,8 +7,8 @@
     "compilerOptions": {
         "strict": true,
         "sourceMap": true,
-        "declaration": true,
-        "declarationMap": true,
+        "declaration": false,
+        "declarationMap": false,
 
         "target": "ESNext",
         "module": "ESNext",
