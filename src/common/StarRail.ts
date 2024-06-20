@@ -8,30 +8,30 @@ export type Rarity = Brand<3 | 4 | 5, 'Rarity'>
 
 export const JADES_PER_WARP = 160
 
-export enum WarpBannerType {
+export enum WarpItemType {
+    Character = 'Character',
+    LightCone = 'Light Cone',
+}
+
+export enum GachaBannerType {
     StellarWarp = '1',
     Departure = '2', // Beginner banner
     EventCharacter = '11',
     EventLightCone = '12',
 }
 
-export enum WarpItemType {
-    Character = 'Character',
-    LightCone = 'Light Cone',
-}
-
-export type WarpBanner = {
+export type GachaBanner = {
     id: number
-    type: WarpBannerType
+    type: GachaBannerType
     name: string
 }
 
-export function getMaxBannerPity(bannerType: WarpBannerType): number {
+export function getMaxBannerPity(bannerType: GachaBannerType): number {
     switch (bannerType) {
-        case WarpBannerType.EventCharacter: return 90
-        case WarpBannerType.EventLightCone: return 80
-        case WarpBannerType.Departure: return 50
-        case WarpBannerType.StellarWarp: return 90
+        case GachaBannerType.EventCharacter: return 90
+        case GachaBannerType.EventLightCone: return 80
+        case GachaBannerType.Departure: return 50
+        case GachaBannerType.StellarWarp: return 90
     }
 }
 

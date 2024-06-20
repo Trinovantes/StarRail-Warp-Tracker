@@ -1,5 +1,5 @@
 import { getMaxBannerPity } from '@/common/StarRail'
-import { BannerWarp } from '@/main/ipc/tracker/BannerHistory'
+import { BannerWarp } from '@/main/ipc/WarpTracker/parseWarps'
 
 export function getPityCssColor(bannerWarp: BannerWarp) {
     if (bannerWarp.rarity === 4) {

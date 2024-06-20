@@ -1,14 +1,14 @@
 import { InferInsertModel, InferSelectModel, desc, sql } from 'drizzle-orm'
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core'
 import { DrizzleClient } from '@/main/db/createDb'
-import { BannerId, ItemId, Rarity, UserId, WarpBannerType, WarpId, WarpItemType } from '@/common/StarRail'
+import { BannerId, ItemId, Rarity, UserId, GachaBannerType, WarpId, WarpItemType } from '@/common/StarRail'
 
 export const warpTable = sqliteTable('Warp', {
     id: text('id').$type<WarpId>().primaryKey(),
     uid: text('uid').$type<UserId>().notNull(), // user id
 
     bannerId: text('bannerId').$type<BannerId>().notNull(), // gacha_id
-    bannerType: text('bannerType').$type<WarpBannerType>().notNull(),
+    bannerType: text('bannerType').$type<GachaBannerType>().notNull(),
 
     itemId: text('itemId').$type<ItemId>().notNull(),
     itemType: text('itemType').$type<WarpItemType>().notNull(),
@@ -41,7 +41,7 @@ export function existsWarp(db: DrizzleClient, id?: WarpId): boolean {
     `).exists === 1
 }
 
-export function selectWarps(db: DrizzleClient, bannerType: WarpBannerType): Array<Warp> {
+export function selectWarps(db: DrizzleClient, bannerType: GachaBannerType): Array<Warp> {
     return db
         .select()
         .from(warpTable)
@@ -59,7 +59,7 @@ export function insertWarp(db: DrizzleClient, payload: InsertModel) {
         .get()
 }
 
-export function deleteWarps(db: DrizzleClient, bannerType: WarpBannerType) {
+export function deleteWarps(db: DrizzleClient, bannerType: GachaBannerType) {
     return db
         .delete(warpTable)
         .where(sql`${warpTable.bannerType} = ${bannerType}`)

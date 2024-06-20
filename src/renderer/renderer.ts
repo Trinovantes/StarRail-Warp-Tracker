@@ -1,11 +1,11 @@
 import './client/assets/css/main.scss'
 import { createPinia } from 'pinia'
-import { Quasar, Notify, Loading, Dialog } from 'quasar'
+import { Notify, Quasar } from 'quasar'
 import { createApp } from 'vue'
 import App from './client/App.vue'
 import { createVueRouter } from './client/router/createVueRouter'
-import { notifyError } from './client/utils/notifyError'
-import { IpcDebugEvent } from '@/main/ipc/debug/IpcDebugEvent'
+import { DebugIpcEvent } from '@/main/ipc/Debug/DebugIpcEvent'
+import { logError } from './client/utils/log'
 import { useTrackerStore } from './client/store/Tracker/useTrackerStore'
 
 async function main() {
@@ -30,8 +30,6 @@ async function main() {
     app.use(Quasar, {
         plugins: {
             Notify,
-            Loading,
-            Dialog,
         },
         config: {
             dark: true,
@@ -41,28 +39,22 @@ async function main() {
     app.mount('#app')
 }
 
-window.onEvent[IpcDebugEvent.EXCEPTION]((event, errorName, callStack) => {
-    console.warn(errorName, callStack)
-    notifyError(errorName, callStack)
+window.onEvent[DebugIpcEvent.EXCEPTION]((event, errorName, callStack) => {
+    console.error(errorName, callStack)
 })
 
 window.addEventListener('error', (event) => {
-    console.warn(event.error)
+    console.error(event.error)
     if (event.error instanceof Error) {
-        notifyError(event.error.name, event.error.stack)
+        logError(event.error)
     }
 })
 
 window.addEventListener('unhandledrejection', (event) => {
-    console.warn(event.reason)
+    console.error(event.reason)
     if (event.reason instanceof Error) {
-        notifyError(event.reason.name, event.reason.stack)
+        logError(event.reason)
     }
 })
 
-main().catch((err: unknown) => {
-    console.warn(err)
-    if (err instanceof Error) {
-        notifyError(err.name, err.stack)
-    }
-})
+void main()

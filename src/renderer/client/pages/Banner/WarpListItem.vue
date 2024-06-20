@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { formatDateTime } from './formatDateTime'
-import { BannerWarp } from '@/main/ipc/tracker/BannerHistory'
+import { BannerWarp } from '@/main/ipc/WarpTracker/parseWarps'
 import { computed } from 'vue'
 import { getPityCssColor } from './getPityCssColor'
 import { getItemIcon } from './getItemIcon'

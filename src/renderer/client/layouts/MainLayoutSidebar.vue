@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { WarpBannerType } from '@/common/StarRail'
+import { GachaBannerType } from '@/common/StarRail'
 
 type AppRoute = {
     label: string
@@ -13,25 +13,25 @@ const routes: Array<AppRoute> = [
         label: 'Character',
         caption: 'Limited banner',
         thumbnail: 'person',
-        route: `/banner/${WarpBannerType.EventCharacter}`,
+        route: `/banner/${GachaBannerType.EventCharacter}`,
     },
     {
         label: 'Light Cone',
         caption: 'Limited banner',
         thumbnail: 'smartphone',
-        route: `/banner/${WarpBannerType.EventLightCone}`,
+        route: `/banner/${GachaBannerType.EventLightCone}`,
     },
     {
         label: 'Departure Warp',
         caption: 'Beginner 50-pull banner',
         thumbnail: 'play_circle',
-        route: `/banner/${WarpBannerType.Departure}`,
+        route: `/banner/${GachaBannerType.Departure}`,
     },
     {
         label: 'Stellar Warp',
         caption: 'Permanent banner',
         thumbnail: 'confirmation_number',
-        route: `/banner/${WarpBannerType.StellarWarp}`,
+        route: `/banner/${GachaBannerType.StellarWarp}`,
     },
 ]
 </script>

@@ -1,19 +1,29 @@
 import { isLimitedBanner5Star } from '@/common/StarRail'
-import { Warp } from '@/main/db/models/Warp'
-import { BannerHistory, BannerWarp } from './BannerHistory'
+import type { Warp } from '@/main/db/models/Warp'
+
+export type BannerWarp = Warp & {
+    pity: number
+}
+
+export type BannerHistory = {
+    star5Pity: number
+    star4Pity: number
+    nextIs5050: boolean
+    warps: Array<BannerWarp>
+}
 
 /**
  * Warps from same banner and in desc order of pulled date (i.e. newest first, oldest last)
  */
-export function parseWarps(bannerWarps: Array<Warp>): BannerHistory {
+export function parseWarps(warps: Array<Warp>): BannerHistory {
     let star5Pity = 0
     let star4Pity = 0
     let nextIs5050 = true
-    const warps = new Array<BannerWarp>()
+    const bannerWarps = new Array<BannerWarp>()
 
-    for (const warp of bannerWarps.toReversed()) {
+    for (const warp of warps.toReversed()) {
         const bannerWarp = { ...warp, pity: 0 }
-        warps.push(bannerWarp)
+        bannerWarps.push(bannerWarp)
 
         star5Pity++
         star4Pity++
@@ -31,12 +41,12 @@ export function parseWarps(bannerWarps: Array<Warp>): BannerHistory {
     }
 
     // Since warps are inserted in reverse order, they must be reversed before being returned
-    warps.reverse()
+    bannerWarps.reverse()
 
     return {
         star5Pity,
         star4Pity,
         nextIs5050,
-        warps,
+        warps: bannerWarps,
     }
 }

@@ -1,23 +1,23 @@
 import { defineStore } from 'pinia'
-import { WarpBannerType } from '@/common/StarRail'
-import { IpcTrackerAction } from '@/main/ipc/tracker/IpcTrackerAction'
-import { BannerHistory, BannerWarp } from '@/main/ipc/tracker/BannerHistory'
+import { GachaBannerType } from '@/common/StarRail'
+import { WarpTrackerIpcAction } from '@/main/ipc/WarpTracker/WarpTrackerIpcAction'
+import { BannerHistory, BannerWarp } from '@/main/ipc/WarpTracker/parseWarps'
 
 // ----------------------------------------------------------------------------
 // State
 // ----------------------------------------------------------------------------
 
 export type TrackerState = {
-    warps: Record<WarpBannerType, BannerHistory | null>
+    warps: Record<GachaBannerType, BannerHistory | null>
 }
 
 function createTrackerStore(): TrackerState {
     const defaultState: TrackerState = {
         warps: {
-            [WarpBannerType.EventCharacter]: null,
-            [WarpBannerType.EventLightCone]: null,
-            [WarpBannerType.Departure]: null,
-            [WarpBannerType.StellarWarp]: null,
+            [GachaBannerType.EventCharacter]: null,
+            [GachaBannerType.EventLightCone]: null,
+            [GachaBannerType.Departure]: null,
+            [GachaBannerType.StellarWarp]: null,
         },
     }
 
@@ -35,8 +35,8 @@ export const useTrackerStore = defineStore('Tracker', {
         async init(): Promise<void> {
             console.info('Tracker::init()')
 
-            for (const bannerType of Object.values(WarpBannerType)) {
-                const res = await window.api[IpcTrackerAction.GET_WARPS](bannerType)
+            for (const bannerType of Object.values(GachaBannerType)) {
+                const res = await window.api[WarpTrackerIpcAction.GET_WARPS](bannerType)
                 if (!res.success) {
                     throw new Error(res.message)
                 }
@@ -45,7 +45,7 @@ export const useTrackerStore = defineStore('Tracker', {
             }
         },
 
-        getWarpHistory(bannerType: WarpBannerType): BannerHistory | null {
+        getWarpHistory(bannerType: GachaBannerType): BannerHistory | null {
             return this.warps[bannerType]
         },
 
@@ -59,8 +59,8 @@ export const useTrackerStore = defineStore('Tracker', {
             return allWarps.sort((a, b) => b.pulledAt.localeCompare(a.pulledAt))
         },
 
-        async clearWarpHistory(bannerType: WarpBannerType): Promise<void> {
-            const res = await window.api[IpcTrackerAction.CLEAR_WARPS](bannerType)
+        async clearWarpHistory(bannerType: GachaBannerType): Promise<void> {
+            const res = await window.api[WarpTrackerIpcAction.CLEAR_WARPS](bannerType)
             if (!res.success) {
                 throw new Error(res.message)
             }
@@ -68,8 +68,8 @@ export const useTrackerStore = defineStore('Tracker', {
             this.warps[bannerType] = null
         },
 
-        async fetchWarpHistory(bannerType: WarpBannerType): Promise<void> {
-            const res = await window.api[IpcTrackerAction.REFRESH_WARPS](bannerType)
+        async fetchWarpHistory(bannerType: GachaBannerType): Promise<void> {
+            const res = await window.api[WarpTrackerIpcAction.REFRESH_WARPS](bannerType)
             if (!res.success) {
                 throw new Error(res.message)
             }

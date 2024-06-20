@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { JADES_PER_WARP, WarpBannerType, isLimitedBanner5Star } from '@/common/StarRail'
+import { JADES_PER_WARP, GachaBannerType, isLimitedBanner5Star } from '@/common/StarRail'
 import { computed } from 'vue'
 import { formatPercent } from './formatPercent'
-import { BannerWarp } from '@/main/ipc/tracker/BannerHistory'
+import { BannerWarp } from '@/main/ipc/WarpTracker/parseWarps'
 
 const props = defineProps<{
-    bannerType: WarpBannerType
+    bannerType: GachaBannerType
     bannerWarps: Array<BannerWarp>
 }>()
 
@@ -39,11 +39,11 @@ const midpointWinRateStr = computed<string>(() => {
             <strong>Number of 4<q-icon name="star" /></strong>
             <span>{{ num4Star.toLocaleString() }} ({{ percent4StarStr }})</span>
 
-            <template v-if="props.bannerType === WarpBannerType.EventCharacter">
+            <template v-if="props.bannerType === GachaBannerType.EventCharacter">
                 <strong>50/50 Win Rate</strong>
                 <span>{{ midpointWinRateStr }}</span>
             </template>
-            <template v-if="props.bannerType === WarpBannerType.EventLightCone">
+            <template v-if="props.bannerType === GachaBannerType.EventLightCone">
                 <strong>75/25 Win Rate</strong>
                 <span>{{ midpointWinRateStr }}</span>
             </template>

@@ -1,29 +1,31 @@
 import { initDb } from '@/main/db/initDb'
-import { IpcTrackerAction } from './IpcTrackerAction'
+import { WarpTrackerIpcAction } from './WarpTrackerIpcAction'
 import { getAuthKey } from './getAuthKey'
 import { selectSetting } from '@/main/db/models/Setting'
 import { SettingKey } from '@/main/db/models/SettingKey'
 import { fetchWarpHistory } from './fetchWarpHistory'
-import { WarpBannerType, WarpId } from '@/common/StarRail'
+import { GachaBannerType, WarpId } from '@/common/StarRail'
 import { LogFunctions } from 'electron-log'
 import { FETCH_DELAY } from '@/common/Constants'
 import { sleep } from '@/common/utils/sleep'
 import { deleteWarps, existsWarp, insertWarp, selectWarps } from '@/main/db/models/Warp'
 import { IpcMainInvokeEvent } from 'electron'
 import { parseWarps } from './parseWarps'
+import { IpcActionModule } from '../IpcActionModule'
+import { DrizzleClient } from '@/main/db/createDb'
 
-export function createIpcTrackerActionHandler(db: Awaited<ReturnType<typeof initDb>>, logger: LogFunctions) {
+function createActionHandlers(logger: LogFunctions, db: Awaited<ReturnType<typeof initDb>>) {
     return {
-        [IpcTrackerAction.CLEAR_WARPS](event: IpcMainInvokeEvent, bannerType: WarpBannerType) {
+        [WarpTrackerIpcAction.CLEAR_WARPS](event: IpcMainInvokeEvent, bannerType: GachaBannerType) {
             return deleteWarps(db, bannerType)
         },
 
-        [IpcTrackerAction.GET_WARPS](event: IpcMainInvokeEvent, bannerType: WarpBannerType) {
+        [WarpTrackerIpcAction.GET_WARPS](event: IpcMainInvokeEvent, bannerType: GachaBannerType) {
             const warps = selectWarps(db, bannerType)
             return parseWarps(warps)
         },
 
-        async [IpcTrackerAction.REFRESH_WARPS](event: IpcMainInvokeEvent, bannerType: WarpBannerType) {
+        async [WarpTrackerIpcAction.REFRESH_WARPS](event: IpcMainInvokeEvent, bannerType: GachaBannerType) {
             const gameDir = selectSetting(db, SettingKey.GAME_INSTALL_DIR)
             if (!gameDir) {
                 const errMsg = 'Missing game install directory setting'
@@ -61,5 +63,18 @@ export function createIpcTrackerActionHandler(db: Awaited<ReturnType<typeof init
             const warps = selectWarps(db, bannerType)
             return parseWarps(warps)
         },
+    }
+}
+
+export class WarpTrackerModule extends IpcActionModule<WarpTrackerIpcAction, ReturnType<typeof createActionHandlers>> {
+    constructor(
+        mainLogger: LogFunctions,
+        protected db: DrizzleClient,
+    ) {
+        super(mainLogger)
+    }
+
+    protected override createActionHandlers() {
+        return createActionHandlers(this.mainLogger, this.db)
     }
 }

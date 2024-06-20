@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { WarpBannerType } from '@/common/StarRail'
+import { GachaBannerType } from '@/common/StarRail'
 import { useHistoryFilterStore } from '@/renderer/client/store/HistoryFilter/useHistoryFilterStore'
 import { FilterOption } from '@/renderer/client/store/HistoryFilter/FilterOption'
 import { useTrackerStore } from '@/renderer/client/store/Tracker/useTrackerStore'
@@ -10,7 +10,7 @@ import BannerPageStats from './BannerPageStats.vue'
 import { useWarpHistory } from './useWarpHistory'
 
 const props = defineProps<{
-    bannerType: WarpBannerType
+    bannerType: GachaBannerType
 }>()
 
 const bannerType = computed(() => props.bannerType)

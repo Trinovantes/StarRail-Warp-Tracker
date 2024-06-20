@@ -1,7 +1,7 @@
 import { APP_NAME } from '@/common/Constants'
 import { Warp } from '@/main/db/models/Warp'
 import { LogFunctions } from 'electron-log'
-import { BannerId, ItemId, Rarity, UserId, WarpBannerType, WarpId, WarpItemType } from '@/common/StarRail'
+import { BannerId, ItemId, Rarity, UserId, GachaBannerType, WarpId, WarpItemType } from '@/common/StarRail'
 import { Type, Static } from '@sinclair/typebox'
 import { Value, ValueError } from '@sinclair/typebox/value'
 
@@ -14,7 +14,7 @@ const tbWarpHistoryItem = Type.Object({
     uid: Type.Unsafe<UserId>(Type.String()),
 
     gacha_id: Type.Unsafe<BannerId>(Type.String()),
-    gacha_type: Type.Union(Object.values(WarpBannerType).map((v) => Type.Literal(v))),
+    gacha_type: Type.Union(Object.values(GachaBannerType).map((v) => Type.Literal(v))),
 
     count: Type.String(),
     item_id: Type.Unsafe<ItemId>(Type.String()),
@@ -57,7 +57,7 @@ function getWarpHistoryResponseValidationErrors(obj: unknown): Array<ValueError>
 // Export
 // ----------------------------------------------------------------------------
 
-export async function fetchWarpHistory(bannerType: WarpBannerType, authKey: string, endId?: string, logger?: LogFunctions): Promise<Array<Warp>> {
+export async function fetchWarpHistory(bannerType: GachaBannerType, authKey: string, endId?: string, logger?: LogFunctions): Promise<Array<Warp>> {
     const url = new URL('https://api-os-takumi.mihoyo.com/common/gacha_record/api/getGachaLog')
     url.searchParams.append('size', '20')
     url.searchParams.append('game_biz', 'hkrpg_global')

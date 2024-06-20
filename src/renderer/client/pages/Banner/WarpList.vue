@@ -4,7 +4,7 @@ import { usePagination } from './usePagination'
 import WarpListItem from './WarpListItem.vue'
 import WarpListItemCompact from './WarpListItemCompact.vue'
 import { computed, watch } from 'vue'
-import { BannerWarp } from '@/main/ipc/tracker/BannerHistory'
+import { BannerWarp } from '@/main/ipc/WarpTracker/parseWarps'
 
 const props = defineProps<{
     bannerWarps: Array<BannerWarp>

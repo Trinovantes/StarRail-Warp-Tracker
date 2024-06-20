@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { WarpBannerType, getMaxBannerPity } from '@/common/StarRail'
+import { GachaBannerType, getMaxBannerPity } from '@/common/StarRail'
 
 const props = withDefaults(defineProps<{
-    bannerType: WarpBannerType
+    bannerType: GachaBannerType
     star5Pity?: number
     star4Pity?: number
     nextIs5050?: boolean
@@ -29,15 +29,15 @@ const props = withDefaults(defineProps<{
             <strong>{{ star4Pity }} / 10</strong>
 
             <div
-                v-if="bannerType === WarpBannerType.EventCharacter || bannerType === WarpBannerType.EventLightCone"
+                v-if="bannerType === GachaBannerType.EventCharacter || bannerType === GachaBannerType.EventLightCone"
                 class="next5star"
             >
                 <strong v-if="nextIs5050" class="not-guaranteed">
                     Next 5 Star is
-                    <template v-if="bannerType === WarpBannerType.EventCharacter">
+                    <template v-if="bannerType === GachaBannerType.EventCharacter">
                         50/50
                     </template>
-                    <template v-else-if="bannerType === WarpBannerType.EventLightCone">
+                    <template v-else-if="bannerType === GachaBannerType.EventLightCone">
                         75/25
                     </template>
                 </strong>

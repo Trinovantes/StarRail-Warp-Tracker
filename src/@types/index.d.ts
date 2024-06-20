@@ -1,6 +1,6 @@
 import { IpcRendererEvent } from 'electron'
-import { IpcActionMap, IpcEventMap } from '@/main/ipc'
-import { ActionResult } from '@/main/ipc/ActionResult'
+import { IpcEventMap, IpcActionHandlers } from '@/main/ipc'
+import { IpcActionResult } from '@/main/ipc/IpcActionModule'
 
 type OmitFirstArg<Fn> = Fn extends (x: never, ...args: infer RestOfParams) => infer RetType
     ? (...args: RestOfParams) => RetType
@@ -23,9 +23,17 @@ declare global {
     // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     interface Window {
         api: {
-            [K in keyof IpcActionMap]: (...args: Parameters<OmitFirstArg<IpcActionMap[K]>>) => Promise<
-                ActionResult<
-                    Awaited<ReturnType<IpcActionMap[K]>>
+            [K in keyof IpcActionHandlers]: (...args: Parameters<OmitFirstArg<IpcActionHandlers[K]>>) => Promise<
+                IpcActionResult<
+                    Awaited<ReturnType<IpcActionHandlers[K]>>
+                >
+            >
+        }
+
+        syncApi: {
+            [K in keyof IpcActionHandlers]: (...args: Parameters<OmitFirstArg<IpcActionHandlers[K]>>) => Awaited<
+                IpcActionResult<
+                    Awaited<ReturnType<IpcActionHandlers[K]>>
                 >
             >
         }

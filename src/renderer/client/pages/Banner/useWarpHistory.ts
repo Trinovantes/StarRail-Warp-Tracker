@@ -2,10 +2,10 @@ import { useQuasar } from 'quasar'
 import { notifyError } from '../../utils/notifyError'
 import { notifySuccess } from '../../utils/notifySuccess'
 import { useTrackerStore } from '../../store/Tracker/useTrackerStore'
-import { WarpBannerType } from '@/common/StarRail'
+import { GachaBannerType } from '@/common/StarRail'
 import { Ref } from 'vue'
 
-export function useWarpHistory(bannerType: Ref<WarpBannerType>) {
+export function useWarpHistory(bannerType: Ref<GachaBannerType>) {
     const trackerStore = useTrackerStore()
     const $q = useQuasar()
 

@@ -1,24 +1,25 @@
-/**
- * This file is executed in the browser context with some additional priveledges
- */
-
-import { contextBridge, ipcRenderer } from 'electron'
+import { ipcRenderer, contextBridge } from 'electron'
+import { IpcActionResult } from './ipc/IpcActionModule'
 import { ipcActions, ipcEvents } from './ipc'
-import { ActionResult } from './ipc/ActionResult'
 
-function exposeIpcActions() {
-    const exposedActions: Record<string, (...args: Array<unknown>) => Promise<ActionResult<unknown>>> = {}
+const exposeHandlers = () => {
+    const exposedAsyncActions: Record<string, (...args: Array<unknown>) => Promise<IpcActionResult<unknown>>> = {}
+    const exposedSyncActions: Record<string, (...args: Array<unknown>) => IpcActionResult<unknown>> = {}
 
     for (const actionKey of ipcActions) {
-        exposedActions[actionKey] = (...args) => {
-            return ipcRenderer.invoke(actionKey, ...args) as Promise<ActionResult<unknown>>
+        exposedAsyncActions[actionKey] = (...args) => {
+            return ipcRenderer.invoke(actionKey, ...args) as Promise<IpcActionResult<unknown>>
+        }
+        exposedSyncActions[actionKey] = (...args) => {
+            return ipcRenderer.sendSync(actionKey, ...args) as IpcActionResult<unknown>
         }
     }
 
-    contextBridge.exposeInMainWorld('api', exposedActions)
+    contextBridge.exposeInMainWorld('api', exposedAsyncActions)
+    contextBridge.exposeInMainWorld('syncApi', exposedSyncActions)
 }
 
-function exposeIpcEvents() {
+const exposeEvents = () => {
     const onEvents: Record<string, (listener: (...args: Array<unknown>) => void) => void> = {}
     const offEvents: Record<string, (listener: (...args: Array<unknown>) => void) => void> = {}
 
@@ -35,5 +36,5 @@ function exposeIpcEvents() {
     contextBridge.exposeInMainWorld('offEvent', offEvents)
 }
 
-exposeIpcActions()
-exposeIpcEvents()
+exposeHandlers()
+exposeEvents()

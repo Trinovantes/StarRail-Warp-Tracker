@@ -1,20 +1,21 @@
 import { mainWindow } from '@/main/setup/setupWindow'
-import { IpcWindowAction } from './IpcWindowAction'
 import { shell } from 'electron'
 import log from 'electron-log'
 import { dirname } from 'node:path'
+import { WindowIpcAction } from './WindowIpcAction'
+import { IpcActionModule } from '../IpcActionModule'
 
-export function createIpcWindowActionHandler() {
+function createActionHandlers() {
     return {
-        [IpcWindowAction.IS_MAXIMIZED]() {
+        [WindowIpcAction.IS_MAXIMIZED]() {
             return mainWindow?.isMaximized() ?? false
         },
 
-        [IpcWindowAction.CLOSE]() {
+        [WindowIpcAction.CLOSE]() {
             mainWindow?.close()
         },
 
-        [IpcWindowAction.MAXIMIZE]() {
+        [WindowIpcAction.MAXIMIZE]() {
             if (mainWindow?.isMaximized()) {
                 mainWindow?.unmaximize()
             } else {
@@ -22,18 +23,28 @@ export function createIpcWindowActionHandler() {
             }
         },
 
-        [IpcWindowAction.MINIMIZE]() {
+        [WindowIpcAction.MINIMIZE]() {
             mainWindow?.minimize()
         },
 
-        async [IpcWindowAction.OPEN_GITHUB]() {
+        async [WindowIpcAction.OPEN_GITHUB]() {
             await shell.openExternal(DEFINE.APP_HOMEPAGE)
         },
 
-        async [IpcWindowAction.OPEN_LOGS_DIR]() {
+        async [WindowIpcAction.OPEN_LOGS_DIR]() {
             const logFilePath = log.transports.file.getFile().path
             const logDir = dirname(logFilePath)
             await shell.openPath(logDir)
         },
+    }
+}
+
+export class WindowModule extends IpcActionModule<WindowIpcAction, ReturnType<typeof createActionHandlers>> {
+    protected override shouldLogActionEvent(key: WindowIpcAction) {
+        return key !== WindowIpcAction.IS_MAXIMIZED
+    }
+
+    protected override createActionHandlers() {
+        return createActionHandlers()
     }
 }

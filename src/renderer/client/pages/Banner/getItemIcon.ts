@@ -1,5 +1,5 @@
 import { WarpItemType } from '@/common/StarRail'
-import { BannerWarp } from '@/main/ipc/tracker/BannerHistory'
+import { BannerWarp } from '@/main/ipc/WarpTracker/parseWarps'
 
 export function getItemIcon(bannerWarp: BannerWarp): string {
     switch (bannerWarp.itemType) {
