@@ -5,10 +5,9 @@ import CspHtmlWebpackPlugin from 'csp-html-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import { VueLoaderPlugin } from 'vue-loader'
-import { srcRendererDir, srcMainDir, srcDir } from './BuildConstants'
+import { srcRendererDir, srcMainDir } from './BuildConstants'
 import commonConfig from './webpack.common'
-import UnpluginVueComponents from 'unplugin-vue-components/webpack'
-import { QuasarResolver } from 'unplugin-vue-components/resolvers'
+import { QuasarUnusedPlugin } from 'quasar-unused-plugin'
 
 // ----------------------------------------------------------------------------
 // Main Process
@@ -67,12 +66,7 @@ export const rendererConfig = merge(commonConfig, {
             'frame-src': ["'none'"],
             'worker-src': ["'none'"],
         }),
-        UnpluginVueComponents({
-            dts: path.resolve(srcDir, '@types', 'components.d.ts'),
-            resolvers: [
-                QuasarResolver(),
-            ],
-        }),
+        new QuasarUnusedPlugin(),
     ],
 
     module: {
