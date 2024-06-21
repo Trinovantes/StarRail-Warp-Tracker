@@ -19,7 +19,7 @@
         "download": "bun run scripts/downloadAssets.ts",
         "lint": "vue-tsc --noemit && eslint",
         "test": "yarn unit",
-        "unit": "cross-env NODE_ENV=development vitest"
+        "unit": "vitest"
     },
     "dependencies": {
         "better-sqlite3": "^11.0.0"
