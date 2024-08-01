@@ -103,7 +103,7 @@ function compileMain(config: Configuration): Promise<void> {
             }
 
             if (electronProcess) {
-                assert(electronProcess.pid)
+                assert(electronProcess.pid !== undefined)
 
                 isRestarting = true
                 process.kill(electronProcess.pid)

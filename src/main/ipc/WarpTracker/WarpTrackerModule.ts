@@ -1,4 +1,3 @@
-import { initDb } from '@/main/db/initDb'
 import { WarpTrackerIpcAction } from './WarpTrackerIpcAction'
 import { getAuthKey } from './getAuthKey'
 import { selectSetting } from '@/main/db/models/Setting'
@@ -13,6 +12,7 @@ import { IpcMainInvokeEvent } from 'electron'
 import { parseWarps } from './parseWarps'
 import { IpcActionModule } from '../IpcActionModule'
 import { DrizzleClient } from '@/main/db/createDb'
+import type { initDb } from '@/main/db/initDb'
 
 function createActionHandlers(logger: LogFunctions, db: Awaited<ReturnType<typeof initDb>>) {
     return {
