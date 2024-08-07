@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs'
 import { getCacheFilePath } from './getCacheFilePath'
 import { LogFunctions } from 'electron-log'
 
-const gachaLogRe = /https:\/\/api-os-takumi.mihoyo.com\/common\/gacha_record\/api\/getGachaLog[^\0]*/g
+const gachaLogRe = /https:\/\/.+\.(mihoyo|hoyoverse)\.com\/common\/gacha_record\/api\/getGachaLog[^\0]*/g
 
 export function getAuthKey(gameDir: string, isWsl: boolean, logger?: LogFunctions): string {
     const cacheFile = getCacheFilePath(gameDir, isWsl)
