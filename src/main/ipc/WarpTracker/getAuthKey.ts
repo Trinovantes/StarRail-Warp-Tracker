@@ -10,7 +10,7 @@ export function getAuthKey(gameDir: string, isWsl: boolean, logger?: LogFunction
 
     let gachaLogUrl: string | null = null
     for (const match of contents.matchAll(gachaLogRe)) {
-        gachaLogUrl = match[0]
+        gachaLogUrl = match[0] // Save last url as that's the most recent
     }
 
     if (!gachaLogUrl) {
@@ -27,6 +27,6 @@ export function getAuthKey(gameDir: string, isWsl: boolean, logger?: LogFunction
         throw new Error(errMsg)
     }
 
-    logger?.info('Found authKey', authKey.length)
+    logger?.info('Found authKey', `len:${authKey.length}`)
     return authKey
 }

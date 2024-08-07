@@ -57,8 +57,8 @@ function getWarpHistoryResponseValidationErrors(obj: unknown): Array<ValueError>
 // Export
 // ----------------------------------------------------------------------------
 
-export async function fetchWarpHistory(bannerType: GachaBannerType, authKey: string, endId?: string, logger?: LogFunctions): Promise<Array<Warp>> {
-    const url = new URL('https://api-os-takumi.mihoyo.com/common/gacha_record/api/getGachaLog')
+export async function fetchWarpHistory(logger: LogFunctions, bannerType: GachaBannerType, authKey: string, endId?: string): Promise<Array<Warp>> {
+    const url = new URL('https://public-operation-hkrpg-sg.hoyoverse.com/common/gacha_record/api/getGachaLog')
     url.searchParams.append('size', '20')
     url.searchParams.append('game_biz', 'hkrpg_global')
     url.searchParams.append('lang', 'en')

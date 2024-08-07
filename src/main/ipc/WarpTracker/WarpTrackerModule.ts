@@ -37,7 +37,7 @@ function createActionHandlers(logger: LogFunctions, db: Awaited<ReturnType<typeo
 
             let endId: WarpId | undefined
             while (true) {
-                const warps = await fetchWarpHistory(bannerType, authKey, endId, logger)
+                const warps = await fetchWarpHistory(logger, bannerType, authKey, endId)
 
                 // Save search state before inserting
                 endId = warps.at(-1)?.id
