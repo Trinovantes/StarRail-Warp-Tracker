@@ -1,6 +1,6 @@
 import './client/assets/css/main.scss'
 import { createPinia } from 'pinia'
-import { Notify, Quasar } from 'quasar'
+import { Notify, Quasar, Loading } from 'quasar'
 import { createApp } from 'vue'
 import App from './client/App.vue'
 import { createVueRouter } from './client/router/createVueRouter'
@@ -30,6 +30,7 @@ async function main() {
     app.use(Quasar, {
         plugins: {
             Notify,
+            Loading,
         },
         config: {
             dark: true,
