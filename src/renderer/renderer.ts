@@ -1,6 +1,6 @@
 import './client/assets/css/main.scss'
 import { createPinia } from 'pinia'
-import { Notify, Quasar, Loading } from 'quasar'
+import { Notify, Quasar, Loading, Dialog } from 'quasar'
 import { createApp } from 'vue'
 import App from './client/App.vue'
 import { createVueRouter } from './client/router/createVueRouter'
@@ -31,6 +31,7 @@ async function main() {
         plugins: {
             Notify,
             Loading,
+            Dialog,
         },
         config: {
             dark: true,
