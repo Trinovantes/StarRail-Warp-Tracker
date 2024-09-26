@@ -27,12 +27,12 @@ $dark      : #1B1B26;
 $dark-page : #2C2B36;
 
 $dark-1    : #222;
-$dark-2    : lighten($dark, 5%);
-$dark-3    : lighten($dark, 10%);
+$dark-2    : color.adjust($dark, $lightness: 5%);
+$dark-3    : color.adjust($dark, $lightness: 10%);
 
 $primary   : $star5;
-$secondary : lighten($primary, 20%);
-$accent    : darken($primary, 10%);
+$secondary : color.adjust($primary, $lightness: 20%);
+$accent    : color.adjust($primary, $lightness: -10%);
 
 $positive  : #039725;
 $negative  : #ff3737;
