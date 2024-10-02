@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { JADES_PER_WARP, GachaBannerType, isLimitedBanner5Star } from '@/common/StarRail'
+import { JADES_PER_WARP, GachaBannerType } from '@/common/StarRail'
 import { computed } from 'vue'
 import { formatPercent } from './formatPercent'
 import { BannerWarp } from '@/main/ipc/WarpTracker/parseWarps'
@@ -17,10 +17,10 @@ const num4Star = computed(() => props.bannerWarps.filter((warp) => warp.rarity =
 const percent5StarStr = computed(() => formatPercent(num5Star.value, totalWarps.value))
 const percent4StarStr = computed(() => formatPercent(num4Star.value, totalWarps.value))
 
-const midpointWinRateStr = computed<string>(() => {
-    const star5Items = props.bannerWarps.filter((warp) => warp.rarity === 5)
-    const limitedCharacters = star5Items.filter((warp) => isLimitedBanner5Star(warp.itemId))
-    return formatPercent(limitedCharacters.length, star5Items.length)
+const rateUpWinRateStr = computed<string>(() => {
+    const rateUpItems = props.bannerWarps.filter((warp) => warp.rarity === 5 && !warp.isGuaranteed)
+    const limitedItems = rateUpItems.filter((warp) => warp.isLimited)
+    return formatPercent(limitedItems.length, rateUpItems.length)
 })
 </script>
 
@@ -41,11 +41,11 @@ const midpointWinRateStr = computed<string>(() => {
 
             <template v-if="props.bannerType === GachaBannerType.EventCharacter">
                 <strong>50/50 Win Rate</strong>
-                <span>{{ midpointWinRateStr }}</span>
+                <span>{{ rateUpWinRateStr }}</span>
             </template>
             <template v-if="props.bannerType === GachaBannerType.EventLightCone">
                 <strong>75/25 Win Rate</strong>
-                <span>{{ midpointWinRateStr }}</span>
+                <span>{{ rateUpWinRateStr }}</span>
             </template>
         </div>
     </div>

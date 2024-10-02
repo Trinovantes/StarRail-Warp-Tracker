@@ -42,6 +42,12 @@ const pityColor = computed(() => getPityCssColor(props.bannerWarp))
                 >
                     {{ bannerWarp.pity }}
                 </span>
+
+                <q-icon
+                    v-if="bannerWarp.isLimited && !bannerWarp.isGuaranteed"
+                    name="emoji_events"
+                    title="Won Rate-Up"
+                />
             </h6>
 
             <time
@@ -82,6 +88,7 @@ const pityColor = computed(() => getPityCssColor(props.bannerWarp))
         h6{
             display: flex;
             align-items: center;
+            gap: math.div($padding, 2);
 
             color: var(--rarity-color);
             font-weight: normal;
@@ -99,7 +106,6 @@ const pityColor = computed(() => getPityCssColor(props.bannerWarp))
                 justify-content: center;
 
                 border-radius: 4px;
-                margin-left: math.div($padding, 2);
                 height: 26px; width: 26px;
             }
         }
