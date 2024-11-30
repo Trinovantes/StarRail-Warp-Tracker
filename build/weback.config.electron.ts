@@ -87,8 +87,8 @@ export const rendererConfig = merge(commonConfig, {
                         options: {
                             additionalData: (content: string, loaderContext: { resourcePath: string }): string => {
                                 return (loaderContext.resourcePath.endsWith('sass'))
-                                    ? '@use "sass:color"\n@use "sass:math"\n@import "@/renderer/client/assets/css/variables.scss"\n' + content
-                                    : '@use "sass:color"; @use "sass:math"; @import "@/renderer/client/assets/css/variables.scss"; ' + content
+                                    ? '@use "sass:color"\n@use "sass:math"\n@use "@/renderer/client/assets/css/variables.scss" as *\n' + content
+                                    : '@use "sass:color"; @use "sass:math"; @use "@/renderer/client/assets/css/variables.scss" as *; ' + content
                             },
                         },
                     },

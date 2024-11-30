@@ -12,9 +12,8 @@ import { IpcMainInvokeEvent } from 'electron'
 import { parseWarps } from './parseWarps'
 import { IpcActionModule } from '../IpcActionModule'
 import { DrizzleClient } from '@/main/db/createDb'
-import type { initDb } from '@/main/db/initDb'
 
-function createActionHandlers(logger: LogFunctions, db: Awaited<ReturnType<typeof initDb>>) {
+function createActionHandlers(logger: LogFunctions, db: DrizzleClient) {
     return {
         [WarpTrackerIpcAction.CLEAR_WARPS](event: IpcMainInvokeEvent, bannerType: GachaBannerType) {
             return deleteWarps(db, bannerType)

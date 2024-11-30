@@ -7,8 +7,9 @@ import { DB_FILE, DB_MEMORY } from '@/common/Constants'
 import path from 'upath'
 import { app } from 'electron'
 
-export type DrizzleClient = ReturnType<typeof createDb>['db']
-export type DrizzleTransaction = Parameters<Parameters<DrizzleClient['transaction']>[0]>[0]
+type DrizzleDb = ReturnType<typeof createDb>['db']
+export type DrizzleTransaction = Parameters<Parameters<DrizzleDb['transaction']>[0]>[0]
+export type DrizzleClient = DrizzleDb | DrizzleTransaction
 
 export function createDb(filePath: string, cleanOnExit: boolean, logger?: LogFunctions) {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
