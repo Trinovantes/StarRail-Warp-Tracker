@@ -19,7 +19,7 @@ const percent4StarStr = computed(() => formatPercent(num4Star.value, totalWarps.
 
 const rateUpWinRateStr = computed<string>(() => {
     const rateUpItems = props.bannerWarps.filter((warp) => warp.rarity === 5 && !warp.isGuaranteed)
-    const limitedItems = rateUpItems.filter((warp) => warp.isLimited)
+    const limitedItems = rateUpItems.filter((warp) => Boolean(warp.isLimited))
     return formatPercent(limitedItems.length, rateUpItems.length)
 })
 </script>

@@ -43,8 +43,8 @@
         "css-loader": "^7.1.2",
         "date-fns": "^4.1.0",
         "dotenv": "^16.0.3",
-        "drizzle-orm": "^0.36.4",
-        "electron": "^33.2.1",
+        "drizzle-orm": "^0.38.3",
+        "electron": "^34.0.0",
         "electron-builder": "^25.0.5",
         "electron-builder-squirrel-windows": "^25.0.0-alpha.9",
         "electron-cfg": "^1.2.7",
@@ -58,7 +58,7 @@
         "html-webpack-plugin": "^5.5.0",
         "material-design-icons-iconfont": "^6.5.0",
         "mini-css-extract-plugin": "^2.6.0",
-        "node-gyp": "^10.0.1",
+        "node-gyp": "^11.0.0",
         "node-loader": "^2.0.0",
         "office-ui-fabric-core": "^11.0.0",
         "patch-package": "^8.0.0",
@@ -83,5 +83,8 @@
         "webpack": "^5.94.0",
         "webpack-dev-server": "^5.0.4",
         "webpack-merge": "^6.0.1"
+    },
+    "resolutions": {
+        "vite": "^6.0.1"
     }
 }
