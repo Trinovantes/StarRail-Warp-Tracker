@@ -13,7 +13,7 @@ import { DB_FILE } from '@/common/Constants'
 import { createDb } from './db/createDb'
 import { getMigrations } from './db/getMigrations'
 import { migrateDb } from './db/migrateDb'
-import fs from 'node:fs/promises'
+import cfg from 'electron-cfg'
 
 async function main() {
     // ------------------------------------------------------------------------
@@ -32,10 +32,8 @@ async function main() {
     // Set up database
     // ------------------------------------------------------------------------
 
-    const appDataDir = path.resolve(app.getPath('documents'), `.${DEFINE.APP_SLUG}`)
-    await fs.mkdir(appDataDir, { recursive: true })
-
-    const dbFilePath = path.resolve(appDataDir, DB_FILE)
+    const defaultDbFilePath = path.resolve(app.getPath('userData'), DB_FILE)
+    const dbFilePath = cfg.get('DATABASE_FILE_PATH', defaultDbFilePath) as string
     mainLogger.info(`Database saved to "${dbFilePath}"`)
 
     const { db } = createDb(dbFilePath, true, mainLogger)
