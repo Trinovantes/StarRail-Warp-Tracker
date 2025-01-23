@@ -19,7 +19,7 @@
         "download": "bun run scripts/downloadAssets.ts",
         "lint": "vue-tsc --noemit && eslint",
         "test": "yarn unit",
-        "unit": "vitest",
+        "unit": "cross-env ELECTRON_RUN_AS_NODE=1 electron node_modules/.bin/vitest",
         "prepare": "patch-package"
     },
     "dependencies": {
