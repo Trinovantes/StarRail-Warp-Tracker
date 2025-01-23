@@ -13,6 +13,7 @@ import { DB_FILE } from '@/common/Constants'
 import { createDb } from './db/createDb'
 import { getMigrations } from './db/getMigrations'
 import { migrateDb } from './db/migrateDb'
+import fs from 'node:fs/promises'
 
 async function main() {
     // ------------------------------------------------------------------------
@@ -31,7 +32,10 @@ async function main() {
     // Set up database
     // ------------------------------------------------------------------------
 
-    const dbFilePath = path.resolve(app.getPath('userData'), DB_FILE)
+    const appDataDir = path.resolve(app.getPath('documents'), `.${DEFINE.APP_SLUG}`)
+    await fs.mkdir(appDataDir, { recursive: true })
+
+    const dbFilePath = path.resolve(appDataDir, DB_FILE)
     mainLogger.info(`Database saved to "${dbFilePath}"`)
 
     const { db } = createDb(dbFilePath, true, mainLogger)

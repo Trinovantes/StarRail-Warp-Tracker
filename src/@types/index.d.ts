@@ -16,6 +16,7 @@ declare global {
         GIT_HASH: string
         DEV_SERVER_PORT: number
         APP_VERSION: string
+        APP_SLUG: string
         APP_PRODUCT_NAME: string
         APP_HOMEPAGE: string
     }>

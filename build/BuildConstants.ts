@@ -27,6 +27,7 @@ export const buildConstants = {
     'DEFINE.GIT_HASH': JSON.stringify(gitHash),
     'DEFINE.DEV_SERVER_PORT': JSON.stringify(devServerPort),
     'DEFINE.APP_VERSION': JSON.stringify(packageJson.version),
+    'DEFINE.APP_SLUG': JSON.stringify(packageJson.name),
     'DEFINE.APP_PRODUCT_NAME': JSON.stringify(packageJson.productName),
     'DEFINE.APP_HOMEPAGE': JSON.stringify(packageJson.homepage),
 }
