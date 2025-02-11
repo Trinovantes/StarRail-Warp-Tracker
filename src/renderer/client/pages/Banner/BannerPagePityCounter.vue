@@ -63,7 +63,7 @@ const props = withDefaults(defineProps<{
     align-items: center;
     justify-content: space-between;
     padding: ($padding * 4) ($padding * 2);
-    width: 400px;
+    width: $stats-width;
 
     > span,
     > strong{

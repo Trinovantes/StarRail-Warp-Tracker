@@ -17,6 +17,9 @@ const num4Star = computed(() => props.bannerWarps.filter((warp) => warp.rarity =
 const percent5StarStr = computed(() => formatPercent(num5Star.value, totalWarps.value))
 const percent4StarStr = computed(() => formatPercent(num4Star.value, totalWarps.value))
 
+const avgPullsPer5Star = computed(() => (totalWarps.value / num5Star.value).toFixed())
+const avgPullsPer4Star = computed(() => (totalWarps.value / num4Star.value).toFixed())
+
 const rateUpWinRateStr = computed<string>(() => {
     const rateUpItems = props.bannerWarps.filter((warp) => warp.rarity === 5 && !warp.isGuaranteed)
     const limitedItems = rateUpItems.filter((warp) => Boolean(warp.isLimited))
@@ -38,6 +41,12 @@ const rateUpWinRateStr = computed<string>(() => {
 
             <strong>Number of 4<q-icon name="star" /></strong>
             <span>{{ num4Star.toLocaleString() }} ({{ percent4StarStr }})</span>
+
+            <strong>Avg Pulls per 5<q-icon name="star" /></strong>
+            <span>{{ avgPullsPer5Star }}</span>
+
+            <strong>Avg Pulls per 4<q-icon name="star" /></strong>
+            <span>{{ avgPullsPer4Star }}</span>
 
             <template v-if="props.bannerType === GachaBannerType.EventCharacter">
                 <strong>50/50 Win Rate</strong>
@@ -65,7 +74,7 @@ const rateUpWinRateStr = computed<string>(() => {
     align-items: center;
     justify-content: space-between;
     padding: $padding * 2;
-    width: 400px;
+    width: $stats-width;
 
     > span,
     > strong{
