@@ -1,7 +1,7 @@
-export enum DebugIpcEvent {
-    EXCEPTION = 'DebugIpcEvent_EXCEPTION',
-}
+export const DEBUG_IPC_EVENT = Object.freeze({
+    SERVER_EXCEPTION: 'DEBUG_IPC_EVENT_SERVER_EXCEPTION',
+})
 
 export type DebugIpcEventMap = {
-    [DebugIpcEvent.EXCEPTION]: (errorName: string, callStack?: string) => void
+    [DEBUG_IPC_EVENT.SERVER_EXCEPTION]: (errorName: string, callStack?: string) => void
 }

@@ -1,39 +1,5 @@
 <script lang="ts" setup>
-import { GachaBannerType } from '@/common/StarRail'
-
-type AppRoute = {
-    label: string
-    caption?: string
-    thumbnail: string
-    route: string
-}
-
-const routes: Array<AppRoute> = [
-    {
-        label: 'Character',
-        caption: 'Limited banner',
-        thumbnail: 'person',
-        route: `/banner/${GachaBannerType.EventCharacter}`,
-    },
-    {
-        label: 'Light Cone',
-        caption: 'Limited banner',
-        thumbnail: 'smartphone',
-        route: `/banner/${GachaBannerType.EventLightCone}`,
-    },
-    {
-        label: 'Departure Warp',
-        caption: 'Beginner 50-pull banner',
-        thumbnail: 'play_circle',
-        route: `/banner/${GachaBannerType.Departure}`,
-    },
-    {
-        label: 'Stellar Warp',
-        caption: 'Permanent banner',
-        thumbnail: 'confirmation_number',
-        route: `/banner/${GachaBannerType.StellarWarp}`,
-    },
-]
+import { ALL_GACHA_BANNERS } from '@/common/StarRail'
 </script>
 
 <template>
@@ -58,35 +24,25 @@ const routes: Array<AppRoute> = [
         </q-item>
 
         <q-item
-            v-for="route of routes"
-            :key="route.route"
+            v-for="gachaBanner of ALL_GACHA_BANNERS"
+            :key="gachaBanner.type"
             v-ripple
-            :to="route.route"
+            :to="`/banner/${gachaBanner.type}`"
             clickable
         >
             <q-item-section avatar>
                 <q-avatar>
-                    <img
-                        v-if="route.thumbnail.startsWith('http')"
-                        :src="route.thumbnail"
-                    >
-                    <q-icon
-                        v-else
-                        :name="route.thumbnail"
-                    />
+                    <q-icon :name="gachaBanner.icon" />
                 </q-avatar>
             </q-item-section>
 
             <q-item-section>
                 <q-item-label>
-                    {{ route.label }}
+                    {{ gachaBanner.label }}
                 </q-item-label>
 
-                <q-item-label
-                    v-if="route.caption"
-                    caption
-                >
-                    {{ route.caption }}
+                <q-item-label caption>
+                    {{ gachaBanner.caption }}
                 </q-item-label>
             </q-item-section>
         </q-item>

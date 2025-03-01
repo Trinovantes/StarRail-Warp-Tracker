@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import { WindowIpcAction } from '@/main/ipc/Window/WindowIpcAction'
+import { WINDOW_IPC_ACTION } from '@/main/ipc/Window/WindowIpcAction'
 
 const openGitHub = () => {
-    void window.api[WindowIpcAction.OPEN_GITHUB]()
+    void window.api[WINDOW_IPC_ACTION.OPEN_GITHUB]()
 }
 
 const openLogsDir = () => {
-    void window.api[WindowIpcAction.OPEN_LOGS_DIR]()
+    void window.api[WINDOW_IPC_ACTION.OPEN_LOGS_DIR]()
 }
 </script>
 

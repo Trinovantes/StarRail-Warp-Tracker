@@ -1,4 +1,3 @@
-import { WarpItemType } from '@/common/StarRail'
 import { BannerWarp } from '@/main/ipc/WarpTracker/parseWarps'
 import defaultIcon from '@/renderer/client/assets/img/default-item.png'
 
@@ -41,10 +40,10 @@ const lightConeIcons = getLightConeIcons()
 
 export function getItemIcon(bannerWarp: BannerWarp): string {
     switch (bannerWarp.itemType) {
-        case WarpItemType.Character:
+        case 'Character':
             return characterIcons.get(bannerWarp.itemId) ?? defaultIcon
 
-        case WarpItemType.LightCone:
+        case 'Light Cone':
             return lightConeIcons.get(bannerWarp.itemId) ?? defaultIcon
 
         default:

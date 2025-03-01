@@ -1,5 +1,5 @@
 import { SettingKey } from '@/main/db/models/SettingKey'
-import { SettingIpcAction } from '@/main/ipc/Setting/SettingIpcAction'
+import { SETTING_IPC_ACTION } from '@/main/ipc/Setting/SettingIpcAction'
 import { onMounted, ref } from 'vue'
 
 export function useSetting(key: SettingKey) {
@@ -7,7 +7,7 @@ export function useSetting(key: SettingKey) {
     let hasLoadedInitValue = false
 
     onMounted(async() => {
-        const res = await window.api[SettingIpcAction.GET_SETTING](key)
+        const res = await window.api[SETTING_IPC_ACTION.GET_SETTING](key)
         if (!res.success) {
             console.warn(res.message)
             console.warn(res.stack)
@@ -26,7 +26,7 @@ export function useSetting(key: SettingKey) {
             return
         }
 
-        await window.api[SettingIpcAction.UPDATE_SETTING](key, setting.value)
+        await window.api[SETTING_IPC_ACTION.UPDATE_SETTING](key, setting.value)
     }
 
     return {

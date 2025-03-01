@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { WindowIpcAction } from '@/main/ipc/Window/WindowIpcAction'
+import { WINDOW_IPC_ACTION } from '@/main/ipc/Window/WindowIpcAction'
 import { APP_NAME, BUILD_INFO } from '@/common/Constants'
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 
 const maximizeIcon = ref('')
 const updateMaximizeIcon = () => {
-    void window.api[WindowIpcAction.IS_MAXIMIZED]().then((res) => {
+    void window.api[WINDOW_IPC_ACTION.IS_MAXIMIZED]().then((res) => {
         if (!res.success) {
             return
         }
@@ -28,13 +28,13 @@ onBeforeUnmount(() => {
 })
 
 const minimize = () => {
-    void window.api[WindowIpcAction.MINIMIZE]()
+    void window.api[WINDOW_IPC_ACTION.MINIMIZE]()
 }
 const maximize = () => {
-    void window.api[WindowIpcAction.MAXIMIZE]()
+    void window.api[WINDOW_IPC_ACTION.MAXIMIZE]()
 }
 const close = () => {
-    void window.api[WindowIpcAction.CLOSE]()
+    void window.api[WINDOW_IPC_ACTION.CLOSE]()
 }
 </script>
 

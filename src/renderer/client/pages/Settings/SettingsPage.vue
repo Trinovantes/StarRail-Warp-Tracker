@@ -1,13 +1,12 @@
 <script lang="ts" setup>
-import { SettingKey } from '@/main/db/models/SettingKey'
 import { useSetting } from './useSetting'
 import { useQuasar } from 'quasar'
-import { SettingIpcAction } from '@/main/ipc/Setting/SettingIpcAction'
+import { SETTING_IPC_ACTION } from '@/main/ipc/Setting/SettingIpcAction'
 import { DEFAULT_GAME_INSTALL_DIR } from '@/common/Constants'
 
-const gameDir = useSetting(SettingKey.GAME_INSTALL_DIR)
+const gameDir = useSetting('GAME_INSTALL_DIR')
 const openGameDirPicker = async() => {
-    const res = await window.api[SettingIpcAction.SHOW_OPEN_DIALOG]({
+    const res = await window.api[SETTING_IPC_ACTION.SHOW_OPEN_DIALOG]({
         title: 'Select game installation directory',
         defaultPath: DEFAULT_GAME_INSTALL_DIR,
         properties: ['openDirectory'],

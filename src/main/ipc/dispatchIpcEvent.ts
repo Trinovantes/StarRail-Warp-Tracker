@@ -1,5 +1,5 @@
 import { BrowserWindow } from 'electron'
-import { IpcEventMap } from '../ipc'
+import { IpcEventMap } from '.'
 
 /**
  * Used by the main process to send events to the renderer process

@@ -3,21 +3,21 @@ import { computed } from 'vue'
 import { useHistoryFilterStore } from '../../store/HistoryFilter/useHistoryFilterStore'
 import { useTrackerStore } from '@/renderer/client/store/Tracker/useTrackerStore'
 import BannerPagePityCounter from '../Banner/BannerPagePityCounter.vue'
-import { GachaBannerType } from '@/common/StarRail'
 import WarpList from '../Banner/WarpList.vue'
+import { GACHA_BANNER_TYPE_LIMITED_CHARACTER, GACHA_BANNER_TYPE_LIMITED_LIGHT_CONE, GACHA_BANNER_TYPE_STANDARD } from '@/common/StarRail'
 
 const historyFilterStore = useHistoryFilterStore()
 const trackerStore = useTrackerStore()
-const characterHistory = computed(() => trackerStore.getWarpHistory(GachaBannerType.EventCharacter))
-const lightConeHistory = computed(() => trackerStore.getWarpHistory(GachaBannerType.EventLightCone))
-const stellarHistory = computed(() => trackerStore.getWarpHistory(GachaBannerType.StellarWarp))
+const characterHistory = computed(() => trackerStore.getWarpHistory(GACHA_BANNER_TYPE_LIMITED_CHARACTER))
+const lightConeHistory = computed(() => trackerStore.getWarpHistory(GACHA_BANNER_TYPE_LIMITED_LIGHT_CONE))
+const stellarHistory = computed(() => trackerStore.getWarpHistory(GACHA_BANNER_TYPE_STANDARD))
 const all5StarWarps = computed(() => trackerStore.getAll5StarWarps())
 </script>
 
 <template>
     <div class="hero-unit">
         <BannerPagePityCounter
-            :banner-type="GachaBannerType.EventCharacter"
+            :banner-type="GACHA_BANNER_TYPE_LIMITED_CHARACTER"
             :star5-pity="characterHistory?.star5Pity"
             :star4-pity="characterHistory?.star4Pity"
             :next-is5050="characterHistory?.nextIs5050"
@@ -28,7 +28,7 @@ const all5StarWarps = computed(() => trackerStore.getAll5StarWarps())
         </BannerPagePityCounter>
 
         <BannerPagePityCounter
-            :banner-type="GachaBannerType.EventLightCone"
+            :banner-type="GACHA_BANNER_TYPE_LIMITED_LIGHT_CONE"
             :star5-pity="lightConeHistory?.star5Pity"
             :star4-pity="lightConeHistory?.star4Pity"
             :next-is5050="lightConeHistory?.nextIs5050"
@@ -39,7 +39,7 @@ const all5StarWarps = computed(() => trackerStore.getAll5StarWarps())
         </BannerPagePityCounter>
 
         <BannerPagePityCounter
-            :banner-type="GachaBannerType.StellarWarp"
+            :banner-type="GACHA_BANNER_TYPE_STANDARD"
             :star5-pity="stellarHistory?.star5Pity"
             :star4-pity="stellarHistory?.star4Pity"
             :next-is5050="stellarHistory?.nextIs5050"

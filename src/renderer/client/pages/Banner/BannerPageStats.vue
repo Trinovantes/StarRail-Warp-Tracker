@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { JADES_PER_WARP, GachaBannerType } from '@/common/StarRail'
+import { JADES_PER_WARP, GachaBannerType, GACHA_BANNER_TYPE_LIMITED_CHARACTER, GACHA_BANNER_TYPE_LIMITED_LIGHT_CONE } from '@/common/StarRail'
 import { computed } from 'vue'
 import { formatPercent } from './formatPercent'
 import { BannerWarp } from '@/main/ipc/WarpTracker/parseWarps'
@@ -17,8 +17,8 @@ const num4Star = computed(() => props.bannerWarps.filter((warp) => warp.rarity =
 const percent5StarStr = computed(() => formatPercent(num5Star.value, totalWarps.value))
 const percent4StarStr = computed(() => formatPercent(num4Star.value, totalWarps.value))
 
-const avgPullsPer5Star = computed(() => (totalWarps.value / num5Star.value).toFixed())
-const avgPullsPer4Star = computed(() => (totalWarps.value / num4Star.value).toFixed())
+const avgPullsPer5Star = computed(() => num5Star.value === 0 ? 0 : (totalWarps.value / num5Star.value).toFixed())
+const avgPullsPer4Star = computed(() => num4Star.value === 0 ? 0 : (totalWarps.value / num4Star.value).toFixed())
 
 const rateUpWinRateStr = computed<string>(() => {
     const rateUpItems = props.bannerWarps.filter((warp) => warp.rarity === 5 && !warp.isGuaranteed)
@@ -48,11 +48,11 @@ const rateUpWinRateStr = computed<string>(() => {
             <strong>Avg Pulls per 4<q-icon name="star" /></strong>
             <span>{{ avgPullsPer4Star }}</span>
 
-            <template v-if="props.bannerType === GachaBannerType.EventCharacter">
+            <template v-if="props.bannerType === GACHA_BANNER_TYPE_LIMITED_CHARACTER">
                 <strong>50/50 Win Rate</strong>
                 <span>{{ rateUpWinRateStr }}</span>
             </template>
-            <template v-if="props.bannerType === GachaBannerType.EventLightCone">
+            <template v-if="props.bannerType === GACHA_BANNER_TYPE_LIMITED_LIGHT_CONE">
                 <strong>75/25 Win Rate</strong>
                 <span>{{ rateUpWinRateStr }}</span>
             </template>
