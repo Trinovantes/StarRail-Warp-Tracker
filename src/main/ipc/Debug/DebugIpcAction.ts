@@ -1,3 +1,3 @@
-export enum DebugIpcAction {
-    LOG = 'DebugIpcAction_LOG',
-}
+export const DEBUG_IPC_ACTION = Object.freeze({
+    CLIENT_LOG: 'DEBUG_ACTION_CLIENT_LOG',
+})

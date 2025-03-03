@@ -4,7 +4,7 @@ import { Notify, Quasar, Loading, Dialog } from 'quasar'
 import { createApp } from 'vue'
 import App from './client/App.vue'
 import { createVueRouter } from './client/router/createVueRouter'
-import { DebugIpcEvent } from '@/main/ipc/Debug/DebugIpcEvent'
+import { DEBUG_IPC_EVENT } from '@/main/ipc/Debug/DebugIpcEvent'
 import { logError } from './client/utils/log'
 import { useTrackerStore } from './client/store/Tracker/useTrackerStore'
 
@@ -41,7 +41,7 @@ async function main() {
     app.mount('#app')
 }
 
-window.onEvent[DebugIpcEvent.EXCEPTION]((event, errorName, callStack) => {
+window.onEvent[DEBUG_IPC_EVENT.SERVER_EXCEPTION]((event, errorName, callStack) => {
     console.error(errorName, callStack)
 })
 

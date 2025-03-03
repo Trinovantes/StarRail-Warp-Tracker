@@ -13,6 +13,17 @@ const props = defineProps<{
     bannerType: GachaBannerType
 }>()
 
+const rarityFilters: Array<{ label: string; value: FilterOption }> = [
+    {
+        label: 'Only 5',
+        value: 'Include5Star',
+    },
+    {
+        label: 'Only 4',
+        value: 'Include4Star',
+    },
+]
+
 const bannerType = computed(() => props.bannerType)
 const { fetchWarpHistory, clearWarpHistory } = useWarpHistory(bannerType)
 
@@ -22,8 +33,8 @@ const warpHistory = computed(() => trackerStore.getWarpHistory(props.bannerType)
 const historyFilterStore = useHistoryFilterStore()
 const filteredBannerWarps = computed(() => {
     const warps = (warpHistory.value?.warps ?? [])
-    const inc5Star = historyFilterStore.rarityFilter.includes(FilterOption.Include5Star)
-    const inc4Star = historyFilterStore.rarityFilter.includes(FilterOption.Include4Star)
+    const inc5Star = historyFilterStore.rarityFilter.includes('Include5Star')
+    const inc4Star = historyFilterStore.rarityFilter.includes('Include4Star')
 
     if (inc4Star && inc5Star) {
         return warps.filter((warp) => warp.rarity === 5 || warp.rarity === 4)
@@ -86,22 +97,10 @@ const filteredBannerWarps = computed(() => {
                     <q-option-group
                         v-model="historyFilterStore.rarityFilter"
                         type="checkbox"
-                        :options="[
-                            {
-                                label: '',
-                                value: FilterOption.Include5Star,
-                            },
-                            {
-                                label: '',
-                                value: FilterOption.Include4Star,
-                            },
-                        ]"
+                        :options="rarityFilters"
                     >
-                        <template #label-0>
-                            Only 5 <q-icon name="star" />
-                        </template>
-                        <template #label-1>
-                            Only 4 <q-icon name="star" />
+                        <template #label="{ label }">
+                            {{ label }} <q-icon name="star" />
                         </template>
                     </q-option-group>
                 </div>

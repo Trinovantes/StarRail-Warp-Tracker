@@ -1,3 +1,2 @@
-export const enum SettingKey {
-    GAME_INSTALL_DIR = 'GAME_INSTALL_DIR',
-}
+export type SettingKey =
+    'GAME_INSTALL_DIR'

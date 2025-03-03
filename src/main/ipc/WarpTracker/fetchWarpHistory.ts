@@ -1,7 +1,7 @@
 import { APP_NAME } from '@/common/Constants'
 import { Warp } from '@/main/db/models/Warp'
 import { LogFunctions } from 'electron-log'
-import { BannerId, ItemId, Rarity, UserId, GachaBannerType, WarpId, WarpItemType } from '@/common/StarRail'
+import { BannerId, ItemId, Rarity, UserId, GachaBannerType, WarpId, ALL_GACHA_BANNERS, ALL_GACHA_ITEM_TYPES } from '@/common/StarRail'
 import { Type, Static } from '@sinclair/typebox'
 import { Value, ValueError } from '@sinclair/typebox/value'
 
@@ -14,11 +14,11 @@ const tbWarpHistoryItem = Type.Object({
     uid: Type.Unsafe<UserId>(Type.String()),
 
     gacha_id: Type.Unsafe<BannerId>(Type.String()),
-    gacha_type: Type.Union(Object.values(GachaBannerType).map((v) => Type.Literal(v))),
+    gacha_type: Type.Union(ALL_GACHA_BANNERS.map((banner) => Type.Literal(banner.type))),
 
     count: Type.String(),
     item_id: Type.Unsafe<ItemId>(Type.String()),
-    item_type: Type.Union(Object.values(WarpItemType).map((v) => Type.Literal(v))),
+    item_type: Type.Union(ALL_GACHA_ITEM_TYPES.map((warpType) => Type.Literal(warpType))),
     rank_type: Type.String(),
     name: Type.String(),
     lang: Type.String(),

@@ -1,5 +1,5 @@
-export enum WarpTrackerIpcAction {
-    CLEAR_WARPS = 'WarpTrackerIpcAction_CLEAR_WARPS',
-    GET_WARPS = 'WarpTrackerIpcAction_GET_WARPS',
-    REFRESH_WARPS = 'WarpTrackerIpcAction_REFRESH_WARPS',
-}
+export const WARP_TRACKER_IPC_ACTION = Object.freeze({
+    CLEAR_WARPS: 'WARP_TRACKER_IPC_ACTION_CLEAR_WARPS',
+    GET_WARPS: 'WARP_TRACKER_IPC_ACTION_GET_WARPS',
+    REFRESH_WARPS: 'WARP_TRACKER_IPC_ACTION_REFRESH_WARPS',
+})

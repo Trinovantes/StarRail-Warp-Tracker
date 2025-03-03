@@ -1,7 +1,7 @@
 import { InferInsertModel, InferSelectModel, desc, sql } from 'drizzle-orm'
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core'
 import { DrizzleClient } from '@/main/db/createDb'
-import { BannerId, ItemId, Rarity, UserId, GachaBannerType, WarpId, WarpItemType } from '@/common/StarRail'
+import { BannerId, ItemId, Rarity, UserId, GachaBannerType, WarpId, GachaItemType } from '@/common/StarRail'
 
 export const warpTable = sqliteTable('Warp', {
     id: text('id').$type<WarpId>().primaryKey(),
@@ -11,7 +11,7 @@ export const warpTable = sqliteTable('Warp', {
     bannerType: text('bannerType').$type<GachaBannerType>().notNull(),
 
     itemId: text('itemId').$type<ItemId>().notNull(),
-    itemType: text('itemType').$type<WarpItemType>().notNull(),
+    itemType: text('itemType').$type<GachaItemType>().notNull(),
     itemName: text('itemName').notNull(),
     rarity: integer('rarity').$type<Rarity>().notNull(),
 

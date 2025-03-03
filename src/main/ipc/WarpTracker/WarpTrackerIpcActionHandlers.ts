@@ -1,7 +1,5 @@
-import { WarpTrackerIpcAction } from './WarpTrackerIpcAction'
 import { getAuthKey } from './getAuthKey'
 import { selectSetting } from '@/main/db/models/Setting'
-import { SettingKey } from '@/main/db/models/SettingKey'
 import { fetchWarpHistory } from './fetchWarpHistory'
 import { GachaBannerType, WarpId } from '@/common/StarRail'
 import { LogFunctions } from 'electron-log'
@@ -10,22 +8,22 @@ import { sleep } from '@/common/utils/sleep'
 import { deleteWarps, existsWarp, insertWarp, selectWarps } from '@/main/db/models/Warp'
 import { IpcMainInvokeEvent } from 'electron'
 import { parseWarps } from './parseWarps'
-import { IpcActionModule } from '../IpcActionModule'
 import { DrizzleClient } from '@/main/db/createDb'
+import { WARP_TRACKER_IPC_ACTION } from './WarpTrackerIpcAction'
 
-function createActionHandlers(logger: LogFunctions, db: DrizzleClient) {
+export function createWarpTrackerIpcActionHandlers(logger: LogFunctions, db: DrizzleClient) {
     return {
-        [WarpTrackerIpcAction.CLEAR_WARPS](event: IpcMainInvokeEvent, bannerType: GachaBannerType) {
+        [WARP_TRACKER_IPC_ACTION.CLEAR_WARPS](event: IpcMainInvokeEvent, bannerType: GachaBannerType) {
             return deleteWarps(db, bannerType)
         },
 
-        [WarpTrackerIpcAction.GET_WARPS](event: IpcMainInvokeEvent, bannerType: GachaBannerType) {
+        [WARP_TRACKER_IPC_ACTION.GET_WARPS](event: IpcMainInvokeEvent, bannerType: GachaBannerType) {
             const warps = selectWarps(db, bannerType)
             return parseWarps(warps)
         },
 
-        async [WarpTrackerIpcAction.REFRESH_WARPS](event: IpcMainInvokeEvent, bannerType: GachaBannerType) {
-            const gameDir = selectSetting(db, SettingKey.GAME_INSTALL_DIR)
+        async [WARP_TRACKER_IPC_ACTION.REFRESH_WARPS](event: IpcMainInvokeEvent, bannerType: GachaBannerType) {
+            const gameDir = selectSetting(db, 'GAME_INSTALL_DIR')
             if (!gameDir) {
                 const errMsg = 'Missing game install directory setting'
                 logger.warn(errMsg)
@@ -62,18 +60,5 @@ function createActionHandlers(logger: LogFunctions, db: DrizzleClient) {
             const warps = selectWarps(db, bannerType)
             return parseWarps(warps)
         },
-    }
-}
-
-export class WarpTrackerModule extends IpcActionModule<WarpTrackerIpcAction, ReturnType<typeof createActionHandlers>> {
-    constructor(
-        mainLogger: LogFunctions,
-        protected db: DrizzleClient,
-    ) {
-        super(mainLogger)
-    }
-
-    protected override createActionHandlers() {
-        return createActionHandlers(this.mainLogger, this.db)
     }
 }

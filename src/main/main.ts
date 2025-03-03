@@ -1,10 +1,6 @@
 import 'source-map-support/register'
 import log from 'electron-log'
 import { setupWindow } from './setup/setupWindow'
-import { DebugModule } from './ipc/Debug/DebugModule'
-import { SettingModule } from './ipc/Setting/SettingModule'
-import { WarpTrackerModule } from './ipc/WarpTracker/WarpTrackerModule'
-import { WindowModule } from './ipc/Window/WindowModule'
 import { tryUpdate } from './setup/tryUpdate'
 import { setupErrorHandlers } from './setup/setupErrorHandlers'
 import path from 'node:path'
@@ -14,6 +10,11 @@ import { createDb } from './db/createDb'
 import { getMigrations } from './db/getMigrations'
 import { migrateDb } from './db/migrateDb'
 import cfg from 'electron-cfg'
+import { IpcActionHandler, registerIpcActionHandlers } from './ipc/registerIpcActionHandlers'
+import { createDebugIpcActionHandlers } from './ipc/Debug/DebugIpcActionHandlers'
+import { createSettingIpcActionHandlers } from './ipc/Setting/SettingIpcActionHandlers'
+import { createWindowIpcActionHandlers } from './ipc/Window/WindowIpcActionHandlers'
+import { createWarpTrackerIpcActionHandlers } from './ipc/WarpTracker/WarpTrackerIpcActionHandlers'
 
 async function main() {
     // ------------------------------------------------------------------------
@@ -44,16 +45,10 @@ async function main() {
     // Register ipc handlers
     // ------------------------------------------------------------------------
 
-    const ipcHandlerModules = [
-        new DebugModule(mainLogger, rendererLogger),
-        new WindowModule(mainLogger),
-        new SettingModule(mainLogger, db),
-        new WarpTrackerModule(mainLogger, db),
-    ]
-
-    for (const module of ipcHandlerModules) {
-        module.init()
-    }
+    registerIpcActionHandlers(createDebugIpcActionHandlers(rendererLogger) as Record<string, IpcActionHandler>)
+    registerIpcActionHandlers(createSettingIpcActionHandlers(db) as Record<string, IpcActionHandler>)
+    registerIpcActionHandlers(createWarpTrackerIpcActionHandlers(mainLogger, db) as Record<string, IpcActionHandler>)
+    registerIpcActionHandlers(createWindowIpcActionHandlers() as Record<string, IpcActionHandler>)
 
     // ------------------------------------------------------------------------
     // Init app
