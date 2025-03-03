@@ -17,8 +17,8 @@ const num4Star = computed(() => props.bannerWarps.filter((warp) => warp.rarity =
 const percent5StarStr = computed(() => formatPercent(num5Star.value, totalWarps.value))
 const percent4StarStr = computed(() => formatPercent(num4Star.value, totalWarps.value))
 
-const avgPullsPer5Star = computed(() => (totalWarps.value / num5Star.value).toFixed())
-const avgPullsPer4Star = computed(() => (totalWarps.value / num4Star.value).toFixed())
+const avgPullsPer5Star = computed(() => num5Star.value === 0 ? 0 : (totalWarps.value / num5Star.value).toFixed())
+const avgPullsPer4Star = computed(() => num4Star.value === 0 ? 0 : (totalWarps.value / num4Star.value).toFixed())
 
 const rateUpWinRateStr = computed<string>(() => {
     const rateUpItems = props.bannerWarps.filter((warp) => warp.rarity === 5 && !warp.isGuaranteed)
