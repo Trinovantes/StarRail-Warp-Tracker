@@ -1,4 +1,5 @@
 import { IpcMainInvokeEvent, ipcMain } from 'electron'
+
 export type IpcActionHandler = (event: IpcMainInvokeEvent, ...args: Array<unknown>) => unknown
 
 export type IpcActionResult<DataType = unknown> = {

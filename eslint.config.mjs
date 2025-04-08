@@ -36,8 +36,7 @@ export default tseslint.config(
     // MARK: Style
     // ------------------------------------------------------------------------
 
-    // @ts-ignore
-    stylistic.configs['recommended-flat'],
+    stylistic.configs['recommended'],
     {
         rules: {
             '@stylistic/brace-style': ['error', '1tbs'],
@@ -217,7 +216,6 @@ export default tseslint.config(
     // MARK: Vue
     // ------------------------------------------------------------------------
 
-    // @ts-expect-error Vue plugin is not properly typed
     ...pluginVue.configs['flat/strongly-recommended'],
 
     {
@@ -227,7 +225,7 @@ export default tseslint.config(
                 singleline: 999,
                 multiline: 1,
             }],
-            'vue/component-tags-order': ['error', {
+            'vue/block-order': ['error', {
                 order: ['script', 'template', 'style'],
             }],
             'vue/singleline-html-element-content-newline': ['error', {
