@@ -42,7 +42,7 @@ export default tseslint.config(
             '@stylistic/brace-style': ['error', '1tbs'],
             '@stylistic/quotes': ['error', 'single', {
                 avoidEscape: true,
-                allowTemplateLiterals: false,
+                allowTemplateLiterals: 'avoidEscape',
             }],
             '@stylistic/generator-star-spacing': ['error', 'before'],
             '@stylistic/arrow-parens': ['error', 'always'],
