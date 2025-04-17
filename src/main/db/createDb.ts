@@ -8,23 +8,23 @@ type DrizzleDb = ReturnType<typeof createDb>['db']
 export type DrizzleTransaction = Parameters<Parameters<DrizzleDb['transaction']>[0]>[0]
 export type DrizzleClient = DrizzleDb | DrizzleTransaction
 
-export function createDb(dbFilePath: string, cleanOnExit: boolean, logger?: LogFunctions) {
+export function createDb(dbFilePath: string, cleanOnExit: boolean, mainLogger?: LogFunctions, dbLogger?: LogFunctions) {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     const nativeBinding = require('better-sqlite3/build/Release/better_sqlite3.node') as string
-    logger?.info(`Loaded DB bindings (${Boolean(nativeBinding)})`)
+    mainLogger?.info(`Loaded DB bindings (${Boolean(nativeBinding)})`)
 
     const client = new BetterSqlite3(dbFilePath, {
         nativeBinding,
-        verbose: logger
+        verbose: dbLogger
             ? (message: unknown, ...additionalArgs: Array<unknown>) => {
                 if (typeof message === 'string') {
                     message = message.replace(/^\n+/g, '\n').trimEnd()
                 }
 
-                logger?.debug(message)
+                dbLogger?.debug(message)
 
                 if (additionalArgs.length > 0) {
-                    logger?.debug(additionalArgs)
+                    dbLogger?.debug(additionalArgs)
                 }
             }
             : undefined,

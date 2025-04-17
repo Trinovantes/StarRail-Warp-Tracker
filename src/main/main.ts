@@ -24,6 +24,7 @@ async function main() {
     log.transports.file.level = 'debug'
 
     const mainLogger = log.scope('main')
+    const dbLogger = log.scope('db')
     const rendererLogger = log.scope('renderer')
 
     mainLogger.info('Starting Main Process')
@@ -37,7 +38,7 @@ async function main() {
     const dbFilePath = DEFINE.IS_DEV ? DB_MEMORY : cfg.get('DATABASE_FILE_PATH', defaultDbFilePath) as string
     mainLogger.info(`Database saved to "${dbFilePath}"`)
 
-    const { db } = createDb(dbFilePath, true, mainLogger)
+    const { db } = createDb(dbFilePath, true, mainLogger, dbLogger)
     const migrations = getMigrations()
     await migrateDb(db, migrations, mainLogger)
 
