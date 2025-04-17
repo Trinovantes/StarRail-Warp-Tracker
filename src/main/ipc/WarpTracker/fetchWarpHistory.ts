@@ -106,15 +106,19 @@ export async function fetchWarpHistory(logger: LogFunctions, bannerType: GachaBa
         throw new Error(errMsg)
     }
 
-    const timeZone = `GMT${response.data.region_time_zone}`
-    if (!/GMT[+-]\d{1,2}/.test(timeZone)) {
-        const errMsg = 'Invalid timeZone in Mihoyo response'
+    const timeZone = response.data.region_time_zone
+    const timeZoneGmt = timeZone < 0
+        ? `GMT-${Math.abs(timeZone)}`
+        : `GMT+${timeZone}`
+
+    if (!/GMT[+-]\d{1,2}/.test(timeZoneGmt)) {
+        const errMsg = `Invalid timeZone "${timeZone}" in Mihoyo response`
         logger?.warn(errMsg)
         throw new Error(errMsg)
     }
 
     return response.data.list.map((warp) => {
-        const time = `${warp.time} ${timeZone}`
+        const time = `${warp.time} ${timeZoneGmt}`
 
         const rarity = parseInt(warp.rank_type)
         if (isNaN(rarity) || !(rarity === 3 || rarity === 4 || rarity === 5)) {
