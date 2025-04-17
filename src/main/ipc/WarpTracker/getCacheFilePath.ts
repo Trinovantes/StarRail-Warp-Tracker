@@ -18,7 +18,7 @@ export function getCacheFilePath(gameDir: string, isWsl: boolean, logger?: LogFu
         gameDir = '/mnt/' + gameDir
     }
 
-    const webCachesDir = path.join(gameDir, 'Games', 'StarRail_Data', 'webCaches')
+    const webCachesDir = path.join(gameDir, 'webCaches')
     if (!existsSync(webCachesDir)) {
         const errMsg = `Failed to resolve webCaches dir "${webCachesDir}"`
         logger?.warn(errMsg)

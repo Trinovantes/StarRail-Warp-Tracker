@@ -2,13 +2,13 @@
 import { useSetting } from './useSetting'
 import { useQuasar } from 'quasar'
 import { SETTING_IPC_ACTION } from '@/main/ipc/Setting/SettingIpcAction'
-import { DEFAULT_GAME_INSTALL_DIR } from '@/common/Constants'
+import { DEFAULT_GAME_DIR } from '@/common/Constants'
 
 const gameDir = useSetting('GAME_INSTALL_DIR')
 const openGameDirPicker = async() => {
     const res = await window.api[SETTING_IPC_ACTION.SHOW_OPEN_DIALOG]({
-        title: 'Select game installation directory',
-        defaultPath: DEFAULT_GAME_INSTALL_DIR,
+        title: 'Select game data directory',
+        defaultPath: DEFAULT_GAME_DIR,
         properties: ['openDirectory'],
     })
 
@@ -47,8 +47,8 @@ const onSubmit = async() => {
                 <div class="flex">
                     <q-input
                         v-model="gameDir.setting.value"
-                        label="Game Installation Directory"
-                        hint="This folder should contain launcher.exe"
+                        label="Game Data Directory"
+                        hint="This directory should contain a 'webCaches' folder"
                         class="flex-1"
                         disable
                         filled

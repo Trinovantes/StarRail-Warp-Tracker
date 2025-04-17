@@ -30,7 +30,8 @@ export function createWarpTrackerIpcActionHandlers(logger: LogFunctions, db: Dri
                 throw new Error(errMsg)
             }
 
-            const authKey = getAuthKey(gameDir, Boolean(process.env.WSL_DISTRO_NAME), logger)
+            const isWsl = Boolean(process.env.WSL_DISTRO_NAME)
+            const authKey = getAuthKey(gameDir, isWsl, logger)
 
             let endId: WarpId | undefined
             while (true) {
