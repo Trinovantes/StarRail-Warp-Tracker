@@ -3,7 +3,6 @@ import { sleep } from '@/common/utils/sleep'
 import { createMigrationTable, insertMigration, getCurrentMigrationVersion, Migration } from './Migration'
 import { DrizzleClient } from '@/main/db/createDb'
 import { LogFunctions } from 'electron-log'
-import { DrizzleError } from 'drizzle-orm'
 
 export async function migrateDb(db: DrizzleClient, migrations: Array<Migration>, logger?: LogFunctions) {
     for (let attempt = 1; attempt <= MAX_MIGRATION_ATTEMPTS; attempt++) {
@@ -11,14 +10,11 @@ export async function migrateDb(db: DrizzleClient, migrations: Array<Migration>,
             await migrate(db, migrations, attempt, logger)
             return
         } catch (err) {
+            logger?.error(`Failed to migrate db (attempt:${attempt})`)
+            logger?.error(err)
+
             if (attempt === MAX_MIGRATION_ATTEMPTS) {
-                logger?.error('Failed to migrate db')
-                logger?.error(err)
-
-                if (err instanceof DrizzleError) {
-                    logger?.error(err.cause)
-                }
-
+                logger?.error('Reached max migration attempts')
                 process.exit(1)
             }
 
