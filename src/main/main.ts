@@ -5,7 +5,7 @@ import { tryUpdate } from './setup/tryUpdate'
 import { setupErrorHandlers } from './setup/setupErrorHandlers'
 import path from 'node:path'
 import { app } from 'electron'
-import { DB_FILE } from '@/common/Constants'
+import { DB_FILE, DB_MEMORY } from '@/common/Constants'
 import { createDb } from './db/createDb'
 import { getMigrations } from './db/getMigrations'
 import { migrateDb } from './db/migrateDb'
@@ -34,7 +34,7 @@ async function main() {
     // ------------------------------------------------------------------------
 
     const defaultDbFilePath = path.resolve(app.getPath('userData'), DB_FILE)
-    const dbFilePath = cfg.get('DATABASE_FILE_PATH', defaultDbFilePath) as string
+    const dbFilePath = DEFINE.IS_DEV ? DB_MEMORY : cfg.get('DATABASE_FILE_PATH', defaultDbFilePath) as string
     mainLogger.info(`Database saved to "${dbFilePath}"`)
 
     const { db } = createDb(dbFilePath, true, mainLogger)
