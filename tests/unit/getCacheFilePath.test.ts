@@ -29,7 +29,7 @@ beforeEach(() => {
 
 describe('when inside WSL', () => {
     const isWsl = true
-    const cacheFilePath = 'Games/StarRail_Data/webCaches/0.0.0.0/Cache/Cache_Data/data_2'
+    const cacheFilePath = 'webCaches/0.0.0.0/Cache/Cache_Data/data_2'
 
     test('resolves C:\\ (windows slash) drive to /mnt/c/', () => {
         expect(getCacheFilePath('C:\\', isWsl)).toBe(path.join('/mnt/c/', cacheFilePath))
@@ -46,7 +46,7 @@ describe('when inside WSL', () => {
 
 describe('when outside WSL', () => {
     const isWsl = false
-    const cacheFilePath = 'Games/StarRail_Data/webCaches/0.0.0.0/Cache/Cache_Data/data_2'
+    const cacheFilePath = 'webCaches/0.0.0.0/Cache/Cache_Data/data_2'
 
     test('resolves C:\\ (windows slash) drive to C:/', () => {
         expect(getCacheFilePath('C:\\', isWsl)).toBe(path.join('C:/', cacheFilePath))
