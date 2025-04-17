@@ -7,7 +7,7 @@ type Version = `${Digit}${Digit}${Digit}${Digit}`
 
 export type Migration = {
     version: Version
-    run: (db: DrizzleTransaction) => void
+    run: (db: DrizzleTransaction) => void | Promise<void>
 }
 
 export const migrationTable = sqliteTable('Migration', {
