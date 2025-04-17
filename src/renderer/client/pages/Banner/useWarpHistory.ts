@@ -18,14 +18,25 @@ export function useWarpHistory(bannerType: Ref<GachaBannerType>) {
             const errMsg = (err instanceof Error) ? err.message : String(err)
             const stack = (err instanceof Error) ? err.stack : undefined
 
-            if (errMsg.startsWith('(-101)')) {
-                $q.dialog({
-                    title: 'Authentication Key Expired',
-                    message: 'Please check your in-game Warp Records to generate a new authentication key',
-                    persistent: true,
-                })
-            } else {
-                notifyError(errMsg, stack)
+            switch (true) {
+                case errMsg.startsWith('(-101)'):
+                    $q.dialog({
+                        title: 'Authentication Key Expired',
+                        message: 'Please check your in-game Warp Records to generate a new authentication key',
+                        persistent: true,
+                    })
+                    break
+
+                case errMsg.startsWith('Failed to find authKey'):
+                    $q.dialog({
+                        title: 'Authentication Key Missing',
+                        message: 'Please check your in-game Warp Records to generate a new authentication key',
+                        persistent: true,
+                    })
+                    break
+
+                default:
+                    notifyError(errMsg, stack)
             }
         } finally {
             $q.loading.hide()
