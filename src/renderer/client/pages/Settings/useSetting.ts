@@ -9,8 +9,8 @@ export function useSetting(key: SettingKey) {
     onMounted(async() => {
         const res = await window.api[SETTING_IPC_ACTION.GET_SETTING](key)
         if (!res.success) {
-            console.warn(res.message)
-            console.warn(res.stack)
+            console.warn(res.errMsg)
+            console.warn(res.errStack)
             return
         }
 

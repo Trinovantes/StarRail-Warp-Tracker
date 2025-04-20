@@ -25,7 +25,7 @@ const rarityFilters: Array<{ label: string; value: FilterOption }> = [
 ]
 
 const bannerType = computed(() => props.bannerType)
-const { fetchWarpHistory, clearWarpHistory } = useWarpHistory(bannerType)
+const { refreshHistory, clearHistory } = useWarpHistory(bannerType)
 
 const trackerStore = useTrackerStore()
 const warpHistory = computed(() => trackerStore.getWarpHistory(props.bannerType))
@@ -68,13 +68,13 @@ const filteredBannerWarps = computed(() => {
             <div class="menu flex-hgap">
                 <div class="flex-hgap">
                     <q-btn
-                        label="Fetch Warp History"
+                        label="Refresh Warp History"
                         icon="sync"
                         color="positive"
                         rounded
                         unelevated
                         no-caps
-                        @click="fetchWarpHistory"
+                        @click="refreshHistory"
                     />
 
                     <q-btn
@@ -84,7 +84,7 @@ const filteredBannerWarps = computed(() => {
                         rounded
                         unelevated
                         no-caps
-                        @click="clearWarpHistory"
+                        @click="clearHistory"
                     />
                 </div>
 

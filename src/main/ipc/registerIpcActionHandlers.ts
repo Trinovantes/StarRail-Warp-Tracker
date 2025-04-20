@@ -1,3 +1,4 @@
+import { ExpectedError } from '@/common/node/ExpectedError'
 import { IpcMainInvokeEvent, ipcMain } from 'electron'
 
 export type IpcActionHandler = (event: IpcMainInvokeEvent, ...args: Array<unknown>) => unknown
@@ -7,8 +8,9 @@ export type IpcActionResult<DataType = unknown> = {
     data: DataType
 } | {
     success: false
-    message: string
-    stack: string | undefined
+    errTitle: string
+    errMsg?: string
+    errStack?: string
 }
 
 export function registerIpcActionHandlers(actionHandlers: Record<string, IpcActionHandler>) {
@@ -41,9 +43,23 @@ function createSuccessResult<T>(data: T): IpcActionResult<T> {
 }
 
 function createErrorResult<T>(err: unknown): IpcActionResult<T> {
-    return {
-        success: false,
-        message: (err instanceof Error) ? err.message : String(err),
-        stack: (err instanceof Error) ? err.stack : undefined,
+    if (err instanceof ExpectedError) {
+        return {
+            success: false,
+            errTitle: err.dialogTitle,
+            errMsg: err.dialogMsg,
+            errStack: err.stack,
+        }
+    } else if (err instanceof Error) {
+        return {
+            success: false,
+            errTitle: err.message,
+            errStack: err.stack,
+        }
+    } else {
+        return {
+            success: false,
+            errTitle: String(err),
+        }
     }
 }

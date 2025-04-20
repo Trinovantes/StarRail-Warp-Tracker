@@ -4,6 +4,7 @@ import { LogFunctions } from 'electron-log'
 import { BannerId, ItemId, Rarity, UserId, GachaBannerType, WarpId, ALL_GACHA_BANNERS, ALL_GACHA_ITEM_TYPES } from '@/common/StarRail'
 import { Type, Static } from '@sinclair/typebox'
 import { Value, ValueError } from '@sinclair/typebox/value'
+import { ExpiredAuthKeyError } from '@/common/node/ExpectedError'
 
 // ----------------------------------------------------------------------------
 // Response Validation
@@ -91,12 +92,12 @@ export async function fetchWarpHistory(logger: LogFunctions, bannerType: GachaBa
         throw new Error(errMsg)
     }
     if (response.retcode === -101) {
-        const errMsg = '(-101) authKey has expired (check Warp Records in-game to refresh authKey)'
+        const errMsg = `(${response.retcode}) authKey has expired`
         logger?.warn(errMsg)
-        throw new Error(errMsg)
+        throw new ExpiredAuthKeyError()
     }
     if (response.retcode !== 0) {
-        const errMsg = `(${response.retcode}) Mihoyo server error (${response.retcode}) "${response.message}"`
+        const errMsg = `(${response.retcode}) Mihoyo server error "${response.message}"`
         logger?.warn(errMsg)
         throw new Error(errMsg)
     }

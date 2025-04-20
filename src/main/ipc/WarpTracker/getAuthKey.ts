@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs'
 import { getCacheFilePath } from './getCacheFilePath'
 import { LogFunctions } from 'electron-log'
+import { MissingAuthKeyError } from '@/common/node/ExpectedError'
 
 const gachaLogRe = /https:\/\/.+\.(mihoyo|hoyoverse)\.com\/common\/gacha_record\/api\/getGachaLog[^\0]*/g
 
@@ -14,17 +15,15 @@ export function getAuthKey(gameDir: string, isWsl: boolean, logger?: LogFunction
     }
 
     if (!gachaLogUrl) {
-        const errMsg = 'Failed to find authKey in cacheFile (did you open Warp Records in-game?)'
-        logger?.warn(errMsg)
-        throw new Error(errMsg)
+        logger?.warn('Failed to find authKey in cacheFile')
+        throw new MissingAuthKeyError()
     }
 
     const url = new URL(gachaLogUrl)
     const authKey = url.searchParams.get('authkey')
     if (!authKey) {
-        const errMsg = `Failed to parse authKey from url "${url.toString()}"`
-        logger?.warn(errMsg)
-        throw new Error(errMsg)
+        logger?.warn(`Failed to parse authKey from url "${url.toString()}"`)
+        throw new MissingAuthKeyError()
     }
 
     logger?.info('Found authKey', `len:${authKey.length}`)

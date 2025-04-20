@@ -1,54 +1,45 @@
 import { useQuasar } from 'quasar'
-import { notifyError } from '../../utils/notifyError'
 import { notifySuccess } from '../../utils/notifySuccess'
 import { useTrackerStore } from '../../store/Tracker/useTrackerStore'
 import { GachaBannerType } from '@/common/StarRail'
 import { Ref } from 'vue'
+import { notifyError } from '../../utils/notifyError'
+import type { IpcActionResult } from '@/main/ipc/registerIpcActionHandlers'
 
 export function useWarpHistory(bannerType: Ref<GachaBannerType>) {
     const trackerStore = useTrackerStore()
     const $q = useQuasar()
-
-    const fetchWarpHistory = async() => {
-        try {
-            $q.loading.show()
-            await trackerStore.fetchWarpHistory(bannerType.value)
-            notifySuccess('Fetched latest warp history')
-        } catch (err) {
-            const errMsg = (err instanceof Error) ? err.message : String(err)
-            const stack = (err instanceof Error) ? err.stack : undefined
-
-            switch (true) {
-                case errMsg.startsWith('(-101)'):
-                    $q.dialog({
-                        title: 'Authentication Key Expired',
-                        message: 'Please check your in-game Warp Records to generate a new authentication key',
-                        persistent: true,
-                    })
-                    break
-
-                case errMsg.startsWith('Failed to find authKey'):
-                    $q.dialog({
-                        title: 'Authentication Key Missing',
-                        message: 'Please check your in-game Warp Records to generate a new authentication key',
-                        persistent: true,
-                    })
-                    break
-
-                default:
-                    notifyError(errMsg, stack)
-            }
-        } finally {
-            $q.loading.hide()
+    const handleRes = (res: IpcActionResult, successMsg: string) => {
+        if (res.success) {
+            notifySuccess(successMsg)
+        } else if (!res.errMsg) {
+            notifyError(res.errTitle, res.errStack)
+        } else {
+            $q.dialog({
+                title: res.errTitle,
+                message: res.errMsg,
+                persistent: true,
+            })
         }
     }
 
-    const clearWarpHistory = () => {
-        const clear = async() => {
+    const refreshHistory = () => {
+        const run = async() => {
             $q.loading.show()
-            await trackerStore.clearWarpHistory(bannerType.value)
+            const res = await trackerStore.refreshWarpHistory(bannerType.value)
             $q.loading.hide()
-            notifySuccess('Cleared local data')
+            handleRes(res, 'Fetched latest warp history')
+        }
+
+        void run()
+    }
+
+    const clearHistory = () => {
+        const run = async() => {
+            $q.loading.show()
+            const res = await trackerStore.clearWarpHistory(bannerType.value)
+            $q.loading.hide()
+            handleRes(res, 'Cleared local data')
         }
 
         $q.dialog({
@@ -56,12 +47,12 @@ export function useWarpHistory(bannerType: Ref<GachaBannerType>) {
             message: 'Are you sure you wish to clear your warp history for this banner?',
             cancel: true,
         }).onOk(() => {
-            void clear()
+            void run()
         })
     }
 
     return {
-        fetchWarpHistory,
-        clearWarpHistory,
+        refreshHistory,
+        clearHistory,
     }
 }

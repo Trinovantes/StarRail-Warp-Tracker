@@ -38,7 +38,7 @@ export const useTrackerStore = defineStore('Tracker', {
             for (const gachaBanner of ALL_GACHA_BANNERS) {
                 const res = await window.api[WARP_TRACKER_IPC_ACTION.GET_WARPS](gachaBanner.type)
                 if (!res.success) {
-                    throw new Error(res.message)
+                    throw new Error(res.errMsg)
                 }
 
                 this.warps[gachaBanner.type] = res.data
@@ -59,22 +59,22 @@ export const useTrackerStore = defineStore('Tracker', {
             return allWarps.sort((a, b) => b.pulledAt.localeCompare(a.pulledAt))
         },
 
-        async clearWarpHistory(bannerType: GachaBannerType): Promise<void> {
+        async clearWarpHistory(bannerType: GachaBannerType) {
             const res = await window.api[WARP_TRACKER_IPC_ACTION.CLEAR_WARPS](bannerType)
-            if (!res.success) {
-                throw new Error(res.message)
+            if (res.success) {
+                this.warps[bannerType] = null
             }
 
-            this.warps[bannerType] = null
+            return res
         },
 
-        async fetchWarpHistory(bannerType: GachaBannerType): Promise<void> {
+        async refreshWarpHistory(bannerType: GachaBannerType) {
             const res = await window.api[WARP_TRACKER_IPC_ACTION.REFRESH_WARPS](bannerType)
-            if (!res.success) {
-                throw new Error(res.message)
+            if (res.success) {
+                this.warps[bannerType] = res.data
             }
 
-            this.warps[bannerType] = res.data
+            return res
         },
     },
 })
