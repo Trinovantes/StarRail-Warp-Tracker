@@ -1,5 +1,5 @@
 import { isLimitedBanner5Star } from '@/common/StarRail'
-import type { Warp } from '@/main/db/models/Warp'
+import type { Warp } from '@/common/db/models/Warp'
 
 export type BannerWarp = Warp & {
     pity: number

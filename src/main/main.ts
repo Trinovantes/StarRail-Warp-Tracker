@@ -6,9 +6,8 @@ import { setupErrorHandlers } from './setup/setupErrorHandlers'
 import path from 'node:path'
 import { app } from 'electron'
 import { DB_FILE, DB_MEMORY } from '@/common/Constants'
-import { createDb } from './db/createDb'
-import { getMigrations } from './db/getMigrations'
-import { migrateDb } from './db/migrateDb'
+import { createDb } from '@/common/db/createDb'
+import { getMigrations } from '@/common/db/getMigrations'
 import cfg from 'electron-cfg'
 import { IpcActionHandler, registerIpcActionHandlers } from './ipc/registerIpcActionHandlers'
 import { createDebugIpcActionHandlers } from './ipc/Debug/DebugIpcActionHandlers'
@@ -38,9 +37,12 @@ async function main() {
     const dbFilePath = DEFINE.IS_DEV ? DB_MEMORY : cfg.get('DATABASE_FILE_PATH', defaultDbFilePath) as string
     mainLogger.info(`Database saved to "${dbFilePath}"`)
 
-    const { db } = createDb(dbFilePath, true, mainLogger, dbLogger)
-    const migrations = getMigrations()
-    await migrateDb(db, migrations, mainLogger)
+    const migrations = await getMigrations()
+    const db = await createDb(dbFilePath, {
+        cleanOnExit: true,
+        migrations,
+        logger: dbLogger,
+    })
 
     // ------------------------------------------------------------------------
     // Register ipc handlers

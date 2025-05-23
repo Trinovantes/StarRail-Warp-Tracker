@@ -1,5 +1,5 @@
 import { APP_NAME } from '@/common/Constants'
-import { Warp } from '@/main/db/models/Warp'
+import { Warp } from '@/common/db/models/Warp'
 import { LogFunctions } from 'electron-log'
 import { BannerId, ItemId, Rarity, UserId, GachaBannerType, WarpId, ALL_GACHA_BANNERS, ALL_GACHA_ITEM_TYPES } from '@/common/StarRail'
 import { Type, Static } from '@sinclair/typebox'

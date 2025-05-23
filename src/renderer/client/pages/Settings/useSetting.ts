@@ -1,4 +1,4 @@
-import { SettingKey } from '@/main/db/models/SettingKey'
+import { SettingKey } from '@/common/db/models/SettingKey'
 import { SETTING_IPC_ACTION } from '@/main/ipc/Setting/SettingIpcAction'
 import { onMounted, ref } from 'vue'
 

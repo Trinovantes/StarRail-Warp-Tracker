@@ -1,6 +1,6 @@
 import { InferInsertModel, InferSelectModel, desc, sql } from 'drizzle-orm'
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core'
-import { DrizzleClient } from '@/main/db/createDb'
+import { DrizzleClient } from '@/common/db/createDb'
 import { BannerId, ItemId, Rarity, UserId, GachaBannerType, WarpId, GachaItemType } from '@/common/StarRail'
 
 export const warpTable = sqliteTable('Warp', {

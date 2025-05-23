@@ -1,5 +1,5 @@
 import { DbFixtures, dbTest } from '../fixtures/dbTest'
-import { selectSetting } from '@/main/db/models/Setting'
+import { selectSetting } from '@/common/db/models/Setting'
 import { existsSync, statSync, createReadStream, Stats, ReadStream } from 'node:fs'
 import { Readable } from 'node:stream'
 import { expect, describe, vi, beforeEach } from 'vitest'

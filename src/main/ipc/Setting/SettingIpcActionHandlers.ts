@@ -1,8 +1,8 @@
-import { insertSetting, selectSetting } from '@/main/db/models/Setting'
-import { SettingKey } from '@/main/db/models/SettingKey'
+import { insertSetting, selectSetting } from '@/common/db/models/Setting'
+import { SettingKey } from '@/common/db/models/SettingKey'
 import { IpcMainInvokeEvent, dialog } from 'electron'
 import { SETTING_IPC_ACTION } from './SettingIpcAction'
-import { DrizzleClient } from '@/main/db/createDb'
+import { DrizzleClient } from '@/common/db/createDb'
 
 export function createSettingIpcActionHandlers(db: DrizzleClient) {
     return {

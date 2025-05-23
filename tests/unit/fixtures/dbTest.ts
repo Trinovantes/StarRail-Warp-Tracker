@@ -1,7 +1,7 @@
 import { DB_MEMORY } from '@/common/Constants'
-import { createDb } from '@/main/db/createDb'
-import { getMigrations } from '@/main/db/getMigrations'
-import { migrateDb } from '@/main/db/migrateDb'
+import { createDb, DrizzleClient } from '@/common/db/createDb'
+import { getMigrations } from '@/common/db/getMigrations'
+import { migrateDb } from '@/common/db/migrateDb'
 import { test } from 'vitest'
 
 type SqliteTableColumn = {
@@ -13,19 +13,19 @@ type SqliteTableColumn = {
 }
 
 export type DbFixtures = {
-    db: ReturnType<typeof createDb>['db']
+    db: DrizzleClient
     migrateToVersion: (version: number) => Promise<void>
     getTableColumns: (tableName: string) => Array<SqliteTableColumn>
 }
 
 export const dbTest = test.extend<DbFixtures>({
     db: async({}, use) => {
-        const dbHandle = createDb(DB_MEMORY, false)
-        await use(dbHandle.db)
+        const db = await createDb(DB_MEMORY)
+        await use(db)
     },
 
     migrateToVersion: async({ db }, use) => {
-        const migrations = getMigrations()
+        const migrations = await getMigrations()
         const migrateToVersion = async(version: number) => {
             await migrateDb(db, migrations.filter((migration) => parseInt(migration.version) <= version))
         }

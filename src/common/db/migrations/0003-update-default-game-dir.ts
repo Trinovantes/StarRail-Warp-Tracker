@@ -1,5 +1,5 @@
 import { sql } from 'drizzle-orm'
-import { Migration } from '../Migration'
+import { Migration } from '../migrateDb'
 import { getGameDir } from '@/main/ipc/WarpTracker/getGameDir'
 
 const migration: Migration = {

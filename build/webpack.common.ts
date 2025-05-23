@@ -39,9 +39,12 @@ const commonConfig: webpack.Configuration = {
         ],
     },
 
-    externals: {
-        'better-sqlite3': 'commonjs better-sqlite3',
-    },
+    externals: [
+        {
+            'better-sqlite3': 'commonjs better-sqlite3',
+        },
+        /^bun(:\w+)?/i,
+    ],
 }
 
 export default commonConfig
