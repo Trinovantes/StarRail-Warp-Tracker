@@ -1,5 +1,5 @@
 import { getCacheFilePath } from '@/main/ipc/WarpTracker/getCacheFilePath'
-import { Dirent, existsSync, readdirSync } from 'node:fs'
+import { existsSync, readdirSync } from 'node:fs'
 import { test, expect, describe, vi, beforeEach } from 'vitest'
 import path from 'upath'
 
@@ -19,11 +19,13 @@ vi.mock('fs', () => {
 
 beforeEach(() => {
     vi.mocked(existsSync).mockReturnValue(true)
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     vi.mocked(readdirSync).mockReturnValue([
         {
             isDirectory: () => true,
             name: '0.0.0.0',
-        } as unknown as Dirent,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } as any,
     ])
 })
 
@@ -72,11 +74,13 @@ test('when webCache is empty, it throws error', () => {
 })
 
 test('when webCache has cache with invalid version format, it throws error', () => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     vi.mocked(readdirSync).mockReturnValue([
         {
             isDirectory: () => true,
             name: '0.0',
-        } as unknown as Dirent,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } as any,
     ])
     expect(() => getCacheFilePath('anything', false)).toThrowError(/Invalid version/)
 })
