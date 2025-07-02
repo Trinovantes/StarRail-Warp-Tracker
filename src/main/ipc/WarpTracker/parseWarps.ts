@@ -33,14 +33,14 @@ export function parseWarps(warps: Array<Warp>): BannerHistory {
 
         // Assume 4-star and 5-star have separate pity counters
         if (warp.rarity === 5) {
-            const isLimited = isLimitedBanner5Star(warp.itemId)
+            const isLimited = isLimitedBanner5Star(warp.itemId, warp.bannerId)
 
             bannerWarp.pity = star5Pity
             bannerWarp.isLimited = isLimited
             bannerWarp.isGuaranteed = next5StarIsGuaranteed
 
             star5Pity = 0
-            next5StarIs5050 = isLimitedBanner5Star(warp.itemId)
+            next5StarIs5050 = isLimited
             next5StarIsGuaranteed = !next5StarIs5050
         }
         if (warp.rarity === 4) {

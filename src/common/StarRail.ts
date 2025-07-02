@@ -58,7 +58,7 @@ export function getMaxBannerPity(bannerType: GachaBannerType): number {
     throw new Error(`Invalid bannerType:${bannerType}`)
 }
 
-export function isLimitedBanner5Star(itemId: ItemId): boolean {
+export function isLimitedBanner5Star(itemId: ItemId, bannerId: BannerId): boolean {
     // Characters
     switch (itemId) {
         case '1003': // Himeko
@@ -81,6 +81,35 @@ export function isLimitedBanner5Star(itemId: ItemId): boolean {
         case '23012': // Yanqing
         case '23013': // Bailu
             return false
+    }
+
+    // Old limited characters added to loss pool don't count as limited when not on their banners
+    if (itemId === '1102') { // Seele
+        switch (bannerId) {
+            case '2003':
+            case '2013':
+                return true
+        }
+
+        return false
+    }
+    if (itemId === '1205') { // Blade
+        switch (bannerId) {
+            case '2007':
+            case '2018':
+                return true
+        }
+
+        return false
+    }
+    if (itemId === '1208') { // Fu Xuan
+        switch (bannerId) {
+            case '2010':
+            case '2032':
+                return true
+        }
+
+        return false
     }
 
     return true
