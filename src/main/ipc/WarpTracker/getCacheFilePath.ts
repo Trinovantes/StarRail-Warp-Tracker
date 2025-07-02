@@ -1,8 +1,8 @@
-import { LogFunctions } from 'electron-log'
+import { DbLogger } from '@/common/db/createDb'
 import { existsSync, readdirSync } from 'node:fs'
 import path from 'upath'
 
-export function getCacheFilePath(gameDir: string, isWsl: boolean, logger?: LogFunctions): string {
+export function getCacheFilePath(gameDir: string, isWsl: boolean, logger?: DbLogger): string {
     // Change to posix paths (node can accept posix path on windows)
     gameDir = path.normalizeSafe(gameDir)
 

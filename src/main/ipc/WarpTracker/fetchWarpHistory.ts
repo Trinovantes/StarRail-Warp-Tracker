@@ -1,10 +1,10 @@
 import { APP_NAME } from '@/common/Constants'
 import { Warp } from '@/common/db/models/Warp'
-import { LogFunctions } from 'electron-log'
 import { BannerId, ItemId, Rarity, UserId, GachaBannerType, WarpId, ALL_GACHA_BANNERS, ALL_GACHA_ITEM_TYPES } from '@/common/StarRail'
 import { Type, Static } from '@sinclair/typebox'
 import { Value, ValueError } from '@sinclair/typebox/value'
 import { ExpiredAuthKeyError } from '@/common/node/ExpectedError'
+import { DbLogger } from '@/common/db/createDb'
 
 // ----------------------------------------------------------------------------
 // Response Validation
@@ -58,7 +58,7 @@ function getWarpHistoryResponseValidationErrors(obj: unknown): Array<ValueError>
 // Export
 // ----------------------------------------------------------------------------
 
-export async function fetchWarpHistory(logger: LogFunctions, bannerType: GachaBannerType, authKey: string, endId?: string): Promise<Array<Warp>> {
+export async function fetchWarpHistory(logger: DbLogger, bannerType: GachaBannerType, authKey: string, endId?: string): Promise<Array<Warp>> {
     const url = new URL('https://public-operation-hkrpg-sg.hoyoverse.com/common/gacha_record/api/getGachaLog')
     url.searchParams.append('size', '20')
     url.searchParams.append('game_biz', 'hkrpg_global')

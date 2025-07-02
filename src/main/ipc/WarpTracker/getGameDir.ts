@@ -1,11 +1,11 @@
 import { DEFAULT_GAME_DIR } from '@/common/Constants'
+import { DbLogger } from '@/common/db/createDb'
 import appDirs from 'appdirsjs'
-import { LogFunctions } from 'electron-log'
 import { existsSync, statSync, createReadStream } from 'node:fs'
 import path from 'node:path'
 import readline from 'node:readline'
 
-export async function getGameDir(isWsl: boolean, logger?: LogFunctions): Promise<string> {
+export async function getGameDir(isWsl: boolean, logger?: DbLogger): Promise<string> {
     const appDataDir = appDirs({ appName: DEFINE.APP_PRODUCT_NAME }).config
     const logDirs = [
         '../../LocalLow/Cognosphere/Star Rail', // Global
@@ -29,7 +29,7 @@ export async function getGameDir(isWsl: boolean, logger?: LogFunctions): Promise
     return DEFAULT_GAME_DIR
 }
 
-async function parsePlayerLog(filePath: string, logger?: LogFunctions): Promise<string> {
+async function parsePlayerLog(filePath: string, logger?: DbLogger): Promise<string> {
     const fileStream = createReadStream(filePath, { encoding: 'utf-8' })
     const readInterface = readline.createInterface({
         input: fileStream,

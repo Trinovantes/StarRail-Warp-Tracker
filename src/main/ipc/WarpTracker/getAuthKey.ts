@@ -1,11 +1,11 @@
 import { readFileSync } from 'node:fs'
 import { getCacheFilePath } from './getCacheFilePath'
-import { LogFunctions } from 'electron-log'
 import { MissingAuthKeyError } from '@/common/node/ExpectedError'
+import { DbLogger } from '@/common/db/createDb'
 
 const gachaLogRe = /https:\/\/.+\.(mihoyo|hoyoverse)\.com\/common\/gacha_record\/api\/getGachaLog[^\0]*/g
 
-export function getAuthKey(gameDir: string, isWsl: boolean, logger?: LogFunctions): string {
+export function getAuthKey(gameDir: string, isWsl: boolean, logger?: DbLogger): string {
     const cacheFile = getCacheFilePath(gameDir, isWsl)
     const contents = readFileSync(cacheFile).toString('utf-8')
 

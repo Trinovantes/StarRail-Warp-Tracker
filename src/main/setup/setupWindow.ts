@@ -4,7 +4,7 @@ import { app, BrowserWindow } from 'electron'
 import cfg from 'electron-cfg'
 import contextMenu from 'electron-context-menu'
 import { isSafeUrl } from '@/common/utils/isSafeUrl'
-import { LogFunctions } from 'electron-log'
+import { DbLogger } from '@/common/db/createDb'
 
 contextMenu({
     showLearnSpelling: false,
@@ -20,7 +20,7 @@ contextMenu({
 // Based on https://github.com/reZach/secure-electron-template/blob/master/app/electron/main.js
 export let mainWindow: BrowserWindow | null
 
-export function setupWindow(logger: LogFunctions): void {
+export function setupWindow(logger: DbLogger): void {
     function loadMainWindow() {
         logger.info('Opening mainWindow')
 

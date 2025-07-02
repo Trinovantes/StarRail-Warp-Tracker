@@ -2,16 +2,15 @@ import { getAuthKey } from './getAuthKey'
 import { selectSetting } from '@/common/db/models/Setting'
 import { fetchWarpHistory } from './fetchWarpHistory'
 import { GachaBannerType, WarpId } from '@/common/StarRail'
-import { LogFunctions } from 'electron-log'
 import { FETCH_DELAY } from '@/common/Constants'
 import { sleep } from '@/common/utils/sleep'
 import { deleteWarps, existsWarp, insertWarp, selectWarps } from '@/common/db/models/Warp'
 import { IpcMainInvokeEvent } from 'electron'
 import { parseWarps } from './parseWarps'
-import { DrizzleClient } from '@/common/db/createDb'
+import { DbLogger, DrizzleClient } from '@/common/db/createDb'
 import { WARP_TRACKER_IPC_ACTION } from './WarpTrackerIpcAction'
 
-export function createWarpTrackerIpcActionHandlers(logger: LogFunctions, db: DrizzleClient) {
+export function createWarpTrackerIpcActionHandlers(logger: DbLogger, db: DrizzleClient) {
     return {
         [WARP_TRACKER_IPC_ACTION.CLEAR_WARPS](event: IpcMainInvokeEvent, bannerType: GachaBannerType) {
             return deleteWarps(db, bannerType)
