@@ -25,7 +25,7 @@ type InsertModel = InferInsertModel<typeof warpTable>
 // Helpers
 // ----------------------------------------------------------------------------
 
-export function existsWarp(db: DrizzleClient, id?: WarpId): boolean {
+export function existsWarp(db: DrizzleClient, id: WarpId | null): boolean {
     if (!id) {
         return false
     }

@@ -1,10 +1,13 @@
-import { APP_NAME } from '@/common/Constants'
-import { Warp } from '@/common/db/models/Warp'
+import { APP_NAME, FETCH_DELAY } from '@/common/Constants'
+import { existsWarp, insertWarp, Warp } from '@/common/db/models/Warp'
 import { BannerId, ItemId, Rarity, UserId, GachaBannerType, WarpId, ALL_GACHA_BANNERS, ALL_GACHA_ITEM_TYPES } from '@/common/StarRail'
 import { Type, Static } from '@sinclair/typebox'
 import { Value, ValueError } from '@sinclair/typebox/value'
 import { ExpiredAuthKeyError } from '@/common/node/ExpectedError'
-import { DbLogger } from '@/common/db/createDb'
+import { DbLogger, DrizzleClient } from '@/common/db/createDb'
+import { selectSetting } from '@/common/db/models/Setting'
+import { getAuthKey } from './getAuthKey'
+import { sleep } from '@/common/utils/sleep'
 
 // ----------------------------------------------------------------------------
 // Response Validation
@@ -55,10 +58,46 @@ function getWarpHistoryResponseValidationErrors(obj: unknown): Array<ValueError>
 }
 
 // ----------------------------------------------------------------------------
-// Export
+// Fetch
 // ----------------------------------------------------------------------------
 
-export async function fetchWarpHistory(logger: DbLogger, bannerType: GachaBannerType, authKey: string, endId?: string): Promise<Array<Warp>> {
+export async function fetchWarpHistory(db: DrizzleClient, bannerType: GachaBannerType, logger?: DbLogger) {
+    const gameDir = selectSetting(db, 'GAME_INSTALL_DIR')
+    if (!gameDir) {
+        const errMsg = 'Missing game install directory setting'
+        logger?.warn(errMsg)
+        throw new Error(errMsg)
+    }
+
+    const isWsl = Boolean(process.env.WSL_DISTRO_NAME)
+    const authKey = getAuthKey(gameDir, isWsl, logger)
+
+    let endId: WarpId | null = null
+    while (true) {
+        const warps = await fetchWarps(bannerType, authKey, endId, logger)
+
+        // If last id already exists in db, then we can stop fetching
+        endId = warps.at(-1)?.id ?? null
+        const canStop = existsWarp(db, endId)
+        logger?.info(`Fetched ${warps.length} Warp Records endId:${endId} lastWarpAlreadySaved:${canStop}`)
+
+        // Always save results (ignores conflicts)
+        for (const warp of warps) {
+            insertWarp(db, warp)
+        }
+
+        if (warps.length === 0) {
+            break
+        }
+        if (canStop) {
+            break
+        }
+
+        await sleep(FETCH_DELAY)
+    }
+}
+
+async function fetchWarps(bannerType: GachaBannerType, authKey: string, endId: WarpId | null, logger?: DbLogger): Promise<Array<Warp>> {
     const url = new URL('https://public-operation-hkrpg-sg.hoyoverse.com/common/gacha_record/api/getGachaLog')
     url.searchParams.append('size', '20')
     url.searchParams.append('game_biz', 'hkrpg_global')

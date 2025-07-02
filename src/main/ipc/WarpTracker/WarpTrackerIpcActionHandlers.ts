@@ -1,10 +1,6 @@
-import { getAuthKey } from './getAuthKey'
-import { selectSetting } from '@/common/db/models/Setting'
 import { fetchWarpHistory } from './fetchWarpHistory'
-import { GachaBannerType, WarpId } from '@/common/StarRail'
-import { FETCH_DELAY } from '@/common/Constants'
-import { sleep } from '@/common/utils/sleep'
-import { deleteWarps, existsWarp, insertWarp, selectWarps } from '@/common/db/models/Warp'
+import { GachaBannerType } from '@/common/StarRail'
+import { deleteWarps, selectWarps } from '@/common/db/models/Warp'
 import { IpcMainInvokeEvent } from 'electron'
 import { parseWarps } from './parseWarps'
 import { DbLogger, DrizzleClient } from '@/common/db/createDb'
@@ -22,41 +18,7 @@ export function createWarpTrackerIpcActionHandlers(logger: DbLogger, db: Drizzle
         },
 
         async [WARP_TRACKER_IPC_ACTION.REFRESH_WARPS](event: IpcMainInvokeEvent, bannerType: GachaBannerType) {
-            const gameDir = selectSetting(db, 'GAME_INSTALL_DIR')
-            if (!gameDir) {
-                const errMsg = 'Missing game install directory setting'
-                logger.warn(errMsg)
-                throw new Error(errMsg)
-            }
-
-            const isWsl = Boolean(process.env.WSL_DISTRO_NAME)
-            const authKey = getAuthKey(gameDir, isWsl, logger)
-
-            let endId: WarpId | undefined
-            while (true) {
-                const warps = await fetchWarpHistory(logger, bannerType, authKey, endId)
-
-                // Save search state before inserting
-                endId = warps.at(-1)?.id
-                const lastWarpAlreadySaved = existsWarp(db, endId)
-
-                logger.info(`Fetched ${warps.length} Warp Records endId:${endId} lastWarpAlreadySaved:${lastWarpAlreadySaved}`)
-
-                // Always save results (ignores conflicts)
-                for (const warp of warps) {
-                    insertWarp(db, warp)
-                }
-
-                if (warps.length === 0) {
-                    break
-                }
-                if (lastWarpAlreadySaved) {
-                    break
-                }
-
-                await sleep(FETCH_DELAY)
-            }
-
+            await fetchWarpHistory(db, bannerType, logger)
             const warps = selectWarps(db, bannerType)
             return parseWarps(warps)
         },
