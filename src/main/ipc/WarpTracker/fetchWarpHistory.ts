@@ -1,6 +1,6 @@
 import { APP_NAME, FETCH_DELAY } from '@/common/Constants'
 import { existsWarp, insertWarp, Warp } from '@/common/db/models/Warp'
-import { BannerId, ItemId, Rarity, UserId, GachaBannerType, WarpId, ALL_GACHA_BANNERS, ALL_GACHA_ITEM_TYPES } from '@/common/StarRail'
+import { BannerId, ItemId, Rarity, UserId, GachaBannerType, WarpId, ALL_GACHA_BANNERS, ALL_GACHA_ITEM_TYPES, GACHA_BANNER_TYPE_COLLAB_CHARACTER, GACHA_BANNER_TYPE_COLLAB_LIGHT_CONE } from '@/common/StarRail'
 import { Type, Static } from '@sinclair/typebox'
 import { Value, ValueError } from '@sinclair/typebox/value'
 import { ExpiredAuthKeyError } from '@/common/node/ExpectedError'
@@ -78,8 +78,8 @@ export async function fetchWarpHistory(db: DrizzleClient, bannerType: GachaBanne
 
         // If last id already exists in db, then we can stop fetching
         endId = warps.at(-1)?.id ?? null
-        const canStop = existsWarp(db, endId)
-        logger?.info(`Fetched ${warps.length} Warp Records endId:${endId} lastWarpAlreadySaved:${canStop}`)
+        const lastWarpAlreadySaved = existsWarp(db, endId)
+        logger?.info(`Fetched ${warps.length} Warp Records endId:${endId} lastWarpAlreadySaved:${lastWarpAlreadySaved}`)
 
         // Always save results (ignores conflicts)
         for (const warp of warps) {
@@ -89,7 +89,7 @@ export async function fetchWarpHistory(db: DrizzleClient, bannerType: GachaBanne
         if (warps.length === 0) {
             break
         }
-        if (canStop) {
+        if (lastWarpAlreadySaved) {
             break
         }
 
@@ -98,7 +98,7 @@ export async function fetchWarpHistory(db: DrizzleClient, bannerType: GachaBanne
 }
 
 async function fetchWarps(bannerType: GachaBannerType, authKey: string, endId: WarpId | null, logger?: DbLogger): Promise<Array<Warp>> {
-    const url = new URL('https://public-operation-hkrpg-sg.hoyoverse.com/common/gacha_record/api/getGachaLog')
+    const url = new URL(getGachaLogUrl(bannerType))
     url.searchParams.append('size', '20')
     url.searchParams.append('game_biz', 'hkrpg_global')
     url.searchParams.append('lang', 'en')
@@ -182,4 +182,15 @@ async function fetchWarps(bannerType: GachaBannerType, authKey: string, endId: W
             pulledAt: time,
         }
     })
+}
+
+function getGachaLogUrl(bannerType: GachaBannerType): string {
+    switch (bannerType) {
+        case GACHA_BANNER_TYPE_COLLAB_CHARACTER:
+        case GACHA_BANNER_TYPE_COLLAB_LIGHT_CONE:
+            return 'https://public-operation-hkrpg-sg.hoyoverse.com/common/gacha_record/api/getLdGachaLog'
+
+        default:
+            return 'https://public-operation-hkrpg-sg.hoyoverse.com/common/gacha_record/api/getGachaLog'
+    }
 }

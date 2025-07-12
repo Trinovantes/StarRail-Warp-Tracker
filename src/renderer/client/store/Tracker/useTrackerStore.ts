@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ALL_GACHA_BANNERS, GACHA_BANNER_TYPE_BEGINNER, GACHA_BANNER_TYPE_LIMITED_CHARACTER, GACHA_BANNER_TYPE_LIMITED_LIGHT_CONE, GACHA_BANNER_TYPE_STANDARD, GachaBannerType } from '@/common/StarRail'
+import { ALL_GACHA_BANNERS, GACHA_BANNER_TYPE_BEGINNER, GACHA_BANNER_TYPE_COLLAB_CHARACTER, GACHA_BANNER_TYPE_COLLAB_LIGHT_CONE, GACHA_BANNER_TYPE_LIMITED_CHARACTER, GACHA_BANNER_TYPE_LIMITED_LIGHT_CONE, GACHA_BANNER_TYPE_STANDARD, GachaBannerType } from '@/common/StarRail'
 import { BannerHistory, BannerWarp } from '@/main/ipc/WarpTracker/parseWarps'
 import { WARP_TRACKER_IPC_ACTION } from '@/main/ipc/WarpTracker/WarpTrackerIpcAction'
 
@@ -18,6 +18,8 @@ function createTrackerStore(): TrackerState {
             [GACHA_BANNER_TYPE_BEGINNER]: null,
             [GACHA_BANNER_TYPE_LIMITED_CHARACTER]: null,
             [GACHA_BANNER_TYPE_LIMITED_LIGHT_CONE]: null,
+            [GACHA_BANNER_TYPE_COLLAB_CHARACTER]: null,
+            [GACHA_BANNER_TYPE_COLLAB_LIGHT_CONE]: null,
         },
     }
 

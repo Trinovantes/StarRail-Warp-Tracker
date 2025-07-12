@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { GACHA_BANNER_TYPE_LIMITED_CHARACTER, GACHA_BANNER_TYPE_LIMITED_LIGHT_CONE, GachaBannerType, getMaxBannerPity } from '@/common/StarRail'
+import { GACHA_BANNER_TYPE_COLLAB_CHARACTER, GACHA_BANNER_TYPE_COLLAB_LIGHT_CONE, GACHA_BANNER_TYPE_LIMITED_CHARACTER, GACHA_BANNER_TYPE_LIMITED_LIGHT_CONE, GachaBannerType, getMaxBannerPity } from '@/common/StarRail'
 
 const props = withDefaults(defineProps<{
     bannerType: GachaBannerType
@@ -29,15 +29,15 @@ const props = withDefaults(defineProps<{
             <strong>{{ star4Pity }} / 10</strong>
 
             <div
-                v-if="bannerType === GACHA_BANNER_TYPE_LIMITED_CHARACTER || bannerType === GACHA_BANNER_TYPE_LIMITED_LIGHT_CONE"
+                v-if="bannerType === GACHA_BANNER_TYPE_LIMITED_CHARACTER || bannerType === GACHA_BANNER_TYPE_LIMITED_LIGHT_CONE || bannerType === GACHA_BANNER_TYPE_COLLAB_CHARACTER || bannerType === GACHA_BANNER_TYPE_COLLAB_LIGHT_CONE"
                 class="next5star"
             >
                 <strong v-if="nextIs5050" class="not-guaranteed">
                     Next 5 Star is
-                    <template v-if="bannerType === GACHA_BANNER_TYPE_LIMITED_CHARACTER">
+                    <template v-if="bannerType === GACHA_BANNER_TYPE_LIMITED_CHARACTER || bannerType === GACHA_BANNER_TYPE_COLLAB_CHARACTER">
                         50/50
                     </template>
-                    <template v-else-if="bannerType === GACHA_BANNER_TYPE_LIMITED_LIGHT_CONE">
+                    <template v-else-if="bannerType === GACHA_BANNER_TYPE_LIMITED_LIGHT_CONE || bannerType === GACHA_BANNER_TYPE_COLLAB_LIGHT_CONE">
                         75/25
                     </template>
                 </strong>

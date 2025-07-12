@@ -19,6 +19,8 @@ export const GACHA_BANNER_TYPE_STANDARD = '1' as GachaBannerType
 export const GACHA_BANNER_TYPE_BEGINNER = '2' as GachaBannerType
 export const GACHA_BANNER_TYPE_LIMITED_CHARACTER = '11' as GachaBannerType
 export const GACHA_BANNER_TYPE_LIMITED_LIGHT_CONE = '12' as GachaBannerType
+export const GACHA_BANNER_TYPE_COLLAB_CHARACTER = '21' as GachaBannerType
+export const GACHA_BANNER_TYPE_COLLAB_LIGHT_CONE = '22' as GachaBannerType
 
 export const ALL_GACHA_BANNERS = [
     {
@@ -32,6 +34,18 @@ export const ALL_GACHA_BANNERS = [
         label: 'Light Cone',
         caption: 'Limited banner',
         icon: 'confirmation_number',
+    },
+    {
+        type: GACHA_BANNER_TYPE_COLLAB_CHARACTER,
+        label: 'Collab Character',
+        caption: 'Limited banner',
+        icon: 'group',
+    },
+    {
+        type: GACHA_BANNER_TYPE_COLLAB_LIGHT_CONE,
+        label: 'Collab Light Cone',
+        caption: 'Limited banner',
+        icon: 'tornado',
     },
     {
         type: GACHA_BANNER_TYPE_BEGINNER,
@@ -53,6 +67,8 @@ export function getMaxBannerPity(bannerType: GachaBannerType): number {
         case GACHA_BANNER_TYPE_BEGINNER: return 50
         case GACHA_BANNER_TYPE_LIMITED_CHARACTER: return 90
         case GACHA_BANNER_TYPE_LIMITED_LIGHT_CONE: return 80
+        case GACHA_BANNER_TYPE_COLLAB_CHARACTER: return 90
+        case GACHA_BANNER_TYPE_COLLAB_LIGHT_CONE: return 80
     }
 
     throw new Error(`Invalid bannerType:${bannerType}`)
