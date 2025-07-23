@@ -113,6 +113,7 @@ export function isLimitedBanner5Star(itemId: ItemId, bannerId: BannerId): boolea
         switch (bannerId) {
             case '2007':
             case '2018':
+            case '2083':
                 return true
         }
 
