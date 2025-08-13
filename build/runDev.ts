@@ -44,6 +44,9 @@ const DEBUG_PORT = 5858
 function compileRenderer(): Promise<void> {
     return new Promise((resolve, reject) => {
         const webpackCompiler = webpack(rendererConfig)
+        if (!webpackCompiler) {
+            return reject(new Error('Failed to init webpack'))
+        }
 
         webpackCompiler.hooks.watchRun.tapAsync(PLUGIN_NAME, (compiler, cb) => {
             console.info('Compiling', rendererConfig.name, JSON.stringify(compiler.options.entry))
@@ -79,6 +82,9 @@ function compileRenderer(): Promise<void> {
 function compileMain(config: Configuration): Promise<void> {
     return new Promise((resolve, reject) => {
         const webpackCompiler = webpack(config)
+        if (!webpackCompiler) {
+            return reject(new Error('Failed to init webpack'))
+        }
 
         webpackCompiler.hooks.watchRun.tapAsync(PLUGIN_NAME, (compiler: Compiler, cb: () => void) => {
             console.info('Compiling', config.name, JSON.stringify(compiler.options.entry))
