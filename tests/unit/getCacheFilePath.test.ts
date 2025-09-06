@@ -1,7 +1,7 @@
-import { getCacheFilePath } from '@/main/ipc/WarpTracker/getCacheFilePath'
 import { existsSync, readdirSync } from 'node:fs'
 import { test, expect, describe, vi, beforeEach } from 'vitest'
 import path from 'upath'
+import { getCacheFilePath } from '../../src/main/ipc/WarpTracker/getCacheFilePath.ts'
 
 const mocks = vi.hoisted(() => {
     return {
@@ -24,7 +24,7 @@ beforeEach(() => {
         {
             isDirectory: () => true,
             name: '0.0.0.0',
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } as any,
     ])
 })
@@ -79,7 +79,7 @@ test('when webCache has cache with invalid version format, it throws error', () 
         {
             isDirectory: () => true,
             name: '0.0',
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } as any,
     ])
     expect(() => getCacheFilePath('anything', false)).toThrowError(/Invalid version/)

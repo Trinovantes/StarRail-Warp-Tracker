@@ -1,6 +1,6 @@
 import { ipcRenderer, contextBridge } from 'electron'
-import { IpcActionResult } from './ipc/registerIpcActionHandlers'
-import { IPC_ACTIONS, IPC_EVENTS } from './ipc'
+import type { IpcActionResult } from './ipc/registerIpcActionHandlers.ts'
+import { IPC_ACTIONS, IPC_EVENTS } from './ipc/index.ts'
 
 const exposeHandlers = () => {
     const exposedAsyncActions: Record<string, (...args: Array<unknown>) => Promise<IpcActionResult<unknown>>> = {}

@@ -1,11 +1,11 @@
 import { sql } from 'drizzle-orm'
-import { Migration } from '../migrateDb'
-import { getGameDir } from '@/main/ipc/WarpTracker/getGameDir'
+import type { Migration } from '../migrateDb.ts'
+import { getGameDir } from '../../../main/ipc/WarpTracker/getGameDir.ts'
 
 const migration: Migration = {
     version: '0003' as const,
 
-    run: async(transaction) => {
+    run: async (transaction) => {
         const isWsl = Boolean(process.env.WSL_DISTRO_NAME)
         const gameDir = await getGameDir(isWsl)
 

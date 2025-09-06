@@ -1,4 +1,4 @@
-import { Brand } from '@/@types/Brand'
+import type { Brand } from '../@types/Brand.ts'
 
 export type WarpId = Brand<string, 'WarpId'>
 export type UserId = Brand<string, 'UserId'>

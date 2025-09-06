@@ -1,4 +1,4 @@
-import { RouteLocationNormalized } from 'vue-router'
+import type { RouteLocationNormalized } from 'vue-router'
 
 export function parseRouteArg(route: RouteLocationNormalized, component: 'params' | 'query', key: string): string | null {
     const val = route[component][key]

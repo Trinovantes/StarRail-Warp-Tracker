@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs'
-import { getCacheFilePath } from './getCacheFilePath'
-import { MissingAuthKeyError } from '@/common/node/ExpectedError'
-import { DbLogger } from '@/common/db/createDb'
+import { getCacheFilePath } from './getCacheFilePath.ts'
+import type { DbLogger } from '../../../common/db/createDb.ts'
+import { MissingAuthKeyError } from '../../../common/node/ExpectedError.ts'
 
 const gachaLogRe = /https:\/\/.+\.(mihoyo|hoyoverse)\.com\/common\/gacha_record\/api\/(getGachaLog|getLdGachaLog)[^\0]*/g
 

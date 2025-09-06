@@ -1,6 +1,6 @@
 import type { IpcRendererEvent } from 'electron'
-import type { IpcEventMap, IpcHandlers } from '@/main/ipc'
-import type { IpcActionResult } from '@/main/ipc/registerIpcActionHandlers'
+import type { IpcActionResult } from '../main/ipc/registerIpcActionHandlers.ts'
+import type { IpcEventMap, IpcHandlers } from '../main/ipc/index.ts'
 
 type OmitFirstArg<Fn> = Fn extends (x: never, ...args: infer RestOfParams) => infer RetType
     ? (...args: RestOfParams) => RetType
@@ -11,15 +11,13 @@ type AddEventArg<Fn> = Fn extends (...args: infer Params) => infer RetType
     : never
 
 declare global {
-    const DEFINE: Readonly<{
-        IS_DEV: boolean
-        GIT_HASH: string
-        DEV_SERVER_PORT: number
-        APP_VERSION: string
-        APP_SLUG: string
-        APP_PRODUCT_NAME: string
-        APP_HOMEPAGE: string
-    }>
+    const __IS_DEV__: boolean
+    const __GIT_HASH__: string
+    const __DEV_SERVER_PORT__: number
+    const __APP_VERSION__: string
+    const __APP_SLUG__: string
+    const __APP_PRODUCT_NAME__: string
+    const __APP_HOMEPAGE__: string
 
     // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     interface Window {

@@ -1,8 +1,8 @@
-import { DbFixtures, dbTest } from '../fixtures/dbTest'
-import { selectSetting } from '@/common/db/models/Setting'
+import { type DbFixtures, dbTest } from '../fixtures/dbTest.ts'
 import { existsSync, statSync, createReadStream, Stats, ReadStream } from 'node:fs'
 import { Readable } from 'node:stream'
 import { expect, describe, vi, beforeEach } from 'vitest'
+import { selectSetting } from '../../../src/common/db/models/Setting.ts'
 
 const testGameDir = 'D:/Somewhere/Star Rail/Games/StarRail_Data'
 
@@ -38,7 +38,7 @@ beforeEach(() => {
 })
 
 describe('0003', () => {
-    beforeEach<DbFixtures>(async({ migrateToVersion }) => {
+    beforeEach<DbFixtures>(async ({ migrateToVersion }) => {
         await migrateToVersion(3)
     })
 

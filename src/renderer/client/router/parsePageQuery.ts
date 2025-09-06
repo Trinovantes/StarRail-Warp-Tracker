@@ -1,5 +1,5 @@
-import { RouteLocationNormalized } from 'vue-router'
-import { parseRouteArg } from './parseRouteArg'
+import type { RouteLocationNormalized } from 'vue-router'
+import { parseRouteArg } from './parseRouteArg.ts'
 
 export function parsePageQuery(route: RouteLocationNormalized): number {
     const pageString = parseRouteArg(route, 'query', 'page')

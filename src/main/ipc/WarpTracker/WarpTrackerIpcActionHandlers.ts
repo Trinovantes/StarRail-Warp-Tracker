@@ -1,10 +1,10 @@
-import { fetchWarpHistory } from './fetchWarpHistory'
-import { GachaBannerType } from '@/common/StarRail'
-import { deleteWarps, selectWarps } from '@/common/db/models/Warp'
-import { IpcMainInvokeEvent } from 'electron'
-import { parseWarps } from './parseWarps'
-import { DbLogger, DrizzleClient } from '@/common/db/createDb'
-import { WARP_TRACKER_IPC_ACTION } from './WarpTrackerIpcAction'
+import type { IpcMainInvokeEvent } from 'electron'
+import type { DbLogger, DrizzleClient } from '../../../common/db/createDb.ts'
+import { deleteWarps, selectWarps } from '../../../common/db/models/Warp.ts'
+import type { GachaBannerType } from '../../../common/StarRail.ts'
+import { fetchWarpHistory } from './fetchWarpHistory.ts'
+import { parseWarps } from './parseWarps.ts'
+import { WARP_TRACKER_IPC_ACTION } from './WarpTrackerIpcAction.ts'
 
 export function createWarpTrackerIpcActionHandlers(logger: DbLogger, db: DrizzleClient) {
     return {

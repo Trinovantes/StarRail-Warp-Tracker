@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { WINDOW_IPC_ACTION } from '@/main/ipc/Window/WindowIpcAction'
-import { APP_NAME, BUILD_INFO } from '@/common/Constants'
 import { onBeforeUnmount, onMounted, ref } from 'vue'
+import { WINDOW_IPC_ACTION } from '../../../main/ipc/Window/WindowIpcAction.ts'
+import { APP_NAME, BUILD_INFO } from '../../../common/Constants.ts'
 
 const maximizeIcon = ref('')
 const updateMaximizeIcon = () => {

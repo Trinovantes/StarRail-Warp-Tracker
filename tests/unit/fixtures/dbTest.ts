@@ -1,8 +1,8 @@
-import { DB_MEMORY } from '@/common/Constants'
-import { createDb, DrizzleClient } from '@/common/db/createDb'
-import { getMigrations } from '@/common/db/getMigrations'
-import { migrateDb } from '@/common/db/migrateDb'
 import { test } from 'vitest'
+import { DB_MEMORY } from '../../../src/common/Constants.ts'
+import { type DbLogger, type DrizzleClient, createDb } from '../../../src/common/db/createDb.ts'
+import { getMigrations } from '../../../src/common/db/getMigrations.ts'
+import { migrateDb } from '../../../src/common/db/migrateDb.ts'
 
 type SqliteTableColumn = {
     cid: number
@@ -13,27 +13,32 @@ type SqliteTableColumn = {
 }
 
 export type DbFixtures = {
+    logger?: DbLogger
     db: DrizzleClient
     migrateToVersion: (version: number) => Promise<void>
     getTableColumns: (tableName: string) => Array<SqliteTableColumn>
 }
 
 export const dbTest = test.extend<DbFixtures>({
-    db: async({}, use) => {
-        const db = await createDb(DB_MEMORY)
+    logger: async ({}, use) => {
+        await use(undefined)
+    },
+
+    db: async ({ logger }, use) => {
+        const db = await createDb(DB_MEMORY, { logger })
         await use(db)
     },
 
-    migrateToVersion: async({ db }, use) => {
+    migrateToVersion: async ({ db, logger }, use) => {
         const migrations = await getMigrations()
-        const migrateToVersion = async(version: number) => {
-            await migrateDb(db, migrations.filter((migration) => parseInt(migration.version) <= version))
+        const migrateToVersion = async (version: number) => {
+            await migrateDb(db, migrations.filter((migration) => parseInt(migration.version) <= version), { logger })
         }
 
         await use(migrateToVersion)
     },
 
-    getTableColumns: async({ db }, use) => {
+    getTableColumns: async ({ db }, use) => {
         const getTableColumns = (tableName: string) => {
             return db.all<SqliteTableColumn>(`PRAGMA table_info('${tableName}')`)
         }

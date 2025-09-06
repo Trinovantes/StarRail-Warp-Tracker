@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { JADES_PER_WARP, GachaBannerType, GACHA_BANNER_TYPE_LIMITED_CHARACTER, GACHA_BANNER_TYPE_LIMITED_LIGHT_CONE, GACHA_BANNER_TYPE_COLLAB_CHARACTER, GACHA_BANNER_TYPE_COLLAB_LIGHT_CONE } from '@/common/StarRail'
 import { computed } from 'vue'
-import { formatPercent } from './formatPercent'
-import { BannerWarp } from '@/main/ipc/WarpTracker/parseWarps'
+import { formatPercent } from './formatPercent.ts'
+import { GACHA_BANNER_TYPE_COLLAB_CHARACTER, GACHA_BANNER_TYPE_COLLAB_LIGHT_CONE, GACHA_BANNER_TYPE_LIMITED_CHARACTER, GACHA_BANNER_TYPE_LIMITED_LIGHT_CONE, type GachaBannerType, JADES_PER_WARP } from '../../../../common/StarRail.ts'
+import type { BannerWarp } from '../../../../main/ipc/WarpTracker/parseWarps.ts'
 
 const props = defineProps<{
     bannerType: GachaBannerType

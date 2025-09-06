@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { useSetting } from './useSetting'
+import { DEFAULT_GAME_DIR } from '../../../../common/Constants.ts'
+import { SETTING_IPC_ACTION } from '../../../../main/ipc/Setting/SettingIpcAction.ts'
+import { useSetting } from './useSetting.ts'
 import { useQuasar } from 'quasar'
-import { SETTING_IPC_ACTION } from '@/main/ipc/Setting/SettingIpcAction'
-import { DEFAULT_GAME_DIR } from '@/common/Constants'
 
 const gameDir = useSetting('GAME_INSTALL_DIR')
-const openGameDirPicker = async() => {
+const openGameDirPicker = async () => {
     const res = await window.api[SETTING_IPC_ACTION.SHOW_OPEN_DIALOG]({
         title: 'Select game data directory',
         defaultPath: DEFAULT_GAME_DIR,
@@ -23,7 +23,7 @@ const openGameDirPicker = async() => {
 }
 
 const $q = useQuasar()
-const onSubmit = async() => {
+const onSubmit = async () => {
     await gameDir.save()
 
     $q.notify({

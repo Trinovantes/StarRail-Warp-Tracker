@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { WINDOW_IPC_ACTION } from '@/main/ipc/Window/WindowIpcAction'
+import { WINDOW_IPC_ACTION } from '../../../../main/ipc/Window/WindowIpcAction.ts'
 
 const openGitHub = () => {
     void window.api[WINDOW_IPC_ACTION.OPEN_GITHUB]()

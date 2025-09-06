@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { FilterOption } from './FilterOption'
+import type { FilterOption } from './FilterOption.ts'
 
 // ----------------------------------------------------------------------------
 // State

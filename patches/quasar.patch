@@ -1,0 +1,15 @@
+diff --git a/package.json b/package.json
+index b40db517f4436f662b8e921b0f8664d446505328..d85515ca640f11487da5cd3a60c5da011e2fccf5 100644
+--- a/package.json
++++ b/package.json
+@@ -2,10 +2,6 @@
+   "name": "quasar",
+   "version": "2.18.5",
+   "description": "Build high-performance VueJS user interfaces (SPA, PWA, SSR, Mobile and Desktop) in record time",
+-  "type": "module",
+-  "module": "dist/quasar.client.js",
+-  "unpkg": "dist/quasar.umd.prod.js",
+-  "jsdelivr": "dist/quasar.umd.prod.js",
+   "typings": "dist/types/index.d.ts",
+   "files": [
+     "dist",

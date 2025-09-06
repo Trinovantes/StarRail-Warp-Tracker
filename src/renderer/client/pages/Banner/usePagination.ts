@@ -1,6 +1,6 @@
-import { Ref, computed, ref, watch } from 'vue'
+import { type Ref, computed, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
-import { parsePageQuery } from '../../router/parsePageQuery'
+import { parsePageQuery } from '../../router/parsePageQuery.ts'
 
 type Exports = {
     currentPage: Ref<number>
@@ -21,7 +21,7 @@ export function usePagination(queryLimit: number): Exports {
         maxPages.value = Math.ceil(numResults / queryLimit)
     }
 
-    const onPaginationChange = async(newPage: number) => {
+    const onPaginationChange = async (newPage: number) => {
         if (!isOnSamePage.value) {
             return
         }

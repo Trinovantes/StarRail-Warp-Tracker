@@ -1,10 +1,10 @@
 import { useQuasar } from 'quasar'
-import { notifySuccess } from '../../utils/notifySuccess'
-import { useTrackerStore } from '../../store/Tracker/useTrackerStore'
-import { GachaBannerType } from '@/common/StarRail'
-import { Ref } from 'vue'
-import { notifyError } from '../../utils/notifyError'
-import type { IpcActionResult } from '@/main/ipc/registerIpcActionHandlers'
+import type { Ref } from 'vue'
+import type { GachaBannerType } from '../../../../common/StarRail.ts'
+import type { IpcActionResult } from '../../../../main/ipc/registerIpcActionHandlers.ts'
+import { useTrackerStore } from '../../store/Tracker/useTrackerStore.ts'
+import { notifyError } from '../../utils/notifyError.ts'
+import { notifySuccess } from '../../utils/notifySuccess.ts'
 
 export function useWarpHistory(bannerType: Ref<GachaBannerType>) {
     const trackerStore = useTrackerStore()
@@ -24,7 +24,7 @@ export function useWarpHistory(bannerType: Ref<GachaBannerType>) {
     }
 
     const refreshHistory = () => {
-        const run = async() => {
+        const run = async () => {
             $q.loading.show()
             const res = await trackerStore.refreshWarpHistory(bannerType.value)
             $q.loading.hide()
@@ -35,7 +35,7 @@ export function useWarpHistory(bannerType: Ref<GachaBannerType>) {
     }
 
     const clearHistory = () => {
-        const run = async() => {
+        const run = async () => {
             $q.loading.show()
             const res = await trackerStore.clearWarpHistory(bannerType.value)
             $q.loading.hide()
