@@ -1,5 +1,5 @@
 import path, { dirname } from 'node:path'
-import { srcRendererDir } from '../build/BuildConstants'
+import { srcRendererDir } from '../../build/BuildConstants.ts'
 import { readdirSync, mkdirSync, createWriteStream } from 'node:fs'
 
 // ----------------------------------------------------------------------------

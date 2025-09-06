@@ -1,6 +1,6 @@
-import { IpcMainInvokeEvent } from 'electron'
-import { DEBUG_IPC_ACTION } from './DebugIpcAction'
-import { DbLogger } from '@/common/db/createDb'
+import type { IpcMainInvokeEvent } from 'electron'
+import type { DbLogger } from '../../../common/db/createDb.ts'
+import { DEBUG_IPC_ACTION } from './DebugIpcAction.ts'
 
 export function createDebugIpcActionHandlers(rendererLogger: DbLogger) {
     return {

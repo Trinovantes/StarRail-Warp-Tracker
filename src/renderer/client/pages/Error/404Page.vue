@@ -1,6 +1,6 @@
 <template>
     <article class="full">
-        <img src="@/renderer/client/assets/img/pom-pom-error.webp">
+        <img src="@img/pom-pom-error.webp">
 
         <h1>
             You should not be able to see this page

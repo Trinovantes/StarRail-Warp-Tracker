@@ -3,8 +3,8 @@ import path from 'node:path'
 import { app, BrowserWindow } from 'electron'
 import cfg from 'electron-cfg'
 import contextMenu from 'electron-context-menu'
-import { isSafeUrl } from '@/common/utils/isSafeUrl'
-import { DbLogger } from '@/common/db/createDb'
+import { isSafeUrl } from '../../common/utils/isSafeUrl.ts'
+import type { DbLogger } from '../../common/db/createDb.ts'
 
 contextMenu({
     showLearnSpelling: false,
@@ -28,7 +28,7 @@ export function setupWindow(logger: DbLogger): void {
         mainWindow = cfg.window().create({
             width: 1200,
             height: 800,
-            frame: DEFINE.IS_DEV,
+            frame: __IS_DEV__,
             webPreferences: {
                 spellcheck: false,
                 devTools: true,
@@ -36,11 +36,11 @@ export function setupWindow(logger: DbLogger): void {
                 nodeIntegrationInWorker: false,
                 nodeIntegrationInSubFrames: false,
                 contextIsolation: true,
-                preload: path.resolve(__dirname, 'preload.js'),
+                preload: path.resolve(__dirname, 'preload.cjs'),
             },
         })
 
-        if (DEFINE.IS_DEV) {
+        if (__IS_DEV__) {
             mainWindow.webContents.on('devtools-opened', () => {
                 mainWindow?.focus()
                 setImmediate(() => {
@@ -56,8 +56,8 @@ export function setupWindow(logger: DbLogger): void {
             mainWindow = null
         })
 
-        if (DEFINE.IS_DEV) {
-            void mainWindow.loadURL(`http://localhost:${DEFINE.DEV_SERVER_PORT}`)
+        if (__IS_DEV__) {
+            void mainWindow.loadURL(`http://localhost:${__DEV_SERVER_PORT__}`)
         } else {
             const url = new URL(path.resolve(__dirname, 'index.html'))
             url.protocol = 'file'

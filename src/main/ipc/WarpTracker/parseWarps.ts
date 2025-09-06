@@ -1,5 +1,5 @@
-import { isLimitedBanner5Star } from '@/common/StarRail'
-import type { Warp } from '@/common/db/models/Warp'
+import type { Warp } from '../../../common/db/models/Warp.ts'
+import { isLimitedBanner5Star } from '../../../common/StarRail.ts'
 
 export type BannerWarp = Warp & {
     pity: number

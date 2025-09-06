@@ -1,5 +1,5 @@
-export const APP_NAME = `${DEFINE.APP_PRODUCT_NAME} ${DEFINE.APP_VERSION}`
-export const BUILD_INFO = `Build ${DEFINE.GIT_HASH.substring(0, 8)}`
+export const APP_NAME = `${__APP_PRODUCT_NAME__} ${__APP_VERSION__}`
+export const BUILD_INFO = `Build ${__GIT_HASH__.substring(0, 8)}`
 
 export const DEFAULT_GAME_DIR = 'C:/Program Files/Star Rail/Games/StarRail_Data'
 

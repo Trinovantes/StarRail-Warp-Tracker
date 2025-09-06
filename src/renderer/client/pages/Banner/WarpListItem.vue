@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { formatDateTime } from './formatDateTime'
-import { BannerWarp } from '@/main/ipc/WarpTracker/parseWarps'
+import { formatDateTime } from './formatDateTime.ts'
 import { computed } from 'vue'
-import { getPityCssColor } from './getPityCssColor'
-import { getItemIcon } from './getItemIcon'
-import { loadFallbackItemIcon } from './loadFallbackItemIcon'
+import { getPityCssColor } from './getPityCssColor.ts'
+import { getItemIcon } from './getItemIcon.ts'
+import { loadFallbackItemIcon } from './loadFallbackItemIcon.ts'
+import type { BannerWarp } from '../../../../main/ipc/WarpTracker/parseWarps.ts'
 
 const props = defineProps<{
     bannerWarp: BannerWarp
