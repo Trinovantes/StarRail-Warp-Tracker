@@ -1,12 +1,12 @@
-import { DEBUG_IPC_ACTION } from './Debug/DebugIpcAction'
-import { DEBUG_IPC_EVENT, DebugIpcEventMap } from './Debug/DebugIpcEvent'
-import { WINDOW_IPC_ACTION } from './Window/WindowIpcAction'
-import { SETTING_IPC_ACTION } from './Setting/SettingIpcAction'
-import { WARP_TRACKER_IPC_ACTION } from './WarpTracker/WarpTrackerIpcAction'
-import type { createDebugIpcActionHandlers } from './Debug/DebugIpcActionHandlers'
-import type { createWindowIpcActionHandlers } from './Window/WindowIpcActionHandlers'
-import type { createWarpTrackerIpcActionHandlers } from './WarpTracker/WarpTrackerIpcActionHandlers'
-import type { createSettingIpcActionHandlers } from './Setting/SettingIpcActionHandlers'
+import { DEBUG_IPC_ACTION } from './Debug/DebugIpcAction.ts'
+import { DEBUG_IPC_EVENT, type DebugIpcEventMap } from './Debug/DebugIpcEvent.ts'
+import { WINDOW_IPC_ACTION } from './Window/WindowIpcAction.ts'
+import { SETTING_IPC_ACTION } from './Setting/SettingIpcAction.ts'
+import { WARP_TRACKER_IPC_ACTION } from './WarpTracker/WarpTrackerIpcAction.ts'
+import type { createDebugIpcActionHandlers } from './Debug/DebugIpcActionHandlers.ts'
+import type { createWindowIpcActionHandlers } from './Window/WindowIpcActionHandlers.ts'
+import type { createWarpTrackerIpcActionHandlers } from './WarpTracker/WarpTrackerIpcActionHandlers.ts'
+import type { createSettingIpcActionHandlers } from './Setting/SettingIpcActionHandlers.ts'
 
 // ----------------------------------------------------------------------------
 // Helpers for extending Window interface in index.d.ts

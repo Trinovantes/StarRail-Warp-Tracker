@@ -1,5 +1,5 @@
-import { DEBUG_IPC_EVENT } from '../ipc/Debug/DebugIpcEvent'
-import { dispatchIpcEvent } from '../ipc/dispatchIpcEvent'
+import { DEBUG_IPC_EVENT } from '../ipc/Debug/DebugIpcEvent.ts'
+import { dispatchIpcEvent } from '../ipc/dispatchIpcEvent.ts'
 
 export function setupErrorHandlers() {
     process.on('uncaughtException', (err) => {

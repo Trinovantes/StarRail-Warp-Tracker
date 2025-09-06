@@ -1,7 +1,7 @@
 import path from 'node:path'
-import { getGitHash } from './BuildSecret'
-import packageJson from '../package.json'
-import { Configuration } from 'electron-builder'
+import { getGitHash } from './BuildSecret.ts'
+import packageJson from '../package.json' with { type: 'json' }
+import type { Configuration } from 'electron-builder'
 
 // Assume we are running webpack from the project root (../)
 const rootDir = path.resolve()
@@ -19,17 +19,17 @@ export const srcMainDir = path.resolve(srcDir, 'main')
 export const srcRendererDir = path.resolve(srcDir, 'renderer')
 
 export const buildConstants = {
-    '__VUE_OPTIONS_API__': JSON.stringify(false),
-    '__VUE_PROD_DEVTOOLS__': JSON.stringify(false),
-    '__VUE_PROD_HYDRATION_MISMATCH_DETAILS__': JSON.stringify(false),
+    __VUE_OPTIONS_API__: JSON.stringify(false),
+    __VUE_PROD_DEVTOOLS__: JSON.stringify(false),
+    __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: JSON.stringify(false),
 
-    'DEFINE.IS_DEV': JSON.stringify(isDev),
-    'DEFINE.GIT_HASH': JSON.stringify(gitHash),
-    'DEFINE.DEV_SERVER_PORT': JSON.stringify(devServerPort),
-    'DEFINE.APP_VERSION': JSON.stringify(packageJson.version),
-    'DEFINE.APP_SLUG': JSON.stringify(packageJson.name),
-    'DEFINE.APP_PRODUCT_NAME': JSON.stringify(packageJson.productName),
-    'DEFINE.APP_HOMEPAGE': JSON.stringify(packageJson.homepage),
+    __IS_DEV__: JSON.stringify(isDev),
+    __GIT_HASH__: JSON.stringify(gitHash),
+    __DEV_SERVER_PORT__: JSON.stringify(devServerPort),
+    __APP_VERSION__: JSON.stringify(packageJson.version),
+    __APP_SLUG__: JSON.stringify(packageJson.name),
+    __APP_PRODUCT_NAME__: JSON.stringify(packageJson.productName),
+    __APP_HOMEPAGE__: JSON.stringify(packageJson.homepage),
 }
 
 export const electronConfig: Configuration = {

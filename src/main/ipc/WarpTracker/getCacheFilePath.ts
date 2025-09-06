@@ -1,6 +1,6 @@
-import { DbLogger } from '@/common/db/createDb'
 import { existsSync, readdirSync } from 'node:fs'
 import path from 'upath'
+import type { DbLogger } from '../../../common/db/createDb.ts'
 
 export function getCacheFilePath(gameDir: string, isWsl: boolean, logger?: DbLogger): string {
     // Change to posix paths (node can accept posix path on windows)

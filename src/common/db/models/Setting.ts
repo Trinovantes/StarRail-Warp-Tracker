@@ -1,7 +1,7 @@
-import { InferInsertModel, InferSelectModel, sql } from 'drizzle-orm'
+import { type InferInsertModel, type InferSelectModel, sql } from 'drizzle-orm'
 import { sqliteTable, text } from 'drizzle-orm/sqlite-core'
-import { DrizzleClient } from '@/common/db/createDb'
-import { SettingKey } from './SettingKey'
+import type { SettingKey } from './SettingKey.ts'
+import type { DrizzleClient } from '../createDb.ts'
 
 export const settingTable = sqliteTable('Setting', {
     key: text('key').primaryKey(),

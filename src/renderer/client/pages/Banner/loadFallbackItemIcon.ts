@@ -1,4 +1,4 @@
-import defaultIcon from '@/renderer/client/assets/img/default-item.png'
+import defaultIcon from '@img/default-item.png'
 
 export function loadFallbackItemIcon(ev: Event) {
     if (!ev.target) {

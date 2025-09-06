@@ -3,13 +3,13 @@ import { createPinia } from 'pinia'
 import { Notify, Quasar, Loading, Dialog } from 'quasar'
 import { createApp } from 'vue'
 import App from './client/App.vue'
-import { createVueRouter } from './client/router/createVueRouter'
-import { DEBUG_IPC_EVENT } from '@/main/ipc/Debug/DebugIpcEvent'
-import { logError } from './client/utils/log'
-import { useTrackerStore } from './client/store/Tracker/useTrackerStore'
+import { createVueRouter } from './client/router/createVueRouter.ts'
+import { logError } from './client/utils/log.ts'
+import { useTrackerStore } from './client/store/Tracker/useTrackerStore.ts'
+import { DEBUG_IPC_EVENT } from '../main/ipc/Debug/DebugIpcEvent.ts'
 
 async function main() {
-    console.info('Release', DEFINE.GIT_HASH)
+    console.info('Release', __GIT_HASH__)
 
     // Vue
     const app = createApp(App)

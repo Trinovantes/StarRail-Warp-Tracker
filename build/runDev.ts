@@ -3,11 +3,11 @@ import { spawn } from 'node:child_process'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import electronPath from 'electron'
-import webpack, { Compiler, Configuration } from 'webpack'
+import webpack, { type Compiler, type Configuration } from 'webpack'
 import WebpackDevServer from 'webpack-dev-server'
-import { logBanner } from '../src/common/utils/logBanner'
-import { distDir } from './BuildConstants'
-import { mainConfig, preloadConfig, rendererConfig } from './weback.config.electron'
+import { logBanner } from '../src/common/utils/logBanner.ts'
+import { distDir } from './BuildConstants.ts'
+import { mainConfig, preloadConfig, rendererConfig } from './weback.config.electron.ts'
 
 /**
  * In production, everything is compiled and bundled into a static archive
@@ -141,7 +141,7 @@ function startElectron() {
     electronProcess = spawn(electronPath as unknown as string, [
         `--inspect=${DEBUG_PORT}`,
         '--trace-warnings',
-        path.join(distDir, 'main.js'),
+        path.join(distDir, 'main.cjs'),
     ])
 
     electronProcess.stdout?.on('data', (data: Buffer) => {

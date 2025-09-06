@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
-import { ALL_GACHA_BANNERS, GACHA_BANNER_TYPE_BEGINNER, GACHA_BANNER_TYPE_COLLAB_CHARACTER, GACHA_BANNER_TYPE_COLLAB_LIGHT_CONE, GACHA_BANNER_TYPE_LIMITED_CHARACTER, GACHA_BANNER_TYPE_LIMITED_LIGHT_CONE, GACHA_BANNER_TYPE_STANDARD, GachaBannerType } from '@/common/StarRail'
-import { BannerHistory, BannerWarp } from '@/main/ipc/WarpTracker/parseWarps'
-import { WARP_TRACKER_IPC_ACTION } from '@/main/ipc/WarpTracker/WarpTrackerIpcAction'
+import type { BannerHistory, BannerWarp } from '../../../../main/ipc/WarpTracker/parseWarps.ts'
+import { WARP_TRACKER_IPC_ACTION } from '../../../../main/ipc/WarpTracker/WarpTrackerIpcAction.ts'
+import { type GachaBannerType, GACHA_BANNER_TYPE_STANDARD, GACHA_BANNER_TYPE_BEGINNER, GACHA_BANNER_TYPE_LIMITED_CHARACTER, GACHA_BANNER_TYPE_LIMITED_LIGHT_CONE, GACHA_BANNER_TYPE_COLLAB_CHARACTER, GACHA_BANNER_TYPE_COLLAB_LIGHT_CONE, ALL_GACHA_BANNERS } from '../../../../common/StarRail.ts'
 
 // ----------------------------------------------------------------------------
 // State

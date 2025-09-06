@@ -5,8 +5,8 @@ import CspHtmlWebpackPlugin from 'csp-html-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import { VueLoaderPlugin } from 'vue-loader'
-import { srcRendererDir, srcMainDir } from './BuildConstants'
-import commonConfig from './webpack.common'
+import { srcRendererDir, srcMainDir } from './BuildConstants.ts'
+import commonConfig from './webpack.common.ts'
 import { QuasarUnusedPlugin } from 'quasar-unused-plugin'
 
 // ----------------------------------------------------------------------------
@@ -21,6 +21,10 @@ export const mainConfig = merge(commonConfig, {
     entry: {
         main: path.resolve(srcMainDir, 'main.ts'),
     },
+
+    output: {
+        filename: '[name].cjs',
+    },
 })
 
 // ----------------------------------------------------------------------------
@@ -34,6 +38,10 @@ export const preloadConfig = merge(commonConfig, {
 
     entry: {
         preload: path.resolve(srcMainDir, 'preload.ts'),
+    },
+
+    output: {
+        filename: '[name].cjs',
     },
 })
 
@@ -87,8 +95,8 @@ export const rendererConfig = merge(commonConfig, {
                         options: {
                             additionalData: (content: string, loaderContext: { resourcePath: string }): string => {
                                 return (loaderContext.resourcePath.endsWith('sass'))
-                                    ? '@use "sass:color"\n@use "sass:math"\n@use "@/renderer/client/assets/css/variables.scss" as *\n' + content
-                                    : '@use "sass:color"; @use "sass:math"; @use "@/renderer/client/assets/css/variables.scss" as *; ' + content
+                                    ? '@use "sass:color"\n@use "sass:math"\n@use "@css/variables.scss" as *\n' + content
+                                    : '@use "sass:color"; @use "sass:math"; @use "@css/variables.scss" as *; ' + content
                             },
                         },
                     },

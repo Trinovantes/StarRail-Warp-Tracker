@@ -1,6 +1,6 @@
-import path from 'node:path'
 import webpack from 'webpack'
-import { buildConstants, isDev, srcDir } from './BuildConstants'
+import { buildConstants, isDev, srcRendererDir } from './BuildConstants.ts'
+import path from 'node:path'
 
 const commonConfig: webpack.Configuration = {
     mode: isDev
@@ -11,8 +11,10 @@ const commonConfig: webpack.Configuration = {
     resolve: {
         extensions: ['.ts', '.js', '.vue', '.json', 'scss', '.css'],
         alias: {
-            // Need to match aliases in tsconfig.json
-            '@': path.resolve(srcDir),
+            '@css': path.resolve(srcRendererDir, 'client', 'assets', 'css'),
+            '@img': path.resolve(srcRendererDir, 'client', 'assets', 'img'),
+            '@layouts': path.resolve(srcRendererDir, 'client', 'layouts'),
+            '@pages': path.resolve(srcRendererDir, 'client', 'pages'),
         },
     },
 
