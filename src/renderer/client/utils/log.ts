@@ -1,4 +1,4 @@
-import { DEBUG_IPC_ACTION } from '@/main/ipc/Debug/DebugIpcAction'
+import { DEBUG_IPC_ACTION } from '../../../main/ipc/Debug/DebugIpcAction.ts'
 
 export function logInfo(...args: Array<unknown>) {
     void window.api[DEBUG_IPC_ACTION.CLIENT_LOG]('info', ...args)

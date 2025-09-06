@@ -1,12 +1,12 @@
-import { DEFAULT_GAME_DIR } from '@/common/Constants'
-import { DbLogger } from '@/common/db/createDb'
-import appDirs from 'appdirsjs'
 import { existsSync, statSync, createReadStream } from 'node:fs'
+import { homedir } from 'node:os'
 import path from 'node:path'
 import readline from 'node:readline'
+import { DEFAULT_GAME_DIR } from '../../../common/Constants.ts'
+import type { DbLogger } from '../../../common/db/createDb.ts'
 
 export async function getGameDir(isWsl: boolean, logger?: DbLogger): Promise<string> {
-    const appDataDir = appDirs({ appName: DEFINE.APP_PRODUCT_NAME }).config
+    const appDataDir = getAppConfigDir()
     const logDirs = [
         '../../LocalLow/Cognosphere/Star Rail', // Global
         '../../LocalLow/miHoYo/崩坏：星穹铁道', // CN
@@ -54,4 +54,10 @@ function isFileNonEmpty(filePath: string): boolean {
     } catch (_err) {
         return false
     }
+}
+
+function getAppConfigDir() {
+    const home = homedir()
+    const roamingAppData = process.env.APPDATA || path.join(home, 'AppData', 'Roaming')
+    return path.join(roamingAppData, __APP_PRODUCT_NAME__)
 }

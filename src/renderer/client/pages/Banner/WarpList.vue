@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { NUM_WARPS_PER_PAGE } from '@/common/Constants'
+import { NUM_WARPS_PER_PAGE } from '../../../../common/Constants.ts'
+import type { BannerWarp } from '../../../../main/ipc/WarpTracker/parseWarps.ts'
 import { usePagination } from './usePagination'
 import WarpListItem from './WarpListItem.vue'
 import WarpListItemCompact from './WarpListItemCompact.vue'
 import { computed, watch } from 'vue'
-import { BannerWarp } from '@/main/ipc/WarpTracker/parseWarps'
 
 const props = defineProps<{
     bannerWarps: Array<BannerWarp>

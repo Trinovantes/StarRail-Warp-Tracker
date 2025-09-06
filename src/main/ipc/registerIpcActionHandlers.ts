@@ -1,5 +1,5 @@
-import { ExpectedError } from '@/common/node/ExpectedError'
-import { IpcMainInvokeEvent, ipcMain } from 'electron'
+import { type IpcMainInvokeEvent, ipcMain } from 'electron'
+import { ExpectedError } from '../../common/node/ExpectedError.ts'
 
 export type IpcActionHandler = (event: IpcMainInvokeEvent, ...args: Array<unknown>) => unknown
 
@@ -15,7 +15,7 @@ export type IpcActionResult<DataType = unknown> = {
 
 export function registerIpcActionHandlers(actionHandlers: Record<string, IpcActionHandler>) {
     for (const key of Object.keys(actionHandlers)) {
-        ipcMain.handle(key, async(event, ...args: Array<unknown>) => {
+        ipcMain.handle(key, async (event, ...args: Array<unknown>) => {
             try {
                 const data = await actionHandlers[key](event, ...args)
                 return createSuccessResult(data)

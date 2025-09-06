@@ -1,9 +1,9 @@
 import fs from 'node:fs/promises'
 import { build } from 'electron-builder'
-import webpack, { Configuration } from 'webpack'
-import { logBanner } from '../src/common/utils/logBanner'
-import { distDir, buildDir, electronConfig } from './BuildConstants'
-import { mainConfig, preloadConfig, rendererConfig } from './weback.config.electron'
+import webpack, { type Configuration } from 'webpack'
+import { logBanner } from '../src/common/utils/logBanner.ts'
+import { distDir, buildDir, electronConfig } from './BuildConstants.ts'
+import { mainConfig, preloadConfig, rendererConfig } from './weback.config.electron.ts'
 
 // ----------------------------------------------------------------------------
 // Webpack Compiler

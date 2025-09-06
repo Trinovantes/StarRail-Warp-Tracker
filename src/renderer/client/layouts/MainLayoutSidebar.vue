@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ALL_GACHA_BANNERS } from '@/common/StarRail'
+import { ALL_GACHA_BANNERS } from '../../../common/StarRail.ts'
 </script>
 
 <template>

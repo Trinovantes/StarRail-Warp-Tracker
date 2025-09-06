@@ -1,13 +1,13 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { GachaBannerType } from '@/common/StarRail'
-import { useHistoryFilterStore } from '@/renderer/client/store/HistoryFilter/useHistoryFilterStore'
-import { FilterOption } from '@/renderer/client/store/HistoryFilter/FilterOption'
-import { useTrackerStore } from '@/renderer/client/store/Tracker/useTrackerStore'
 import WarpList from './WarpList.vue'
 import BannerPagePityCounter from './BannerPagePityCounter.vue'
 import BannerPageStats from './BannerPageStats.vue'
 import { useWarpHistory } from './useWarpHistory'
+import type { GachaBannerType } from '../../../../common/StarRail.ts'
+import type { FilterOption } from '../../store/HistoryFilter/FilterOption.ts'
+import { useHistoryFilterStore } from '../../store/HistoryFilter/useHistoryFilterStore.ts'
+import { useTrackerStore } from '../../store/Tracker/useTrackerStore.ts'
 
 const props = defineProps<{
     bannerType: GachaBannerType

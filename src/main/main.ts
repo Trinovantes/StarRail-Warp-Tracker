@@ -1,19 +1,19 @@
 import 'source-map-support/register'
 import log from 'electron-log'
-import { setupWindow } from './setup/setupWindow'
-import { tryUpdate } from './setup/tryUpdate'
-import { setupErrorHandlers } from './setup/setupErrorHandlers'
 import path from 'node:path'
 import { app } from 'electron'
-import { DB_FILE, DB_MEMORY } from '@/common/Constants'
-import { createDb } from '@/common/db/createDb'
-import { getMigrations } from '@/common/db/getMigrations'
 import cfg from 'electron-cfg'
-import { IpcActionHandler, registerIpcActionHandlers } from './ipc/registerIpcActionHandlers'
-import { createDebugIpcActionHandlers } from './ipc/Debug/DebugIpcActionHandlers'
-import { createSettingIpcActionHandlers } from './ipc/Setting/SettingIpcActionHandlers'
-import { createWindowIpcActionHandlers } from './ipc/Window/WindowIpcActionHandlers'
-import { createWarpTrackerIpcActionHandlers } from './ipc/WarpTracker/WarpTrackerIpcActionHandlers'
+import { DB_FILE, DB_MEMORY } from '../common/Constants.ts'
+import { createDb } from '../common/db/createDb.ts'
+import { getMigrations } from '../common/db/getMigrations.ts'
+import { createDebugIpcActionHandlers } from './ipc/Debug/DebugIpcActionHandlers.ts'
+import { registerIpcActionHandlers, type IpcActionHandler } from './ipc/registerIpcActionHandlers.ts'
+import { createSettingIpcActionHandlers } from './ipc/Setting/SettingIpcActionHandlers.ts'
+import { createWarpTrackerIpcActionHandlers } from './ipc/WarpTracker/WarpTrackerIpcActionHandlers.ts'
+import { createWindowIpcActionHandlers } from './ipc/Window/WindowIpcActionHandlers.ts'
+import { setupErrorHandlers } from './setup/setupErrorHandlers.ts'
+import { tryUpdate } from './setup/tryUpdate.ts'
+import { setupWindow } from './setup/setupWindow.ts'
 
 async function main() {
     // ------------------------------------------------------------------------
@@ -34,7 +34,7 @@ async function main() {
     // ------------------------------------------------------------------------
 
     const defaultDbFilePath = path.resolve(app.getPath('userData'), DB_FILE)
-    const dbFilePath = DEFINE.IS_DEV ? DB_MEMORY : cfg.get('DATABASE_FILE_PATH', defaultDbFilePath) as string
+    const dbFilePath = __IS_DEV__ ? DB_MEMORY : cfg.get('DATABASE_FILE_PATH', defaultDbFilePath) as string
     mainLogger.info(`Database saved to "${dbFilePath}"`)
 
     const migrations = await getMigrations()

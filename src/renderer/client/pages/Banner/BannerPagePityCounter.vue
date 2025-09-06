@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { GACHA_BANNER_TYPE_COLLAB_CHARACTER, GACHA_BANNER_TYPE_COLLAB_LIGHT_CONE, GACHA_BANNER_TYPE_LIMITED_CHARACTER, GACHA_BANNER_TYPE_LIMITED_LIGHT_CONE, GachaBannerType, getMaxBannerPity } from '@/common/StarRail'
+import { GACHA_BANNER_TYPE_COLLAB_CHARACTER, GACHA_BANNER_TYPE_COLLAB_LIGHT_CONE, GACHA_BANNER_TYPE_LIMITED_CHARACTER, GACHA_BANNER_TYPE_LIMITED_LIGHT_CONE, getMaxBannerPity, type GachaBannerType } from '../../../../common/StarRail.ts'
 
 const props = withDefaults(defineProps<{
     bannerType: GachaBannerType

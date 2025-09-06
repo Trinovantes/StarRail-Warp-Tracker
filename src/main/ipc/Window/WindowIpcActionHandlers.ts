@@ -1,8 +1,8 @@
-import { mainWindow } from '@/main/setup/setupWindow'
 import { shell } from 'electron'
 import log from 'electron-log'
 import { dirname } from 'node:path'
-import { WINDOW_IPC_ACTION } from './WindowIpcAction'
+import { WINDOW_IPC_ACTION } from './WindowIpcAction.ts'
+import { mainWindow } from '../../setup/setupWindow.ts'
 
 export function createWindowIpcActionHandlers() {
     return {
@@ -27,7 +27,7 @@ export function createWindowIpcActionHandlers() {
         },
 
         async [WINDOW_IPC_ACTION.OPEN_GITHUB]() {
-            await shell.openExternal(DEFINE.APP_HOMEPAGE)
+            await shell.openExternal(__APP_HOMEPAGE__)
         },
 
         async [WINDOW_IPC_ACTION.OPEN_LOGS_DIR]() {

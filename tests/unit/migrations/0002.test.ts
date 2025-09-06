@@ -1,8 +1,8 @@
 import { describe, expect, beforeEach } from 'vitest'
-import { DbFixtures, dbTest } from '../fixtures/dbTest'
+import { type DbFixtures, dbTest } from '../fixtures/dbTest.ts'
 
 describe('0002', () => {
-    beforeEach<DbFixtures>(async({ migrateToVersion }) => {
+    beforeEach<DbFixtures>(async ({ migrateToVersion }) => {
         await migrateToVersion(2)
     })
 
