@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { useHistoryFilterStore } from '../../store/HistoryFilter/useHistoryFilterStore'
 import BannerPagePityCounter from '../Banner/BannerPagePityCounter.vue'
 import WarpList from '../Banner/WarpList.vue'
 import { GACHA_BANNER_TYPE_LIMITED_CHARACTER, GACHA_BANNER_TYPE_LIMITED_LIGHT_CONE, GACHA_BANNER_TYPE_STANDARD } from '../../../../common/StarRail.ts'
 import { useTrackerStore } from '../../store/Tracker/useTrackerStore.ts'
+import { useHistoryFilterStore } from '../../store/HistoryFilter/useHistoryFilterStore.ts'
 
 const historyFilterStore = useHistoryFilterStore()
 const trackerStore = useTrackerStore()

@@ -12,9 +12,6 @@ import { mainConfig, preloadConfig, rendererConfig } from './weback.config.elect
 function compileWebpack(config: Configuration): Promise<void> {
     return new Promise((resolve, reject) => {
         const compiler = webpack(config)
-        if (!compiler) {
-            return reject(new Error('Failed to init webpack'))
-        }
 
         compiler.run((error) => {
             if (error) {
