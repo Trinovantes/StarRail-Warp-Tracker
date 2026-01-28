@@ -22,9 +22,11 @@ export function parseWarps(warps: Array<Warp>): BannerHistory {
     let star4Pity = 0
     let next5StarIs5050 = true
     let next5StarIsGuaranteed = false
-    const bannerWarps = new Array<BannerWarp>()
 
-    for (const warp of warps.toReversed()) {
+    const bannerWarps = new Array<BannerWarp>()
+    const sortedWarps = warps.toSorted((a, b) => a.pulledAt.localeCompare(b.pulledAt))
+
+    for (const warp of sortedWarps) {
         const bannerWarp: BannerWarp = { ...warp, pity: 0 }
         bannerWarps.push(bannerWarp)
 
@@ -49,13 +51,10 @@ export function parseWarps(warps: Array<Warp>): BannerHistory {
         }
     }
 
-    // Since warps are inserted in reverse order, they must be reversed before being returned
-    bannerWarps.reverse()
-
     return {
         star5Pity,
         star4Pity,
         nextIs5050: next5StarIs5050,
-        warps: bannerWarps,
+        warps: bannerWarps.toReversed(), // Return warps in desc order
     }
 }
