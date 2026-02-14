@@ -1,6 +1,6 @@
 {
     "type": "module",
-    "version": "0.3.14",
+    "version": "0.3.15",
     "appId": "ca.stephenli.starrail-warp-tracker",
     "name": "starrail-warp-tracker",
     "productName": "StarRail Warp Tracker",
