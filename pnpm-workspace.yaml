@@ -8,8 +8,9 @@ onlyBuiltDependencies:
   - electron
   - electron-winstaller
 
-overrides:
-  '@types/webpack': ^5
-
 patchedDependencies:
   quasar: patches/quasar.patch
+
+overrides:
+  '@types/node': '^24'
+  '@types/webpack': '^5'
