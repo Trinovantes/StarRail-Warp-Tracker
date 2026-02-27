@@ -9,6 +9,7 @@ onlyBuiltDependencies:
   - electron-winstaller
 
 overrides:
+  "@types/node": "^24"
   '@types/webpack': ^5
 
 patchedDependencies:
