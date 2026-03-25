@@ -15,7 +15,7 @@ export function getAuthKey(gameDir: string, isWsl: boolean, logger?: DbLogger): 
     }
 
     if (!gachaLogUrl) {
-        logger?.warn('Failed to find authKey in cacheFile')
+        logger?.warn(`Failed to find authKey in cacheFile "${cacheFile}"`)
         throw new MissingAuthKeyError()
     }
 
