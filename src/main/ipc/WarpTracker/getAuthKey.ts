@@ -3,7 +3,7 @@ import { getCacheFilePath } from './getCacheFilePath.ts'
 import type { DbLogger } from '../../../common/db/createDb.ts'
 import { MissingAuthKeyError } from '../../../common/node/ExpectedError.ts'
 
-const gachaLogRe = /https:\/\/.+\.(mihoyo|hoyoverse)\.com\/common\/gacha_record\/api\/(getGachaLog|getLdGachaLog)[^\0]*/g
+const gachaLogRe = /https:\/\/.+\.(mihoyo|hoyoverse)\.com\/common\/(hkrpg_)?gacha_record\/api\/(getGachaLog|getLdGachaLog)[^\0]*/g
 
 export function getAuthKey(gameDir: string, isWsl: boolean, logger?: DbLogger): string {
     const cacheFile = getCacheFilePath(gameDir, isWsl)
