@@ -51,6 +51,24 @@ import { ALL_GACHA_BANNERS } from '../../../common/StarRail.ts'
 
         <q-item
             v-ripple
+            to="/calculator"
+            clickable
+        >
+            <q-item-section avatar>
+                <q-avatar>
+                    <q-icon
+                        name="bar_chart"
+                    />
+                </q-avatar>
+            </q-item-section>
+
+            <q-item-section>
+                Calculator
+            </q-item-section>
+        </q-item>
+
+        <q-item
+            v-ripple
             to="/help"
             clickable
         >

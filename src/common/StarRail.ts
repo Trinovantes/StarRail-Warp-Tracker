@@ -74,6 +74,24 @@ export function getMaxBannerPity(bannerType: GachaBannerType): number {
     throw new Error(`Invalid bannerType:${bannerType}`)
 }
 
+export function getCoinFlipChance(bannerType: GachaBannerType): number {
+    switch (bannerType) {
+        case GACHA_BANNER_TYPE_STANDARD:
+        case GACHA_BANNER_TYPE_BEGINNER:
+            return 1.0
+
+        case GACHA_BANNER_TYPE_LIMITED_CHARACTER:
+        case GACHA_BANNER_TYPE_COLLAB_CHARACTER:
+            return 0.5 + (0.5 * 1 / 8)
+
+        case GACHA_BANNER_TYPE_LIMITED_LIGHT_CONE:
+        case GACHA_BANNER_TYPE_COLLAB_LIGHT_CONE:
+            return 0.75 + (0.25 * 1 / 8)
+    }
+
+    throw new Error(`Invalid bannerType:${bannerType}`)
+}
+
 export function isLimitedBanner5Star(itemId: ItemId, bannerId: BannerId): boolean {
     // Characters
     switch (itemId) {

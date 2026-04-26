@@ -15,6 +15,10 @@ export const routes: Array<RouteRecordRaw> = [
                 props: true,
             },
             {
+                path: '/calculator',
+                component: () => import('@pages/Calculator/CalculatorPage.vue'),
+            },
+            {
                 path: '/help',
                 component: () => import('@pages/Help/HelpPage.vue'),
             },
