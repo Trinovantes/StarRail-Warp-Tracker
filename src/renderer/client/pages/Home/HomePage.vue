@@ -5,13 +5,22 @@ import WarpList from '../Banner/WarpList.vue'
 import { GACHA_BANNER_TYPE_LIMITED_CHARACTER, GACHA_BANNER_TYPE_LIMITED_LIGHT_CONE, GACHA_BANNER_TYPE_STANDARD } from '../../../../common/StarRail.ts'
 import { useTrackerStore } from '../../store/Tracker/useTrackerStore.ts'
 import { useHistoryFilterStore } from '../../store/HistoryFilter/useHistoryFilterStore.ts'
+import type { BannerWarp } from '../../../../main/ipc/WarpTracker/parseWarps.ts'
 
 const historyFilterStore = useHistoryFilterStore()
 const trackerStore = useTrackerStore()
-const characterHistory = computed(() => trackerStore.getWarpHistory(GACHA_BANNER_TYPE_LIMITED_CHARACTER))
-const lightConeHistory = computed(() => trackerStore.getWarpHistory(GACHA_BANNER_TYPE_LIMITED_LIGHT_CONE))
-const stellarHistory = computed(() => trackerStore.getWarpHistory(GACHA_BANNER_TYPE_STANDARD))
-const all5StarWarps = computed(() => trackerStore.getAll5StarWarps())
+const characterHistory = computed(() => trackerStore.bannerHistories[GACHA_BANNER_TYPE_LIMITED_CHARACTER])
+const lightConeHistory = computed(() => trackerStore.bannerHistories[GACHA_BANNER_TYPE_LIMITED_LIGHT_CONE])
+const stellarHistory = computed(() => trackerStore.bannerHistories[GACHA_BANNER_TYPE_STANDARD])
+const all5StarWarps = computed(() => {
+    const allWarps = new Array<BannerWarp>()
+
+    for (const bannerWarps of Object.values(trackerStore.bannerHistories)) {
+        allWarps.push(...(bannerWarps?.warps.filter((warp) => warp.rarity === 5) ?? []))
+    }
+
+    return allWarps.toSorted((a, b) => b.pulledAt.localeCompare(a.pulledAt))
+})
 </script>
 
 <template>

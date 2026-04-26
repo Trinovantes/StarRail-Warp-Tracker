@@ -1,28 +1,13 @@
 import { defineStore } from 'pinia'
 import type { FilterOption } from './FilterOption.ts'
+import { ref } from 'vue'
 
-// ----------------------------------------------------------------------------
-// State
-// ----------------------------------------------------------------------------
+export const useHistoryFilterStore = defineStore('HistoryFilter', () => {
+    const compactList = ref(false)
+    const rarityFilter = ref<Array<FilterOption>>([])
 
-export type HistoryFilterState = {
-    compactList: boolean
-    rarityFilter: Array<FilterOption>
-}
-
-function createTrackerStore(): HistoryFilterState {
-    const defaultState: HistoryFilterState = {
-        compactList: false,
-        rarityFilter: [],
+    return {
+        compactList,
+        rarityFilter,
     }
-
-    return defaultState
-}
-
-// ----------------------------------------------------------------------------
-// Store
-// ----------------------------------------------------------------------------
-
-export const useHistoryFilterStore = defineStore('HistoryFilter', {
-    state: createTrackerStore,
 })

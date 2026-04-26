@@ -28,7 +28,7 @@ const bannerType = computed(() => props.bannerType)
 const { refreshHistory, clearHistory } = useWarpHistory(bannerType)
 
 const trackerStore = useTrackerStore()
-const warpHistory = computed(() => trackerStore.getWarpHistory(props.bannerType))
+const warpHistory = computed(() => trackerStore.bannerHistories[props.bannerType])
 
 const historyFilterStore = useHistoryFilterStore()
 const filteredBannerWarps = computed(() => {

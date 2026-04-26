@@ -26,7 +26,7 @@ export function useWarpHistory(bannerType: Ref<GachaBannerType>) {
     const refreshHistory = () => {
         const run = async () => {
             $q.loading.show()
-            const res = await trackerStore.refreshWarpHistory(bannerType.value)
+            const res = await trackerStore.fetchWarpHistory(bannerType.value)
             $q.loading.hide()
             handleRes(res, 'Fetched latest warp history')
         }
