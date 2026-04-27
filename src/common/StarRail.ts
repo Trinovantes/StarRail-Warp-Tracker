@@ -92,6 +92,30 @@ export function getCoinFlipChance(bannerType: GachaBannerType): number {
     throw new Error(`Invalid bannerType:${bannerType}`)
 }
 
+export function get5StarRate(currentPity: number, bannerType: GachaBannerType) {
+    switch (bannerType) {
+        case GACHA_BANNER_TYPE_LIMITED_CHARACTER:
+        case GACHA_BANNER_TYPE_COLLAB_CHARACTER: {
+            if (currentPity < 74) {
+                return 0.006
+            } else {
+                return 0.006 + (currentPity - 74 + 1) * 0.06
+            }
+        }
+
+        case GACHA_BANNER_TYPE_LIMITED_LIGHT_CONE:
+        case GACHA_BANNER_TYPE_COLLAB_LIGHT_CONE: {
+            if (currentPity < 66) {
+                return 0.008
+            } else {
+                return 0.008 + (currentPity - 66 + 1) * 0.07
+            }
+        }
+    }
+
+    throw new Error(`Invalid bannerType:${bannerType}`)
+}
+
 export function isLimitedBanner5Star(itemId: ItemId, bannerId: BannerId): boolean {
     // Characters
     switch (itemId) {

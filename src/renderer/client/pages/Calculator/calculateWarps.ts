@@ -1,4 +1,4 @@
-import { GACHA_BANNER_TYPE_COLLAB_CHARACTER, GACHA_BANNER_TYPE_COLLAB_LIGHT_CONE, GACHA_BANNER_TYPE_LIMITED_CHARACTER, GACHA_BANNER_TYPE_LIMITED_LIGHT_CONE, getCoinFlipChance, type GachaBannerType } from '../../../../common/StarRail.ts'
+import { GACHA_BANNER_TYPE_COLLAB_CHARACTER, GACHA_BANNER_TYPE_COLLAB_LIGHT_CONE, GACHA_BANNER_TYPE_LIMITED_CHARACTER, GACHA_BANNER_TYPE_LIMITED_LIGHT_CONE, get5StarRate, getCoinFlipChance, type GachaBannerType } from '../../../../common/StarRail.ts'
 import type { BannerHistory } from '../../../../main/ipc/WarpTracker/parseWarps.ts'
 
 export type WarpCalculatorOptions = {
@@ -12,7 +12,7 @@ export function calculateWarps(opts: WarpCalculatorOptions): number {
     let numSuccess = 0
 
     for (let simulation = 0; simulation < opts.numSimulations; simulation++) {
-        const isSuccess = simulateWarps(opts)
+        const isSuccess = calculateWarpsOnce(opts)
         if (isSuccess) {
             numSuccess += 1
         }
@@ -21,7 +21,7 @@ export function calculateWarps(opts: WarpCalculatorOptions): number {
     return numSuccess / opts.numSimulations
 }
 
-function simulateWarps(opts: WarpCalculatorOptions): boolean {
+function calculateWarpsOnce(opts: WarpCalculatorOptions): boolean {
     let numWarps = opts.numWarps
 
     const simulatedBannerTypes = [
@@ -67,28 +67,4 @@ function simulateWarps(opts: WarpCalculatorOptions): boolean {
     }
 
     return true
-}
-
-function get5StarRate(currentPity: number, bannerType: GachaBannerType) {
-    switch (bannerType) {
-        case GACHA_BANNER_TYPE_LIMITED_CHARACTER:
-        case GACHA_BANNER_TYPE_COLLAB_CHARACTER: {
-            if (currentPity < 74) {
-                return 0.006
-            } else {
-                return 0.006 + (currentPity - 74 + 1) * 0.06
-            }
-        }
-
-        case GACHA_BANNER_TYPE_LIMITED_LIGHT_CONE:
-        case GACHA_BANNER_TYPE_COLLAB_LIGHT_CONE: {
-            if (currentPity < 66) {
-                return 0.008
-            } else {
-                return 0.008 + (currentPity - 66 + 1) * 0.07
-            }
-        }
-    }
-
-    throw new Error(`Unknown bannerType:${bannerType}`)
 }
