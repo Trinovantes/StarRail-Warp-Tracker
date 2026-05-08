@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
-import { calculateWarps } from './calculateWarps.ts'
+import { calculateWarps, type WarpCalculatorResult } from './calculateWarps.ts'
 import { GACHA_BANNER_TYPE_COLLAB_CHARACTER, GACHA_BANNER_TYPE_COLLAB_LIGHT_CONE, GACHA_BANNER_TYPE_LIMITED_CHARACTER, GACHA_BANNER_TYPE_LIMITED_LIGHT_CONE } from '../../../../common/StarRail.ts'
 import { useTrackerStore } from '../../store/Tracker/useTrackerStore.ts'
 import { useLocalStorage } from '@vueuse/core'
@@ -43,7 +43,7 @@ const numCollabLightCones = computed({
 const isValidInput = computed(() => numWarps.value > 0 && (numCharacters.value + numLightCones.value + numCollabCharacters.value + numCollabLightCones.value) > 0)
 
 const trackerStore = useTrackerStore()
-const calculationResult = ref<number | null>(null)
+const calculationResult = ref<WarpCalculatorResult | null>(null)
 const calculate = () => {
     const probability = calculateWarps({
         numWarps: numWarps.value,
@@ -159,17 +159,17 @@ const calculate = () => {
             >
                 <p>
                     This is the probability of obtaining
-                    <strong>{{ numCharacters }}</strong> limited characters,
-                    <strong>{{ numLightCones }}</strong> limited light cones,
-                    <strong>{{ numCollabCharacters }}</strong> collab characters,
+                    <strong>{{ calculationResult.opts.desiredCopies[GACHA_BANNER_TYPE_LIMITED_CHARACTER] }}</strong> limited characters,
+                    <strong>{{ calculationResult.opts.desiredCopies[GACHA_BANNER_TYPE_LIMITED_LIGHT_CONE] }}</strong> limited light cones,
+                    <strong>{{ calculationResult.opts.desiredCopies[GACHA_BANNER_TYPE_COLLAB_CHARACTER] }}</strong> collab characters,
                     and
-                    <strong>{{ numCollabLightCones }}</strong> collab light cones
+                    <strong>{{ calculationResult.opts.desiredCopies[GACHA_BANNER_TYPE_COLLAB_LIGHT_CONE] }}</strong> collab light cones
                     within
-                    <strong>{{ numWarps }}</strong> pulls
+                    <strong>{{ calculationResult.opts.numWarps }}</strong> pulls
                 </p>
 
                 <div class="probability">
-                    {{ calculationResult.toLocaleString(undefined, { style: 'percent', minimumFractionDigits: 2 }) }}
+                    {{ calculationResult.probability.toLocaleString(undefined, { style: 'percent', minimumFractionDigits: 2 }) }}
                 </div>
             </div>
         </section>

@@ -8,7 +8,12 @@ export type WarpCalculatorOptions = {
     desiredCopies: Partial<Record<GachaBannerType, number>>
 }
 
-export function calculateWarps(opts: WarpCalculatorOptions): number {
+export type WarpCalculatorResult = {
+    probability: number
+    opts: Pick<WarpCalculatorOptions, 'numWarps' | 'desiredCopies'>
+}
+
+export function calculateWarps(opts: WarpCalculatorOptions): WarpCalculatorResult {
     let numSuccess = 0
 
     for (let simulation = 0; simulation < opts.numSimulations; simulation++) {
@@ -18,7 +23,13 @@ export function calculateWarps(opts: WarpCalculatorOptions): number {
         }
     }
 
-    return numSuccess / opts.numSimulations
+    return {
+        probability: numSuccess / opts.numSimulations,
+        opts: {
+            numWarps: opts.numWarps,
+            desiredCopies: structuredClone(opts.desiredCopies),
+        },
+    }
 }
 
 function calculateWarpsOnce(opts: WarpCalculatorOptions): boolean {
