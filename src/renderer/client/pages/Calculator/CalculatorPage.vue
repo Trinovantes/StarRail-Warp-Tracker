@@ -3,15 +3,43 @@ import { computed, ref } from 'vue'
 import { calculateWarps } from './calculateWarps.ts'
 import { GACHA_BANNER_TYPE_COLLAB_CHARACTER, GACHA_BANNER_TYPE_COLLAB_LIGHT_CONE, GACHA_BANNER_TYPE_LIMITED_CHARACTER, GACHA_BANNER_TYPE_LIMITED_LIGHT_CONE } from '../../../../common/StarRail.ts'
 import { useTrackerStore } from '../../store/Tracker/useTrackerStore.ts'
+import { useLocalStorage } from '@vueuse/core'
 
-const numWarps = ref(0)
-const numSimulations = ref(10000)
+const calculatorState = useLocalStorage('CalculatorPage', {
+    numWarps: 0,
+    numSimulations: 10000,
+    numCharacters: 0,
+    numLightCones: 0,
+    numCollabCharacters: 0,
+    numCollabLightCones: 0,
+}, {
+    mergeDefaults: true,
+})
 
-const numCharacters = ref(0)
-const numLightCones = ref(0)
-const numCollabCharacters = ref(0)
-const numCollabLightCones = ref(0)
-
+const numWarps = computed({
+    get: () => calculatorState.value.numWarps,
+    set: (val) => calculatorState.value.numWarps = val,
+})
+const numSimulations = computed({
+    get: () => calculatorState.value.numSimulations,
+    set: (val) => calculatorState.value.numSimulations = val,
+})
+const numCharacters = computed({
+    get: () => calculatorState.value.numCharacters,
+    set: (val) => calculatorState.value.numCharacters = val,
+})
+const numLightCones = computed({
+    get: () => calculatorState.value.numLightCones,
+    set: (val) => calculatorState.value.numLightCones = val,
+})
+const numCollabCharacters = computed({
+    get: () => calculatorState.value.numCollabCharacters,
+    set: (val) => calculatorState.value.numCollabCharacters = val,
+})
+const numCollabLightCones = computed({
+    get: () => calculatorState.value.numCollabLightCones,
+    set: (val) => calculatorState.value.numCollabLightCones = val,
+})
 const isValidInput = computed(() => numWarps.value > 0 && (numCharacters.value + numLightCones.value + numCollabCharacters.value + numCollabLightCones.value) > 0)
 
 const trackerStore = useTrackerStore()
