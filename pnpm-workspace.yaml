@@ -4,6 +4,7 @@ patchedDependencies:
 overrides:
   '@types/node': '^24'
   '@types/webpack': '^5'
+  'yauzl': '^3.3.1'
 
 allowBuilds:
   better-sqlite3: true
