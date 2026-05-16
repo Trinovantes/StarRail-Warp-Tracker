@@ -18,6 +18,7 @@ export function usePagination(queryLimit: number): Exports {
     const currentPage = ref(1) // Source of truth
     const maxPages = ref(0) // Source of truth
     const updateMaxPage = (numResults: number) => {
+        currentPage.value = 1
         maxPages.value = Math.ceil(numResults / queryLimit)
     }
 
