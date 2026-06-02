@@ -24,7 +24,7 @@ export function parseWarps(warps: Array<Warp>): BannerHistory {
     let next5StarIsGuaranteed = false
 
     const bannerWarps = new Array<BannerWarp>()
-    const sortedWarps = warps.toSorted((a, b) => a.pulledAt.localeCompare(b.pulledAt))
+    const sortedWarps = warps.toSorted((a, b) => a.pulledAt.localeCompare(b.pulledAt) || a.id.localeCompare(b.id))
 
     for (const warp of sortedWarps) {
         const bannerWarp: BannerWarp = { ...warp, pity: 0 }
