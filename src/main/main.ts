@@ -7,7 +7,7 @@ import { DB_FILE, DB_MEMORY } from '../common/Constants.ts'
 import { createDb } from '../common/db/createDb.ts'
 import { getMigrations } from '../common/db/getMigrations.ts'
 import { createDebugIpcActionHandlers } from './ipc/Debug/DebugIpcActionHandlers.ts'
-import { registerIpcActionHandlers, type IpcActionHandler } from './ipc/registerIpcActionHandlers.ts'
+import { registerIpcActionHandlers } from './ipc/registerIpcActionHandlers.ts'
 import { createSettingIpcActionHandlers } from './ipc/Setting/SettingIpcActionHandlers.ts'
 import { createWarpTrackerIpcActionHandlers } from './ipc/WarpTracker/WarpTrackerIpcActionHandlers.ts'
 import { createWindowIpcActionHandlers } from './ipc/Window/WindowIpcActionHandlers.ts'
@@ -48,10 +48,10 @@ async function main() {
     // Register ipc handlers
     // ------------------------------------------------------------------------
 
-    registerIpcActionHandlers(createDebugIpcActionHandlers(rendererLogger) as Record<string, IpcActionHandler>)
-    registerIpcActionHandlers(createSettingIpcActionHandlers(db) as Record<string, IpcActionHandler>)
-    registerIpcActionHandlers(createWarpTrackerIpcActionHandlers(mainLogger, db) as Record<string, IpcActionHandler>)
-    registerIpcActionHandlers(createWindowIpcActionHandlers() as Record<string, IpcActionHandler>)
+    registerIpcActionHandlers(createDebugIpcActionHandlers(rendererLogger))
+    registerIpcActionHandlers(createSettingIpcActionHandlers(db))
+    registerIpcActionHandlers(createWarpTrackerIpcActionHandlers(mainLogger, db))
+    registerIpcActionHandlers(createWindowIpcActionHandlers())
 
     // ------------------------------------------------------------------------
     // Init app

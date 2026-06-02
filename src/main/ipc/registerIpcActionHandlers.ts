@@ -1,7 +1,8 @@
 import { type IpcMainInvokeEvent, ipcMain } from 'electron'
 import { ExpectedError } from '../../common/node/ExpectedError.ts'
 
-export type IpcActionHandler = (event: IpcMainInvokeEvent, ...args: Array<unknown>) => unknown
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type IpcActionHandler = (event: IpcMainInvokeEvent, ...args: Array<any>) => unknown
 
 export type IpcActionResult<DataType = unknown> = {
     success: true
