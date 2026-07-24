@@ -170,6 +170,35 @@ export function isLimitedBanner5Star(itemId: ItemId, bannerId: BannerId): boolea
 
         return false
     }
+    if (itemId === '1208') { // Argenti
+        switch (bannerId) {
+            case '2015':
+            case '2036':
+                return true
+        }
+
+        return false
+    }
+    if (itemId === '1208') { // Yunli
+        switch (bannerId) {
+            case '2037':
+            case '2064':
+                return true
+        }
+
+        return false
+    }
+    if (itemId === '1208') { // Silverwolf
+        switch (bannerId) {
+            case '2005':
+            case '2016':
+            case '2062':
+            case '2087':
+                return true
+        }
+
+        return false
+    }
 
     return true
 }
