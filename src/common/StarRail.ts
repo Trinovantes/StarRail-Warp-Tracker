@@ -170,7 +170,7 @@ export function isLimitedBanner5Star(itemId: ItemId, bannerId: BannerId): boolea
 
         return false
     }
-    if (itemId === '1208') { // Argenti
+    if (itemId === '1302') { // Argenti
         switch (bannerId) {
             case '2015':
             case '2036':
@@ -179,7 +179,7 @@ export function isLimitedBanner5Star(itemId: ItemId, bannerId: BannerId): boolea
 
         return false
     }
-    if (itemId === '1208') { // Yunli
+    if (itemId === '1221') { // Yunli
         switch (bannerId) {
             case '2037':
             case '2064':
@@ -188,7 +188,7 @@ export function isLimitedBanner5Star(itemId: ItemId, bannerId: BannerId): boolea
 
         return false
     }
-    if (itemId === '1208') { // Silverwolf
+    if (itemId === '1006') { // Silverwolf
         switch (bannerId) {
             case '2005':
             case '2016':
