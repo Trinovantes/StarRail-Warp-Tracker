@@ -7,12 +7,8 @@ import pluginVue from 'eslint-plugin-vue'
 import stylistic from '@stylistic/eslint-plugin'
 import nodePlugin from 'eslint-plugin-n'
 import vueParser from 'vue-eslint-parser'
-import { includeIgnoreFile } from '@eslint/compat'
 import path from 'node:path'
-import { defineConfig } from 'eslint/config'
-
-const inlineElementsJson = await import('eslint-plugin-vue/dist/utils/inline-non-void-elements.js')
-const inlineElements = inlineElementsJson.default.default
+import { defineConfig, includeIgnoreFile } from 'eslint/config'
 
 export default defineConfig(
     includeIgnoreFile(path.resolve('.gitignore')),
@@ -240,7 +236,7 @@ export default defineConfig(
                 order: ['script', 'template', 'style'],
             }],
             'vue/singleline-html-element-content-newline': ['error', {
-                ignores: ['ExternalLink', 'router-link', 'pre', ...inlineElements],
+                externalIgnores: ['ExternalLink'],
             }],
         },
     },

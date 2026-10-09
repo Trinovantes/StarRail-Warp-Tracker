@@ -2,14 +2,16 @@ patchedDependencies:
   quasar: patches/quasar.patch
 
 overrides:
-  '@types/node': '^24'
+  '@types/node': '^26'
   '@types/webpack': '^5'
+  'electron-builder': '26.8.1'
+  'typescript': '^6'
   'yauzl': '^3.3.1'
 
 allowBuilds:
-  better-sqlite3: true
-  electron: true
-  electron-winstaller: true
+  'better-sqlite3': true
+  'electron': true
+  'electron-winstaller': true
   '@parcel/watcher': false
-  esbuild: false
-  sharp: false
+  'esbuild': false
+  'sharp': false

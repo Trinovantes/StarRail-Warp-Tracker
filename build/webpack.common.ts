@@ -45,7 +45,6 @@ const commonConfig: webpack.Configuration = {
         {
             'better-sqlite3': 'commonjs better-sqlite3',
         },
-        /^bun(:\w+)?/i,
     ],
 }
 
