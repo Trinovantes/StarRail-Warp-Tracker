@@ -16,29 +16,37 @@ const calculatorState = useLocalStorage('CalculatorPage', {
     mergeDefaults: true,
 })
 
+const filterInt = (val: number | string): number => {
+    if (!Number.isInteger(val)) {
+        return 0
+    }
+
+    return val as number
+}
+
 const numWarps = computed({
-    get: () => calculatorState.value.numWarps,
-    set: (val) => calculatorState.value.numWarps = val,
+    get: () => filterInt(calculatorState.value.numWarps),
+    set: (val) => calculatorState.value.numWarps = filterInt(val),
 })
 const numSimulations = computed({
-    get: () => calculatorState.value.numSimulations,
-    set: (val) => calculatorState.value.numSimulations = val,
+    get: () => filterInt(calculatorState.value.numSimulations),
+    set: (val) => calculatorState.value.numSimulations = filterInt(val),
 })
 const numCharacters = computed({
-    get: () => calculatorState.value.numCharacters,
-    set: (val) => calculatorState.value.numCharacters = val,
+    get: () => filterInt(calculatorState.value.numCharacters),
+    set: (val) => calculatorState.value.numCharacters = filterInt(val),
 })
 const numLightCones = computed({
-    get: () => calculatorState.value.numLightCones,
-    set: (val) => calculatorState.value.numLightCones = val,
+    get: () => filterInt(calculatorState.value.numLightCones),
+    set: (val) => calculatorState.value.numLightCones = filterInt(val),
 })
 const numCollabCharacters = computed({
-    get: () => calculatorState.value.numCollabCharacters,
-    set: (val) => calculatorState.value.numCollabCharacters = val,
+    get: () => filterInt(calculatorState.value.numCollabCharacters),
+    set: (val) => calculatorState.value.numCollabCharacters = filterInt(val),
 })
 const numCollabLightCones = computed({
-    get: () => calculatorState.value.numCollabLightCones,
-    set: (val) => calculatorState.value.numCollabLightCones = val,
+    get: () => filterInt(calculatorState.value.numCollabLightCones),
+    set: (val) => calculatorState.value.numCollabLightCones = filterInt(val),
 })
 const isValidInput = computed(() => numWarps.value > 0 && (numCharacters.value + numLightCones.value + numCollabCharacters.value + numCollabLightCones.value) > 0)
 
